@@ -1,0 +1,32 @@
+package collection;
+
+import java.util.PriorityQueue;
+import product.Product;
+import java.time.LocalDateTime;
+
+public class Manager {
+
+    //fields
+    private final PriorityQueue<Product> collection = new PriorityQueue<>();
+    private final LocalDateTime creationTime;
+
+    //constructor
+    public Manager() {
+        this.creationTime = LocalDateTime.now();
+    }
+
+    //getters
+    public String getInfo() {
+        String info = "\nType: " + collection.getClass().toString().replaceAll(".*\\.", "") + "\n" +
+                "Creation time: " + creationTime.toString() + "\n" +
+                "Element type: Product\n" +
+                "Collection size: " + collection.size() + "\n";
+        return info;
+    }
+
+    //add
+    public void addToCollection(Product product) {
+        collection.add(product);
+    }
+
+}
