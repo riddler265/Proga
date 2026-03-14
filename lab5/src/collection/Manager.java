@@ -24,6 +24,10 @@ public class Manager {
         return info;
     }
 
+    public PriorityQueue<Product> getCollection() {
+        return collection;
+    }
+
     //add
     public void addToCollection(Product product) {
         collection.add(product);

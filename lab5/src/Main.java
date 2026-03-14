@@ -18,7 +18,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         //jsonManager
-        String path = System.getenv("PRODUCTS");
+        String path = "C:\\Study\\Proga\\lab5\\Products.json";
         if (path == null || path.isEmpty()) {
             System.out.println("The environment variable is not set!");
             System.exit(1);
@@ -26,6 +26,8 @@ public class Main {
 
         File file = new File(path);
         JsonManager jsonManager = new JsonManager(file.getAbsolutePath());
+
+        System.out.println(commandManager.getHistory().size());
 
         //programm
         while (true) {
