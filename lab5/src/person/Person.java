@@ -16,17 +16,35 @@ public class Person {
     private Color hairColor; //Поле может быть null
 
     //constructor
-    public Person(String name, float height, String passportID, Color hairColor) throws IncorrectInputException {
-        if (name == null || name.isEmpty()) throw new IncorrectInputException("name");
-        else this.name = name;
+    public Person(String name, float height, String passportID, Color hairColor)  {
+        this.name = name;
 
         this.birthday = LocalDateTime.now();
 
-        if (height <= 0) throw new IncorrectInputException("height");
-        else this.height = height;
+        this.height = height;
 
         this.passportID = passportID;
         this.hairColor = hairColor;
+    }
+
+    //getters
+    public String getName() {
+        return name;
+    }
+
+    public float getHeight() {
+        return height;
+    }
+
+    //setters
+    public Person setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Person setHeight(float height) {
+        this.height = height;
+        return this;
     }
 
     //equals(), hachCode(), toString()

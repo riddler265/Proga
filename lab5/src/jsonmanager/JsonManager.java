@@ -1,23 +1,89 @@
 package jsonmanager;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import collection.Manager;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import jsonmanager.JSONTime;
+import product.Product;
+
+import java.io.*;
+import java.lang.reflect.Type;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class JsonManager {
 
     //fields
-    private File file;
-    private Scanner scanner;
+    private final String filePath;
+    private final Manager collection;
+    private final Gson gson;
 
-    //constructor
-    public JsonManager(String file) {
-        this.file = new File(file);
-        try {
-            this.scanner = new Scanner(this.file);
-        } catch (FileNotFoundException e) {
-            System.out.println("\nFile " + file + " was not found.");
+    public JsonManager(String filePath, Manager collection) {
+        this.filePath = filePath;
+        this.collection = collection;
+        // Настраиваем GSON: подключаем адаптер для даты и делаем JSON читаемым
+        this.gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new JSONTime())
+                .setPrettyPrinting()
+                .create();
+    }
+
+    /**
+     * Загружает коллекцию из файла и синхронизирует счетчик ID.
+     */
+    private List<Product> loadProducts() {
+        File file = new File(filePath);
+
+        // 1. Проверяем, существует ли файл вообще
+        if (!file.exists()) {
+            System.out.println("File don`t exist!");
             System.exit(1);
         }
+
+        // Используем try-with-resources для автоматического закрытия потока чтения
+        try (Reader reader = new FileReader(file)) {
+
+            // 2. Описываем тип коллекции для GSON (т.к. это List<Product>, а не просто объект)
+            Type listType = new TypeToken<ArrayList<Product>>(){}.getType();
+
+            // 3. Десериализация
+            List<Product> products = gson.fromJson(reader, listType);
+
+            // 4. Важный момент: если файл пустой, GSON вернет null
+            if (products == null) {
+                return new ArrayList<>();
+            }
+
+            // 5. Синхронизация ID
+            if (!products.isEmpty()) {
+                // Находим максимальный ID в загруженном списке
+                int maxId = 0;
+                for (Product p : products) {
+                    if (p.getId() > maxId) {
+                        maxId = p.getId();
+                    }
+                }
+                // Передаем этот ID в класс Product, чтобы счетчик стартовал с maxId + 1
+                Product.updateCurrentId(maxId);
+            }
+
+            return products;
+
+        } catch (IOException e) {
+            System.err.println("Ошибка при чтении файла: " + e.getMessage());
+            return new ArrayList<>();
+        } catch (Exception e) {
+            System.err.println("Ошибка при парсинге JSON (возможно, файл поврежден): " + e.getMessage());
+            return new ArrayList<>();
+        }
     }
+
+    public void load() {
+        for (Product product : loadProducts()) {
+            collection.addToCollection(product);
+        }
+    }
+
 }

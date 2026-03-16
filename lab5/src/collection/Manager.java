@@ -1,6 +1,8 @@
 package collection;
 
 import java.util.PriorityQueue;
+
+import exceptions.IncorrectInputException;
 import product.Product;
 import java.time.LocalDateTime;
 
@@ -24,6 +26,13 @@ public class Manager {
         return info;
     }
 
+    public Product getProductById(int id) {
+        for (Product product : collection) {
+            if (product.getId() == id) return product;
+        }
+        return null;
+    }
+
     public PriorityQueue<Product> getCollection() {
         return collection;
     }
@@ -32,5 +41,4 @@ public class Manager {
     public void addToCollection(Product product) {
         collection.add(product);
     }
-
 }

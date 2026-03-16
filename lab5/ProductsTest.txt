@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Световой меч",
+    "coordinates": {
+      "x": 10.5,
+      "y": 20
+    },
+    "price": 999.99,
+    "partNumber": "SN-789-ABC",
+    "manufactureCost": 450.5,
+    "unitOfMeasure": "METERS",
+    "owner": {
+      "name": "Anakin",
+      "birthday": "2000-01-01T12:00:00",
+      "height": 188.0,
+      "passportId": "as45Y65",
+      "hairColor": "BLACK"
+    }
+  },
+  {
+    "name": "abd",
+    "coordinates": {
+      "x": 16.5,
+      "y": 206
+    },
+    "price": 99.99,
+    "partNumber": "S-789-ABC",
+    "manufactureCost": 40.5,
+    "unitOfMeasure": "GRAMS",
+    "owner": {
+      "name": "Pokoyo",
+      "birthday": "2007-01-01T12:00:00",
+      "height": 105.0,
+      "passportId": "asa235Y65",
+      "hairColor": "RED"
+    }
+  }
+]

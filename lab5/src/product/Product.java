@@ -7,14 +7,14 @@ import person.Person;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Product {
+public class Product implements Comparable<Product>{
 
     //fields
-    private static int currentId = 0;
-    private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
+    private static int currentId = 1;
+    private final int id = currentId++; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
-    private LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+    private final LocalDateTime creationDate = LocalDateTime.now(); //Поле не может быть null, Значение этого поля должно генерироваться автоматически
     private Float price; //Поле может быть null, Значение поля должно быть больше 0
     private String partNumber; //Строка не может быть пустой, Поле может быть null
     private float manufactureCost;
@@ -22,22 +22,20 @@ public class Product {
     private Person owner; //Поле может быть null
 
     //consctructor
-    public Product(String name, Coordinates coordinates, Float price, String partNumber, float manufactureCost, UnitOfMeasure unitOfMeasure, Person owner)
+    public Product(String name, Coordinates coordinates, Float price, String partNumber,
+                   float manufactureCost, UnitOfMeasure unitOfMeasure, Person owner)
             throws IncorrectInputException {
-        this.id = currentId++;
 
         if (name == null || name.isEmpty()) throw new IncorrectInputException("name");
         else this.name = name;
 
-        if (coordinates == null) throw new IncorrectInputException("coordiantes");
+        if (coordinates == null) throw new IncorrectInputException("coordinates");
         else this.coordinates = coordinates;
 
-        this.creationDate = LocalDateTime.now();
-
-        if (price <= 0) throw new IncorrectInputException("price");
+        if (price == null || price <= 0) throw new IncorrectInputException("price");
         else this.price = price;
 
-        if (partNumber == null || partNumber.isEmpty()) throw new IncorrectInputException("part number");
+        if (partNumber != null && partNumber.isEmpty()) throw new IncorrectInputException("part number");
         else this.partNumber = partNumber;
 
         this.manufactureCost = manufactureCost;
@@ -48,18 +46,109 @@ public class Product {
         this.owner = owner;
     }
 
+    //getters
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Coordinates getCoordinates() {
+        return coordinates;
+    }
+
+    public float getManufactureCost() {
+        return manufactureCost;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public UnitOfMeasure getUnitOfMeasure() {
+        return unitOfMeasure;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public String getPartNumber() {
+        return partNumber;
+    }
+
+    //setters
+    public Product setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Product setCoordinates(Integer x, Integer y) {
+        this.coordinates.setX(x).setY(y);
+        return this;
+    }
+
+    public Product setPrice(Float price) {
+        this.price = price;
+        return this;
+    }
+
+    public Product setPartNumber(String partNumber) {
+        this.partNumber = partNumber;
+        return this;
+    }
+
+    public Product setManufactureCost(float manufactureCost) {
+        this.manufactureCost = manufactureCost;
+        return this;
+    }
+
+    public Product setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+        return this;
+    }
+
+    public Product setOwner(Person owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    public static int getCurrentId() {return currentId;}
+
+    //setters
+
+
+    //sync
+    public static void updateCurrentId(int maxFFile) {
+        if(maxFFile >= currentId) {
+            currentId = maxFFile + 1;
+        }
+    }
+
+    //comparable
+    @Override
+    public int compareTo(Product o) {
+        return this.name.compareTo(o.name);
+    }
+
     //equals(), hachCode(), toString()
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return id == product.id && unitOfMeasure == product.unitOfMeasure;
+        return id == product.id && creationDate.equals(product.creationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, unitOfMeasure);
+        return Objects.hash(id, creationDate);
     }
 
     @Override
@@ -67,13 +156,13 @@ public class Product {
         String info = "";
         info += "Product №" + id;
         info += " - " + name;
-        info += ". Coordinates: " + coordinates;
+        info += ". " + coordinates;
         info += ". Creation time is " + creationDate;
         info += ". Price is " + price;
         info += ". Part number is " + partNumber;
-        info += ". Manufacture cost is" + manufactureCost;
-        info += ". Unit of measure is" + unitOfMeasure;
-        info += ". Owner - " + owner;
+        info += ". Manufacture cost is " + manufactureCost;
+        info += ". Unit of measure is " + unitOfMeasure;
+        info += ". Owner - " +  owner.getName() + ".";
         return info;
     }
 

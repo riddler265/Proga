@@ -1,6 +1,7 @@
 package commands;
 
 import collection.Manager;
+import exceptions.IncorrectInputException;
 
 public abstract class Command {
 

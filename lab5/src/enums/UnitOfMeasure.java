@@ -4,5 +4,9 @@ public enum UnitOfMeasure {
     METERS,
     SQUARE_METERS,
     LITERS,
-    GRAMS
+    GRAMS;
+
+    public static String units() {
+        return "Meters, square_meters, liters, grams";
+    }
 }

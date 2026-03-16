@@ -1,9 +1,10 @@
 import collection.Manager;
 import commandManager.CommandManager;
 import jsonmanager.JsonManager;
+import product.Product;
 
 import java.io.File;
-import java.util.Scanner;
+import java.util.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -18,16 +19,14 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         //jsonManager
-        String path = "C:\\Study\\Proga\\lab5\\Products.json";
+        String path = System.getenv("PRODUCTS");
         if (path == null || path.isEmpty()) {
             System.out.println("The environment variable is not set!");
             System.exit(1);
         }
 
-        File file = new File(path);
-        JsonManager jsonManager = new JsonManager(file.getAbsolutePath());
-
-        System.out.println(commandManager.getHistory().size());
+        JsonManager jsonManager = new JsonManager(path, collectionManager);
+        jsonManager.load();
 
         //programm
         while (true) {

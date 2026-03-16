@@ -10,21 +10,20 @@ import commandManager.CommandManager;
 public class History extends Command{
 
     //fields
-    private final CommandManager commandManager;
+    private final history.History history;
 
     //constructor
-    public History(Manager collection, CommandManager commandManager) {
+    public History(Manager collection, history.History history) {
         super(collection);
-        this.commandManager = commandManager;
+        this.history = history;
     }
 
     //execute
     @Override
     public void execute(String input) {
         System.out.println();
-        LinkedList<String> dopleganger = new LinkedList<>(commandManager.getHistory());
-        for (String command : dopleganger) {
-            System.out.println(command);
+        for (String command : history.getHistory()) {
+            if (command != null)System.out.println(command);
         }
         System.out.println();
     }
