@@ -134,7 +134,9 @@ public class Product implements Comparable<Product>{
     //comparable
     @Override
     public int compareTo(Product o) {
-        return this.name.compareTo(o.name);
+        Integer idI = id;
+        Integer idII = o.id;
+        return idI.compareTo(idII);
     }
 
     //equals(), hachCode(), toString()
@@ -162,7 +164,8 @@ public class Product implements Comparable<Product>{
         info += ". Part number is " + partNumber;
         info += ". Manufacture cost is " + manufactureCost;
         info += ". Unit of measure is " + unitOfMeasure;
-        info += ". Owner - " +  owner.getName() + ".";
+        if (owner != null) info += ". Owner - " +  owner.getName() + ".";
+        else info += ".";
         return info;
     }
 

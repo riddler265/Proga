@@ -11,7 +11,7 @@ import product.Product;
 import java.util.Locale;
 import java.util.Scanner;
 
-public class Add extends Command{
+public class Add extends Command {
 
     //fields
     //product
@@ -23,7 +23,7 @@ public class Add extends Command{
 
     //coordinates
     protected Integer x;
-    protected  Integer y;
+    protected Integer y;
 
     //person
     protected String personName;
@@ -32,9 +32,25 @@ public class Add extends Command{
     //scanner
     protected final Scanner scanner = new Scanner(System.in);
 
+    //finalObjectts
+    private Product finalProduct;
+    private Coordinates finalCoordinates;
+    private Person finalOwner;
+
     //constructor
     public Add(Manager collection) {
         super(collection);
+    }
+
+    //conditions
+    protected boolean needOwner(String input) {
+        if (input.equalsIgnoreCase("yes")) return true;
+        else if (input.equalsIgnoreCase("no")) return false;
+        else {
+            System.out.print("Введите yes/no: ");
+            needOwner(scanner.nextLine());
+            return false;
+        }
     }
 
     //writing
@@ -121,11 +137,35 @@ public class Add extends Command{
         }
     }
 
+    //create
+    private void createPerson() {
+        System.out.print("\nВведите имя владельца: ");
+        writePersonName(scanner.nextLine());
+        System.out.print("\nВведите рост владельца больше 0: ");
+        writeHeight(scanner.nextLine());
 
+        try {
+            finalOwner = new Person(personName, height, null, Color.BLACK);
+        } catch (IncorrectInputException e) {
+            System.out.println(e.getMessage());
+            createPerson();
+        }
+    }
 
-    //execute
-    @Override
-    public void execute(String input) {
+    private void createCoordinates() {
+        System.out.print("\nВведите целое число больше -645 - координату X: ");
+        writeCoordinateX(scanner.nextLine());
+        System.out.print("\nВведите целое число - координату Y: ");
+        writeCoordinateY(scanner.nextLine());
+        try {
+            finalCoordinates = new Coordinates(x, y);
+        } catch (IncorrectInputException e) {
+            System.out.println(e.getMessage());
+            createCoordinates();
+        }
+    }
+
+    private void createProduct() {
         System.out.print("\nВведите название продукта: ");
         writeProductName(scanner.nextLine());
         System.out.print("\nВведите цену продукта больше 0: ");
@@ -136,24 +176,55 @@ public class Add extends Command{
         writeManufactureCost(scanner.nextLine());
         System.out.println("\nВведите единицу измерения. " + UnitOfMeasure.units() + ":");
         writeUnitOfMeasure(scanner.nextLine());
-        System.out.print("\nВведите целое число больше -645 - координату X: ");
-        writeCoordinateX(scanner.nextLine());
-        System.out.print("\nВведите целое число - координату Y: ");
-        writeCoordinateY(scanner.nextLine());
-        System.out.print("\nВведите имя владельца: ");
-        writePersonName(scanner.nextLine());
-        System.out.print("\nВведите рост владельца больше 0: ");
-        writeHeight(scanner.nextLine());
 
         try {
-            Product finalProduct = new Product(productName, new Coordinates(x, y), price, partNumber, manufactureCost, unitOfMeasure, new Person(personName, height, null, Color.BLACK));
+            finalProduct = new Product(productName, finalCoordinates, price, partNumber, manufactureCost, unitOfMeasure, finalOwner);
+            collection.addToCollection(finalProduct);
+            System.out.println("\nВ коллекцию добавлен новый предмет: \n" + finalProduct.toString());
+        } catch (IncorrectInputException e) {
+            System.out.println(e.getMessage());
+            System.out.println("Возникла ошибка. Попробуйте снова.");
+            execute("add");
+        }
+    }
+
+
+    //execute
+    @Override
+    public void execute(String input) {
+
+        /*//createProduct
+        System.out.print("\nВведите название продукта: ");
+        writeProductName(scanner.nextLine());
+        System.out.print("\nВведите цену продукта больше 0: ");
+        writePrice(scanner.nextLine());
+        System.out.print("\nВведите номер партии: ");
+        writePartNumber(scanner.nextLine());
+        System.out.print("\nВведите стоимость производства продукта: ");
+        writeManufactureCost(scanner.nextLine());
+        System.out.println("\nВведите единицу измерения. " + UnitOfMeasure.units() + ":");
+        writeUnitOfMeasure(scanner.nextLine());*/
+
+        //createCoordinates
+        createCoordinates();
+
+        //createOwner
+        System.out.print("\nБудет ли у продукта владелец? yes/no: ");
+        if (needOwner(scanner.nextLine())) createPerson();
+        else finalOwner = null;
+
+        /*try {
+            finalProduct = new Product(productName, new Coordinates(x, y), price, partNumber, manufactureCost, unitOfMeasure, new Person(personName, height, null, Color.BLACK));
             collection.addToCollection(finalProduct);
             System.out.println("\nВ коллекцию добавлен новый предмет: \n" + finalProduct.toString());
         } catch (IncorrectInputException e) {
             System.out.println(e.getMessage());
             System.out.println("Возникла ошибка. Попробуйте снова.");
             execute(input);
-        }
+        }*/
 
+        //createProduct
+        createProduct();
+        System.out.println();
     }
 }
