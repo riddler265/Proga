@@ -37,8 +37,13 @@ public class Manager {
         return collection;
     }
 
-    //add
+    //add, remove
     public void addToCollection(Product product) {
         collection.add(product);
     }
+
+    public void removeFromCollectiob(Product product) {
+        collection.remove(product);
+    }
+
 }

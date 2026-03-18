@@ -23,6 +23,8 @@ public class CommandManager {
         commands.put("clear", new Clear(collection));
         commands.put("add", new Add(collection));
         commands.put("update id", new Update(collection));
+        commands.put("remove_by_id", new Remove(collection));
+        commands.put("execute_file", new Execute(collection, this));
     }
 
     public void execute(String input) {
