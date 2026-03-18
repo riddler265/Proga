@@ -1,7 +1,7 @@
 package commands;
 
 import collection.Manager;
-import commandManager.CommandManager;
+import java.util.Scanner;
 
 public class Help extends Command{
     //fields
@@ -28,7 +28,7 @@ public class Help extends Command{
     }
 
     @Override
-    public void execute(String input) {
+    public void execute(String input, Scanner scanner) {
         System.out.println(commands);
     }
 }

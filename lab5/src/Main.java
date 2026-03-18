@@ -11,12 +11,14 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
+        System.out.println();
+
         //collectionManager
         Manager collectionManager = new Manager();
 
         //commandManager
         Scanner scanner = new Scanner(System.in);
-        CommandManager commandManager = new CommandManager(collectionManager, scanner);
+        CommandManager commandManager = new CommandManager(collectionManager);
 
         //jsonManager
         String path = System.getenv("PRODUCTS");
@@ -30,7 +32,7 @@ public class Main {
 
         //programm
         while (true) {
-            commandManager.execute(scanner.nextLine());
+            commandManager.execute(scanner.nextLine().trim(), scanner);
         }
 
     }

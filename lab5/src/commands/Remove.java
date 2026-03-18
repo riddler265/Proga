@@ -3,6 +3,8 @@ package commands;
 import collection.Manager;
 import product.Product;
 
+import java.util.Scanner;
+
 public class Remove extends Command{
 
     //fields
@@ -17,7 +19,7 @@ public class Remove extends Command{
     //execute
 
     @Override
-    public void execute(String input) {
+    public void execute(String input, Scanner scanner) {
         try {
             currentId = Integer.parseInt(input.substring(input.lastIndexOf(" ") + 1));
             currentProduct = collection.getProductById(currentId);

@@ -4,6 +4,8 @@ import collection.Manager;
 import commandManager.CommandManager;
 import exceptions.IncorrectInputException;
 
+import java.util.Scanner;
+
 public abstract class Command {
 
     //fields
@@ -14,5 +16,5 @@ public abstract class Command {
         this.collection = collection;
     }
 
-    public abstract void execute(String input);
+    public abstract void execute(String input, Scanner scanner);
 }

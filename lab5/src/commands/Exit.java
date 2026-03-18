@@ -3,6 +3,8 @@ package commands;
 import collection.Manager;
 import commandManager.CommandManager;
 
+import java.util.Scanner;
+
 public class Exit extends Command{
 
     //constructor
@@ -11,7 +13,7 @@ public class Exit extends Command{
     }
 
     @Override
-    public void execute(String input) {
+    public void execute(String input, Scanner scanner) {
         System.exit(1);
     }
 }

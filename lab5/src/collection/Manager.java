@@ -50,7 +50,7 @@ public class Manager {
     //add
     public void addToCollection(Product product) {
         collection.add(product);
-        System.out.println("\nВ коллекцию добавлен новый предмет: \n" + product.toString());
+        System.out.println("В коллекцию добавлен новый предмет: \n" + product.toString() + "\n");
         if (greatestProduct == null) {
             greatestProduct = product;
         }

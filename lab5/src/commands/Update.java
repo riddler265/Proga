@@ -112,7 +112,7 @@ public class Update extends Command{
     }
 
     @Override
-    public void execute(String input) {
+    public void execute(String input, Scanner scanner) {
         try {
             currentId = Integer.parseInt(input.substring(input.lastIndexOf(" ") + 1));
             currentProduct = collection.getProductById(currentId);

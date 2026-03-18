@@ -1,6 +1,7 @@
 package commands;
 
 import java.util.PriorityQueue;
+import java.util.Scanner;
 
 import collection.Manager;
 import product.Product;
@@ -14,7 +15,7 @@ public class Show extends Command{
 
     //execute
     @Override
-    public void execute(String input) {
+    public void execute(String input, Scanner scanner) {
         System.out.println();
         PriorityQueue<Product> dopleganger = new PriorityQueue<>(collection.getCollection());
         if (dopleganger.isEmpty()) {

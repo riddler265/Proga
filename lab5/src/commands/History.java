@@ -1,6 +1,7 @@
 package commands;
 
 import java.util.LinkedList;
+import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -20,7 +21,7 @@ public class History extends Command{
 
     //execute
     @Override
-    public void execute(String input) {
+    public void execute(String input, Scanner scanner) {
         System.out.println();
         for (String command : history.getHistory()) {
             if (command != null)System.out.println(command);

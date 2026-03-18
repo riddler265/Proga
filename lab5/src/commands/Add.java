@@ -30,41 +30,37 @@ public class Add extends Command {
     protected String personName;
     protected float height;
 
-    //scanner
-    protected final Scanner scanner;
-
     //finalObjectts
     protected Product finalProduct;
     protected Coordinates finalCoordinates;
     protected Person finalOwner;
 
     //constructor
-    public Add(Manager collection, Scanner scanner) {
+    public Add(Manager collection) {
         super(collection);
-        this.scanner = scanner;
     }
 
     //conditions
-    protected boolean needOwner(String input) {
+    protected boolean needOwner(String input, Scanner scanner) {
         if (input.equalsIgnoreCase("yes")) return true;
         else if (input.equalsIgnoreCase("no")) return false;
         else {
             System.out.print("Введите yes/no: ");
-            needOwner(scanner.nextLine());
+            needOwner(scanner.nextLine(), scanner);
             return false;
         }
     }
 
     //writing
 
-    protected void writeProductName(String input) {
+    protected void writeProductName(String input, Scanner scanner) {
         if (input == null || input.isEmpty()) {
             System.out.print("Строка не может быть пустой. Введите имя: ");
-            writeProductName(scanner.nextLine());
+            writeProductName(scanner.nextLine(), scanner);
         } else productName = input;
     }
 
-    protected void writePrice(String input) {
+    protected void writePrice(String input, Scanner scanner) {
         try {
             price = Float.parseFloat(input);
             if (price <= 0.0) {
@@ -72,34 +68,34 @@ public class Add extends Command {
             }
         } catch (NumberFormatException e) {
             System.out.print("Введите число больше 0: ");
-            writePrice(scanner.nextLine());
+            writePrice(scanner.nextLine(), scanner);
         }
     }
 
-    protected void writePartNumber(String input) {
+    protected void writePartNumber(String input, Scanner scanner) {
         if (input.isEmpty()) partNumber = null;
         else partNumber = input;
     }
 
-    protected void writeManufactureCost(String input) {
+    protected void writeManufactureCost(String input, Scanner scanner) {
         try {
             manufactureCost = Float.parseFloat(input);
         } catch (NumberFormatException e) {
             System.out.print("Введите число: ");
-            writeManufactureCost(scanner.nextLine());
+            writeManufactureCost(scanner.nextLine(), scanner);
         }
     }
 
-    protected void writeUnitOfMeasure(String input) {
+    protected void writeUnitOfMeasure(String input, Scanner scanner) {
         try {
             unitOfMeasure = UnitOfMeasure.valueOf(input.toUpperCase());
         } catch (IllegalArgumentException e) {
             System.out.println("Введите единицу измерения. " + UnitOfMeasure.units() + ":");
-            writeUnitOfMeasure(scanner.nextLine());
+            writeUnitOfMeasure(scanner.nextLine(), scanner);
         }
     }
 
-    protected void writeCoordinateX(String input) {
+    protected void writeCoordinateX(String input, Scanner scanner) {
         try {
             x = Integer.parseInt(input);
             if (x <= -645) {
@@ -107,27 +103,27 @@ public class Add extends Command {
             }
         } catch (NumberFormatException e) {
             System.out.print("Введите целое число больше -645: ");
-            writeCoordinateX(scanner.nextLine());
+            writeCoordinateX(scanner.nextLine(), scanner);
         }
     }
 
-    protected void writeCoordinateY(String input) {
+    protected void writeCoordinateY(String input, Scanner scanner) {
         try {
             y = Integer.parseInt(input);
         } catch (NumberFormatException e) {
             System.out.print("Введите целое число: ");
-            writeCoordinateY(scanner.nextLine());
+            writeCoordinateY(scanner.nextLine(), scanner);
         }
     }
 
-    protected void writePersonName(String input) {
+    protected void writePersonName(String input, Scanner scanner) {
         if (input == null || input.isEmpty()) {
             System.out.print("Строка не может быть пустой. Введите имя: ");
-            writePersonName(scanner.nextLine());
+            writePersonName(scanner.nextLine(), scanner);
         } else personName = input;
     }
 
-    protected void writeHeight(String input) {
+    protected void writeHeight(String input, Scanner scanner) {
         try {
             height = Float.parseFloat(input);
             if (height <= 0) {
@@ -135,52 +131,52 @@ public class Add extends Command {
             }
         } catch (NumberFormatException e) {
             System.out.print("Введите число больше 0: ");
-            writeHeight(scanner.nextLine());
+            writeHeight(scanner.nextLine(), scanner);
         }
     }
 
     //create
-    protected void createPerson() {
+    protected void createPerson(Scanner scanner) {
         System.out.print("\nБудет ли у продукта владелец? yes/no: ");
-        if (needOwner(scanner.nextLine())) {
+        if (needOwner(scanner.nextLine(), scanner)) {
             System.out.print("\nВведите имя владельца: ");
-            writePersonName(scanner.nextLine());
+            writePersonName(scanner.nextLine(), scanner);
             System.out.print("\nВведите рост владельца больше 0: ");
-            writeHeight(scanner.nextLine());
+            writeHeight(scanner.nextLine(), scanner);
 
             try {
                 finalOwner = new Person(personName, height, null, Color.BLACK);
             } catch (IncorrectInputException e) {
                 System.out.println(e.getMessage());
-                createPerson();
+                createPerson(scanner);
             }
         } else finalOwner = null;
     }
 
-    protected void createCoordinates() {
+    protected void createCoordinates(Scanner scanner) {
         System.out.print("\nВведите целое число больше -645 - координату X: ");
-        writeCoordinateX(scanner.nextLine());
+        writeCoordinateX(scanner.nextLine(), scanner);
         System.out.print("\nВведите целое число - координату Y: ");
-        writeCoordinateY(scanner.nextLine());
+        writeCoordinateY(scanner.nextLine(), scanner);
         try {
             finalCoordinates = new Coordinates(x, y);
         } catch (IncorrectInputException e) {
             System.out.println(e.getMessage());
-            createCoordinates();
+            createCoordinates(scanner);
         }
     }
 
-    protected void createProduct() {
+    protected void createProduct(Scanner scanner) {
         System.out.print("\nВведите название продукта: ");
-        writeProductName(scanner.nextLine());
+        writeProductName(scanner.nextLine(), scanner);
         System.out.print("\nВведите цену продукта больше 0: ");
-        writePrice(scanner.nextLine());
+        writePrice(scanner.nextLine(), scanner);
         System.out.print("\nВведите номер партии: ");
-        writePartNumber(scanner.nextLine());
+        writePartNumber(scanner.nextLine(), scanner);
         System.out.print("\nВведите стоимость производства продукта: ");
-        writeManufactureCost(scanner.nextLine());
+        writeManufactureCost(scanner.nextLine(), scanner);
         System.out.println("\nВведите единицу измерения. " + UnitOfMeasure.units() + ":");
-        writeUnitOfMeasure(scanner.nextLine());
+        writeUnitOfMeasure(scanner.nextLine(), scanner);
 
         try {
             finalProduct = new Product(productName, finalCoordinates, price, partNumber, manufactureCost, unitOfMeasure, finalOwner);
@@ -188,23 +184,23 @@ public class Add extends Command {
         } catch (IncorrectInputException e) {
             System.out.println(e.getMessage());
             System.out.println("Возникла ошибка. Попробуйте снова.");
-            execute("add");
+            execute("add", scanner);
         }
     }
 
 
     //execute
     @Override
-    public void execute(String input) {
+    public void execute(String input, Scanner scanner) {
 
         //createCoordinates
-        createCoordinates();
+        createCoordinates(scanner);
 
         //createOwner
-        createPerson();
+        createPerson(scanner);
 
         //createProduct
-        createProduct();
+        createProduct(scanner);
         System.out.println();
     }
 }

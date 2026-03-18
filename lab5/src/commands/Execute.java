@@ -21,11 +21,11 @@ public class Execute extends Command{
 
     //execute
     @Override
-    public void execute(String input) {
+    public void execute(String input, Scanner currentScanner) {
         path = new File("scripts", input.substring(input.lastIndexOf(" ") + 1));
         try (Scanner scanner = new Scanner(path)) {
             while (scanner.hasNextLine()) {
-                commandManager.execute(scanner.nextLine());
+                commandManager.execute(scanner.nextLine(), scanner);
             }
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден: " + path.getAbsolutePath() + "\n");
