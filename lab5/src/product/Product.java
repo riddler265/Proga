@@ -134,9 +134,9 @@ public class Product implements Comparable<Product>{
     //comparable
     @Override
     public int compareTo(Product o) {
-        Integer idI = id;
-        Integer idII = o.id;
-        return idI.compareTo(idII);
+        String NameI = name;
+        String NameII = o.name;
+        return NameI.compareTo(NameII);
     }
 
     //equals(), hachCode(), toString()
