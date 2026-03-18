@@ -11,6 +11,7 @@ public class Manager {
     //fields
     private final PriorityQueue<Product> collection = new PriorityQueue<>();
     private final LocalDateTime creationTime;
+    private Product greatestProduct = null;
 
     //constructor
     public Manager() {
@@ -37,9 +38,25 @@ public class Manager {
         return collection;
     }
 
-    //add, remove
+    //estProducts
+    public Product getGreatestProduct() {
+        return greatestProduct;
+    }
+
+    public Product getLowestProduct() {
+        return collection.peek();
+    }
+
+    //add
     public void addToCollection(Product product) {
         collection.add(product);
+        System.out.println("\nВ коллекцию добавлен новый предмет: \n" + product.toString());
+        if (greatestProduct == null) {
+            greatestProduct = product;
+        }
+        if (greatestProduct.compareTo(product) < 0) {
+            greatestProduct = product;
+        }
     }
 
     public void removeFromCollectiob(Product product) {

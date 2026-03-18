@@ -5,6 +5,7 @@ import commands.*;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class CommandManager {
 
@@ -14,17 +15,18 @@ public class CommandManager {
     //private final BlockingQueue<String> history = new LinkedBlockingQueue<>(8);
 
     //constructor
-    public CommandManager(Manager collection) {
+    public CommandManager(Manager collection, Scanner scanner) {
         commands.put("help", new Help(collection));
         commands.put("exit", new Exit(collection));
         commands.put("info", new Info(collection));
         commands.put("show", new Show(collection));
         commands.put("history", new History(collection, history));
         commands.put("clear", new Clear(collection));
-        commands.put("add", new Add(collection));
+        commands.put("add", new Add(collection, scanner));
         commands.put("update id", new Update(collection));
         commands.put("remove_by_id", new Remove(collection));
         commands.put("execute_file", new Execute(collection, this));
+        commands.put("add_if_min", new AddIf(collection, scanner));
     }
 
     public void execute(String input) {

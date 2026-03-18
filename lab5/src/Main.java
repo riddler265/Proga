@@ -15,8 +15,8 @@ public class Main {
         Manager collectionManager = new Manager();
 
         //commandManager
-        CommandManager commandManager = new CommandManager(collectionManager);
         Scanner scanner = new Scanner(System.in);
+        CommandManager commandManager = new CommandManager(collectionManager, scanner);
 
         //jsonManager
         String path = System.getenv("PRODUCTS");
