@@ -1,6 +1,7 @@
 package commands;
 
 import collection.Manager;
+import commandManager.CommandManager;
 import coordinates.Coordinates;
 import enums.Color;
 import enums.UnitOfMeasure;

@@ -1,6 +1,7 @@
 package commands;
 
 import collection.Manager;
+import commandManager.CommandManager;
 
 public class Clear extends Command{
 
