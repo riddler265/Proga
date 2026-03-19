@@ -12,6 +12,7 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.PriorityQueue;
 
 public class JsonManager {
 
@@ -83,6 +84,33 @@ public class JsonManager {
     public void load() {
         for (Product product : loadProducts()) {
             collection.addToCollection(product);
+        }
+    }
+
+    public void save() {
+        Gson gson = new GsonBuilder()
+                .setPrettyPrinting()
+                .registerTypeAdapter(LocalDateTime.class, new JSONTime())
+                .create();
+
+        // 2. Используем PrintWriter для записи в файл
+        // try-with-resources сам закроет файл после записи
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath))) {
+
+            // 3. Сериализуем коллекцию в строку
+            String jsonString = gson.toJson(collection.getCollection());
+
+            // 4. Записываем строку в буфер
+            writer.write(jsonString);
+
+            // ВАЖНО: При использовании BufferedWriter данные могут "застрять" в буфере.
+            // Метод close() (который вызовется сам благодаря try-with-resources)
+            // автоматически вызовет flush() и все допишет.
+
+            System.out.println("Данные успешно сохранены в файл через BufferedWriter.\n");
+
+        } catch (IOException e) {
+            System.err.println("Ошибка при записи в файл: " + e.getMessage());
         }
     }
 

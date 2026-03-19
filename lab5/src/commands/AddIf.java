@@ -9,9 +9,6 @@ import java.util.Scanner;
 
 public class AddIf extends Add {
 
-    //smallestProduct
-
-
     //constructor
     public AddIf(Manager collection) {
         super(collection);

@@ -1,5 +1,56 @@
 [
   {
+    "id": 4,
+    "name": "3",
+    "coordinates": {
+      "x": 1,
+      "y": 2
+    },
+    "creationDate": "2026-03-19T20:35:24.1980626",
+    "price": 1.0,
+    "partNumber": "2",
+    "manufactureCost": 3.0,
+    "unitOfMeasure": "METERS"
+  },
+  {
+    "id": 3,
+    "name": "Какашка",
+    "coordinates": {
+      "x": 10,
+      "y": 20
+    },
+    "creationDate": "2026-03-15T12:00:00",
+    "price": 999.0,
+    "partNumber": "SN-789-ABC",
+    "manufactureCost": 450.5,
+    "unitOfMeasure": "METERS",
+    "owner": {
+      "name": "Kakish",
+      "birthday": "2000-01-01T12:00:00",
+      "height": 188.0,
+      "hairColor": "BLACK"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Капуста",
+    "coordinates": {
+      "x": 10,
+      "y": 20
+    },
+    "creationDate": "2026-03-15T12:00:00",
+    "price": 999.0,
+    "partNumber": "SN-789-ABC",
+    "manufactureCost": 450.5,
+    "unitOfMeasure": "METERS",
+    "owner": {
+      "name": "Kakish",
+      "birthday": "2000-01-01T12:00:00",
+      "height": 188.0,
+      "hairColor": "BLACK"
+    }
+  },
+  {
     "id": 1,
     "name": "Световой меч",
     "coordinates": {
@@ -15,27 +66,6 @@
       "name": "Anakin",
       "birthday": "2000-01-01T12:00:00",
       "height": 188.0,
-      "passportId": "as45Y65",
-      "hairColor": "BLACK"
-    }
-  },
-  {
-    "id": 2,
-    "name": "Световой меч",
-    "coordinates": {
-      "x": 10,
-      "y": 20
-    },
-    "creationDate": "2026-03-15T12:00:00",
-    "price": 999.99,
-    "partNumber": "SN-789-ABC",
-    "manufactureCost": 450.5,
-    "unitOfMeasure": "METERS",
-    "owner": {
-      "name": "Kakish",
-      "birthday": "2000-01-01T12:00:00",
-      "height": 188.0,
-      "passportId": "as45Y65",
       "hairColor": "BLACK"
     }
   }

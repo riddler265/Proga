@@ -16,10 +16,6 @@ public class Main {
         //collectionManager
         Manager collectionManager = new Manager();
 
-        //commandManager
-        Scanner scanner = new Scanner(System.in);
-        CommandManager commandManager = new CommandManager(collectionManager);
-
         //jsonManager
         String path = System.getenv("PRODUCTS");
         if (path == null || path.isEmpty()) {
@@ -29,6 +25,10 @@ public class Main {
 
         JsonManager jsonManager = new JsonManager(path, collectionManager);
         jsonManager.load();
+
+        //commandManager
+        Scanner scanner = new Scanner(System.in);
+        CommandManager commandManager = new CommandManager(collectionManager, jsonManager);
 
         //programm
         while (true) {

@@ -59,8 +59,9 @@ public class Manager {
         }
     }
 
-    public void removeFromCollectiob(Product product) {
+    public void removeFromCollection(Product product) {
         collection.remove(product);
+        System.out.println("Из коллекции удален предмет:\n" + product + "\n");
     }
 
 }
