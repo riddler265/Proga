@@ -7,9 +7,14 @@ import person.Person;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Класс, элементами которого управляет коллекция.
+ */
 public class Product implements Comparable<Product>{
 
-    //fields
+    /**
+     * Поля класса.
+     */
     private static int currentId = 1;
     private final int id = currentId++; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -21,7 +26,17 @@ public class Product implements Comparable<Product>{
     private UnitOfMeasure unitOfMeasure; //Поле не может быть null
     private Person owner; //Поле может быть null
 
-    //consctructor
+    /**
+     * Конструктор.
+     * @param name имя. Не null и не "".
+     * @param coordinates объект класса {@link Coordinates}. Не null.
+     * @param price объект класса Float. Null либо значение > 0.0.
+     * @param partNumber номер партии. Не пустая строка.
+     * @param manufactureCost стоимость производства.
+     * @param unitOfMeasure единицы измерения. Не null.
+     * @param owner объект класса {@link Person}.
+     * @throws IncorrectInputException если формат ввода не соответствует.
+     */
     public Product(String name, Coordinates coordinates, Float price, String partNumber,
                    float manufactureCost, UnitOfMeasure unitOfMeasure, Person owner)
             throws IncorrectInputException {
@@ -32,7 +47,7 @@ public class Product implements Comparable<Product>{
         if (coordinates == null) throw new IncorrectInputException("coordinates");
         else this.coordinates = coordinates;
 
-        if (price == null || price <= 0) throw new IncorrectInputException("price");
+        if (price != null && price <= 0) throw new IncorrectInputException("price");
         else this.price = price;
 
         if (partNumber != null && partNumber.isEmpty()) throw new IncorrectInputException("part number");
@@ -46,7 +61,10 @@ public class Product implements Comparable<Product>{
         this.owner = owner;
     }
 
-    //getters
+    /**
+     * Метод для получения id.
+     * @return целочисленное id.
+     */
     public int getId() {
         return id;
     }
@@ -168,6 +186,4 @@ public class Product implements Comparable<Product>{
         else info += ".";
         return info;
     }
-
-
 }

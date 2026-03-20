@@ -61,15 +61,17 @@ public class Add extends Command {
     }
 
     protected void writePrice(String input, Scanner scanner) {
-        try {
-            price = Float.parseFloat(input);
-            if (price <= 0.0) {
-                throw new NumberFormatException();
+        if (!input.isEmpty()) {
+            try {
+                price = Float.parseFloat(input);
+                if (price <= 0.0) {
+                    throw new NumberFormatException();
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Введите число больше 0: ");
+                writePrice(scanner.nextLine(), scanner);
             }
-        } catch (NumberFormatException e) {
-            System.out.print("Введите число больше 0: ");
-            writePrice(scanner.nextLine(), scanner);
-        }
+        } else price = null;
     }
 
     protected void writePartNumber(String input, Scanner scanner) {
