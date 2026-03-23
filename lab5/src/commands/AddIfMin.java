@@ -1,17 +1,19 @@
 package commands;
 
 import collection.Manager;
+import commandManager.CommandManager;
 import enums.UnitOfMeasure;
+import exceptions.ExecuteException;
 import exceptions.IncorrectInputException;
 import product.Product;
 
 import java.util.Scanner;
 
-public class AddIf extends Add {
+public class AddIfMin extends Add {
 
     //constructor
-    public AddIf(Manager collection) {
-        super(collection);
+    public AddIfMin(Manager collection, CommandManager commandManager) {
+        super(collection, commandManager);
     }
 
     //create
@@ -41,17 +43,25 @@ public class AddIf extends Add {
     @Override
     public void execute(String input, Scanner scanner) {
 
-        //coordinates
-        createCoordinates(scanner);
+        isSystemReader = commandManager.isSystemReader();
 
-        //person
-        createPerson(scanner);
+        try {
+            //createCoordinates
+            createCoordinates(scanner);
 
-        //product
-        createProduct(scanner);
+            //createOwner
+            createPerson(scanner);
 
-        if (collection.getLowestProduct() == null || finalProduct.compareTo(collection.getLowestProduct()) < 0) {
-            collection.addToCollection(finalProduct);
-        } else System.out.println("Продукт превышает наименьший элемент коллекции\n");
+            //createProduct
+            createProduct(scanner);
+            System.out.println();
+
+            if (collection.getLowestProduct() == null || finalProduct.compareTo(collection.getLowestProduct()) < 0) {
+                collection.addToCollection(finalProduct);
+            } else System.out.println("Продукт превышает наименьший элемент коллекции\n");
+
+        } catch (ExecuteException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

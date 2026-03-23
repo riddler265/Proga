@@ -2,12 +2,11 @@ package commands;
 
 import collection.Manager;
 import enums.UnitOfMeasure;
-import exceptions.IncorrectInputException;
 import product.Product;
 
 import java.util.Scanner;
 
-public class Update extends Command{
+public class UpdateId extends Command{
 
     //fields
     private int currentId;
@@ -15,7 +14,7 @@ public class Update extends Command{
     private Scanner scanner = new Scanner(System.in);
 
     //constructor
-    public Update(Manager collection) {
+    public UpdateId(Manager collection) {
         super(collection);
     }
 

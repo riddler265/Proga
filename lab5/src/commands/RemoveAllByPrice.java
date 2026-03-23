@@ -26,7 +26,6 @@ public class RemoveAllByPrice extends Command{
             currentPrice = Float.parseFloat(input.substring(input.lastIndexOf(" ") + 1));
             if (currentPrice > 0.0) {
                 for (Product product : collection.getCollection()) {
-                    System.out.println(product.getPrice());
                     if (product.getPrice() == currentPrice) {
                         toRemove.add(product);
                     }
@@ -35,6 +34,7 @@ public class RemoveAllByPrice extends Command{
                     collection.removeFromCollection(product);
                 }
                 toRemove.clear();
+                System.out.println("\nВсе предметы с заданной ценой удалены\n");
             } else throw new NumberFormatException();
         } catch (NumberFormatException e) {
             System.out.println("Нужно ввести положительное число.");

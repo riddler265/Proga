@@ -5,8 +5,11 @@ add
 yes
 egor
 1
-garik
-1
+Egor
+a
 1
 1
 grams
+add_if_min
+
+1

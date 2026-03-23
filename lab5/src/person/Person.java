@@ -7,6 +7,9 @@ import product.Product;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+/**
+ * Класс человека.
+ */
 public class Person {
     //fields
     private String name; //Поле не может быть null, Строка не может быть пустой

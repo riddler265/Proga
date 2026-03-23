@@ -12,8 +12,10 @@ import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.PriorityQueue;
 
+/**
+ * Класс, отвечающий за чтение/запись в Json файл.
+ */
 public class JsonManager {
 
     //fields
@@ -32,7 +34,7 @@ public class JsonManager {
     }
 
     /**
-     * Загружает коллекцию из файла и синхронизирует счетчик ID.
+     * Загружает коллекцию из файла и синхронизирует счетчик id.
      */
     private List<Product> loadProducts() {
         File file = new File(filePath);
@@ -81,12 +83,18 @@ public class JsonManager {
         }
     }
 
+    /**
+     * Загрузка продуктов из файла в коллекцию.
+     */
     public void load() {
         for (Product product : loadProducts()) {
             collection.addToCollection(product);
         }
     }
 
+    /**
+     * Сохранение продуктов из коллекции в файл.
+     */
     public void save() {
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()

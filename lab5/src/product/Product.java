@@ -61,10 +61,7 @@ public class Product implements Comparable<Product>{
         this.owner = owner;
     }
 
-    /**
-     * Метод для получения id.
-     * @return целочисленное id.
-     */
+    //getters
     public int getId() {
         return id;
     }
@@ -137,12 +134,17 @@ public class Product implements Comparable<Product>{
         return this;
     }
 
+    /**
+     * Узнать свободное id.
+     * @return целочисленное, еще не занятое никаким объектом id/
+     */
     public static int getCurrentId() {return currentId;}
 
-    //setters
 
-
-    //sync
+    /**
+     * Обновляет счетчик свободного id.
+     * @param maxFFile последний id из файла.
+     */
     public static void updateCurrentId(int maxFFile) {
         if(maxFFile >= currentId) {
             currentId = maxFFile + 1;

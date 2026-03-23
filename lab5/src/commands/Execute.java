@@ -24,9 +24,12 @@ public class Execute extends Command{
     public void execute(String input, Scanner currentScanner) {
         path = new File("scripts", input.substring(input.lastIndexOf(" ") + 1));
         try (Scanner scanner = new Scanner(path)) {
+            commandManager.setIsSystemReader(false);
             while (scanner.hasNextLine()) {
                 commandManager.execute(scanner.nextLine(), scanner);
             }
+            commandManager.setIsSystemReader(true);
+            System.out.println("Файл исполнен\n");
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден: " + path.getAbsolutePath() + "\n");
         }
