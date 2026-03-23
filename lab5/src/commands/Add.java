@@ -55,8 +55,7 @@ public class Add extends Command {
         else if (isSystemReader) {
             System.out.print("Введите yes/no: ");
             return needOwner(scanner.nextLine(), scanner);
-        }
-        throw new ExecuteException(getClass().getSimpleName());
+        } else throw new ExecuteException(getClass().getSimpleName());
     }
 
     //writing
@@ -65,8 +64,7 @@ public class Add extends Command {
         else if (isSystemReader) {
             System.out.print("Строка не может быть пустой. Введите имя: ");
             writeProductName(scanner.nextLine(), scanner);
-        }
-        throw new ExecuteException(getClass().getSimpleName());
+        } else throw new ExecuteException(getClass().getSimpleName());
     }
 
     protected void writePrice(String input, Scanner scanner) throws ExecuteException {
@@ -81,7 +79,7 @@ public class Add extends Command {
             if (isSystemReader) {
                 System.out.print("Введите число больше 0: ");
                 writePrice(scanner.nextLine(), scanner);
-            } throw new ExecuteException(getClass().getSimpleName());
+            } else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
@@ -97,7 +95,7 @@ public class Add extends Command {
             if (isSystemReader) {
                 System.out.print("Введите число: ");
                 writeManufactureCost(scanner.nextLine(), scanner);
-            } throw new ExecuteException(getClass().getSimpleName());
+            } else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
@@ -108,7 +106,7 @@ public class Add extends Command {
             if (isSystemReader) {
                 System.out.println("Введите единицу измерения. " + UnitOfMeasure.units() + ":");
                 writeUnitOfMeasure(scanner.nextLine(), scanner);
-            } throw new ExecuteException(getClass().getSimpleName());
+            } else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
@@ -122,7 +120,7 @@ public class Add extends Command {
             if (isSystemReader) {
                 System.out.print("Введите целое число больше -645: ");
                 writeCoordinateX(scanner.nextLine(), scanner);
-            } throw new ExecuteException(getClass().getSimpleName());
+            } else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
@@ -133,7 +131,7 @@ public class Add extends Command {
             if (isSystemReader) {
                 System.out.print("Введите целое число: ");
                 writeCoordinateY(scanner.nextLine(), scanner);
-            } throw new ExecuteException(getClass().getSimpleName());
+            } else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
@@ -143,9 +141,7 @@ public class Add extends Command {
         } else if (isSystemReader) {
             System.out.print("Строка не может быть пустой. Введите имя: ");
             writePersonName(scanner.nextLine(), scanner);
-        } else {
-            throw new ExecuteException("add");
-        }
+        } else throw new ExecuteException(getClass().getSimpleName());
     }
 
     protected void writeHeight(String input, Scanner scanner) throws ExecuteException{
@@ -158,7 +154,7 @@ public class Add extends Command {
             if (isSystemReader) {
                 System.out.print("Введите число больше 0: ");
                 writeHeight(scanner.nextLine(), scanner);
-            } throw new ExecuteException(getClass().getSimpleName());
+            } else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 

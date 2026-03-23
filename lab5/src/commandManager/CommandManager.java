@@ -30,7 +30,7 @@ public class CommandManager {
         commands.put("history", new History(collection, history));
         commands.put("clear", new Clear(collection));
         commands.put("add", new Add(collection, this));
-        commands.put("update id", new UpdateId(collection));
+        commands.put("update id", new UpdateId(collection, this));
         commands.put("remove_by_id", new RemoveById(collection));
         commands.put("execute_file", new Execute(collection, this));
         commands.put("add_if_min", new AddIfMin(collection, this));
