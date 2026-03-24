@@ -1,29 +1,29 @@
 package commands;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import java.util.Scanner;
 
 public class Help extends Command{
     //fields
-    private static String commands = "\nhelp - list of all available commands." +
-            "\ninfo - collection info." +
-            "\nshow - all the items in the collection." +
-            "\nadd {element} - add a new item to the collection." +
-            "\nupdate id {element} - update the value of a collection element whose id is equal to the specified value." +
-            "\nremove_by_id id - delete an item from the collection by its id." +
-            "\nclear - clear the collection." +
-            "\nsave - save the collection to a file." +
-            "\nexecute_script file_name - read and execute the script from the specified file." +
-            "\nadd_if_min {element} - add a new element to the collection if its value is less than the value of the smallest element in the collection." +
-            "\nremove_greater {element} - remove all elements from the collection that exceed the specified value." +
-            "\nhistory - display the last 8 commands." +
-            "\nremove_all_by_price price - remove all elements from the collection whose price field value is equivalent to the specified value." +
-            "\nfilter_less_than_manufacture_cost manufactureCost - display elements whose manufactureCost field value is less than the specified value." +
-            "\nfilter_greater_than_manufacture_cost manufactureCost - display elements whose manufactureCost field value is greater than the specified value" +
-            "\n";
+    private static String commands = "\nhelp - вывести справку по доступным командам." +
+            "\ninfo - вывести информацию о коллекции." +
+            "\nshow - вывести все элементы коллекции." +
+            "\nadd {element} - добавить новый элемент в коллекцию." +
+            "\nupdate id {element} - обновить значение элемента коллекции, id которого равен заданному." +
+            "\nremove_by_id id - удалить элемент из коллекции по его id." +
+            "\nclear - очистить коллекцию." +
+            "\nsave - сохранить коллекцию в файл." +
+            "\nexecute_script file_name - считать и исполнить скрипт из указанного файла." +
+            "\nexit - завершить программу (без сохранения в файл)." +
+            "\nadd_if_min {element} - добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции." +
+            "\nremove_greater {element} - удалить из коллекции все элементы, превышающие заданный." +
+            "\nhistory - вывести последние 8 команд." +
+            "\nremove_all_by_price price - удалить из коллекции все элементы, значение поля price которого эквивалентно заданному." +
+            "\nfilter_less_than_manufacture_cost manufactureCost - вывести элементы, значение поля manufactureCost которых меньше заданного." +
+            "\nfilter_greater_than_manufacture_cost manufactureCost - вывести элементы, значение поля manufactureCost которых больше заданного.\n";
 
     //constructor
-    public Help(Manager collection) {
+    public Help(CollectionManager collection) {
         super(collection);
     }
 

@@ -1,12 +1,11 @@
-package collection;
+package collectionManager;
 
 import java.util.PriorityQueue;
 
-import exceptions.IncorrectInputException;
 import product.Product;
 import java.time.LocalDateTime;
 
-public class Manager {
+public class CollectionManager {
 
     //fields
     private final PriorityQueue<Product> collection = new PriorityQueue<>();
@@ -14,17 +13,16 @@ public class Manager {
     private Product greatestProduct = null;
 
     //constructor
-    public Manager() {
+    public CollectionManager() {
         this.creationTime = LocalDateTime.now();
     }
 
     //getters
     public String getInfo() {
-        String info = "\nType: " + collection.getClass().toString().replaceAll(".*\\.", "") + "\n" +
-                "Creation time: " + creationTime.toString() + "\n" +
-                "Element type: Product\n" +
-                "Collection size: " + collection.size() + "\n";
-        return info;
+        return "\nТип коллекции: " + collection.getClass().getSimpleName() + "\n" +
+                "Время создания: " + creationTime.toString() + "\n" +
+                "Тип элемента: Product\n" +
+                "Размер коллекции: " + collection.size() + "\n";
     }
 
     public Product getProductById(int id) {

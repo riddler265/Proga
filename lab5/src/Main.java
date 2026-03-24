@@ -1,9 +1,7 @@
-import collection.Manager;
+import collectionManager.CollectionManager;
 import commandManager.CommandManager;
 import jsonmanager.JsonManager;
-import product.Product;
 
-import java.io.File;
 import java.util.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -14,12 +12,12 @@ public class Main {
         System.out.println();
 
         //collectionManager
-        Manager collectionManager = new Manager();
+        CollectionManager collectionManager = new CollectionManager();
 
         //jsonManager
         String path = System.getenv("PRODUCTS");
         if (path == null || path.isEmpty()) {
-            System.out.println("The environment variable is not set!");
+            System.out.println("Переменная окружения не установлена!");
             System.exit(1);
         }
 
@@ -34,6 +32,5 @@ public class Main {
         while (true) {
             commandManager.execute(scanner.nextLine().trim(), scanner);
         }
-
     }
 }

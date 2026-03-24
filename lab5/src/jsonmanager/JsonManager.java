@@ -1,10 +1,9 @@
 package jsonmanager;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import jsonmanager.JSONTime;
 import product.Product;
 
 import java.io.*;
@@ -20,10 +19,10 @@ public class JsonManager {
 
     //fields
     private final String filePath;
-    private final Manager collection;
+    private final CollectionManager collection;
     private final Gson gson;
 
-    public JsonManager(String filePath, Manager collection) {
+    public JsonManager(String filePath, CollectionManager collection) {
         this.filePath = filePath;
         this.collection = collection;
         // Настраиваем GSON: подключаем адаптер для даты и делаем JSON читаемым

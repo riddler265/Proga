@@ -3,13 +3,13 @@ package commands;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import product.Product;
 
 public class Show extends Command{
 
     //constructor
-    public Show(Manager collection) {
+    public Show(CollectionManager collection) {
         super(collection);
     }
 
@@ -19,7 +19,7 @@ public class Show extends Command{
         System.out.println();
         PriorityQueue<Product> dopleganger = new PriorityQueue<>(collection.getCollection());
         if (dopleganger.isEmpty()) {
-            System.out.println("Collection is empty.");
+            System.out.println("Коллекция пуста.");
         } else {
             while (!dopleganger.isEmpty()) {
                 System.out.println(dopleganger.poll()); 

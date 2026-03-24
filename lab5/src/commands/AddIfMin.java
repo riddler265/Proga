@@ -1,6 +1,6 @@
 package commands;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import commandManager.CommandManager;
 import enums.UnitOfMeasure;
 import exceptions.ExecuteException;
@@ -12,7 +12,7 @@ import java.util.Scanner;
 public class AddIfMin extends Add {
 
     //constructor
-    public AddIfMin(Manager collection, CommandManager commandManager) {
+    public AddIfMin(CollectionManager collection, CommandManager commandManager) {
         super(collection, commandManager);
     }
 

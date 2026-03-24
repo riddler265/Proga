@@ -1,6 +1,6 @@
 package commands;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import commandManager.CommandManager;
 
 import java.io.File;
@@ -14,7 +14,7 @@ public class Execute extends Command{
     private final CommandManager commandManager;
 
     //constructor
-    public Execute(Manager collection, CommandManager commandManager) {
+    public Execute(CollectionManager collection, CommandManager commandManager) {
         super(collection);
         this.commandManager = commandManager;
     }

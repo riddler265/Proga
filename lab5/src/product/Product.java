@@ -176,7 +176,7 @@ public class Product implements Comparable<Product>{
     @Override
     public String toString() {
         String info = "";
-        info += "Product №" + id;
+        info += "Продукт №" + id;
         info += " - " + name;
         info += ". " + coordinates;
         info += ". Creation time is " + creationDate;

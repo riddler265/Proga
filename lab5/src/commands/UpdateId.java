@@ -1,6 +1,6 @@
 package commands;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import commandManager.CommandManager;
 import enums.UnitOfMeasure;
 import exceptions.ExecuteException;
@@ -21,7 +21,7 @@ public class UpdateId extends Command{
     private boolean isSystemReader;
 
     //constructor
-    public UpdateId(Manager collection, CommandManager commandManager) {
+    public UpdateId(CollectionManager collection, CommandManager commandManager) {
         super(collection);
         this.commandManager = commandManager;
     }

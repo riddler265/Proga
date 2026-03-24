@@ -1,8 +1,6 @@
 package commands;
 
-import collection.Manager;
-import commandManager.CommandManager;
-import exceptions.IncorrectInputException;
+import collectionManager.CollectionManager;
 
 import java.util.Scanner;
 
@@ -10,7 +8,7 @@ import java.util.Scanner;
  * Абстрактный класс команд.
  * <p>
  *     Каждая команда имеет доступ к коллекции через
- *     {@link Manager} и абстрактный метод
+ *     {@link CollectionManager} и абстрактный метод
  *     {@link #execute(String, Scanner)} для исполнения логики.
  * </p>
  *
@@ -18,15 +16,15 @@ import java.util.Scanner;
 public abstract class Command {
 
     /**
-     * Переменная, хранящая {@link Manager} менеджера коллекции.
+     * Переменная, хранящая {@link CollectionManager} менеджера коллекции.
      */
-    protected final Manager collection;
+    protected final CollectionManager collection;
 
     /**
      * Конструктор.
-     * @param collection объект класса {@link Manager}.
+     * @param collection объект класса {@link CollectionManager}.
      */
-    public Command(Manager collection) {
+    public Command(CollectionManager collection) {
         this.collection = collection;
     }
 

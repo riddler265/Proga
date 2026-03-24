@@ -1,6 +1,6 @@
 package commands;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import commandManager.CommandManager;
 import coordinates.Coordinates;
 import enums.Color;
@@ -10,7 +10,6 @@ import exceptions.IncorrectInputException;
 import person.Person;
 import product.Product;
 
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Add extends Command {
@@ -43,7 +42,7 @@ public class Add extends Command {
     protected Person finalOwner;
 
     //constructor
-    public Add(Manager collection, CommandManager commandManager) {
+    public Add(CollectionManager collection, CommandManager commandManager) {
         super(collection);
         this.commandManager = commandManager;
     }

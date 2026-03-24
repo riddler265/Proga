@@ -1,6 +1,6 @@
 package commands;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import product.Product;
 
 import java.util.Scanner;
@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class FilterGreaterThanManufactureCost extends FilterLessThanManufactureCost{
 
     //constructor
-    public FilterGreaterThanManufactureCost(Manager collection) {
+    public FilterGreaterThanManufactureCost(CollectionManager collection) {
         super(collection);
     }
 

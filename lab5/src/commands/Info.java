@@ -1,13 +1,13 @@
 package commands;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 
 import java.util.Scanner;
 
 public class Info extends Command{
 
     //constructor
-    public Info(Manager collection) {
+    public Info(CollectionManager collection) {
         super(collection);
     }
 

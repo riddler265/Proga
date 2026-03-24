@@ -1,6 +1,6 @@
 package commands;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import jsonmanager.JsonManager;
 
 import java.util.Scanner;
@@ -11,7 +11,7 @@ public class Save extends Command{
     private final JsonManager jsonManager;
 
     //constructor
-    public Save(Manager collection, JsonManager jsonManager) {
+    public Save(CollectionManager collection, JsonManager jsonManager) {
         super(collection);
         this.jsonManager = jsonManager;
     }

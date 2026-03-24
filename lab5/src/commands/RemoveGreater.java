@@ -1,6 +1,6 @@
 package commands;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import commandManager.CommandManager;
 import product.Product;
 
@@ -12,7 +12,7 @@ public class RemoveGreater extends RemoveById {
     private final CommandManager commandManager;
 
     //constructor
-    public RemoveGreater(Manager collection, CommandManager commandManager) {
+    public RemoveGreater(CollectionManager collection, CommandManager commandManager) {
         super(collection);
         this.commandManager = commandManager;
     }

@@ -1,7 +1,6 @@
 package commands;
 
-import collection.Manager;
-import commandManager.CommandManager;
+import collectionManager.CollectionManager;
 import product.Product;
 
 import java.util.ArrayList;
@@ -15,7 +14,7 @@ public class RemoveAllByPrice extends Command{
     private final List<Product> toRemove= new ArrayList<>();
 
     //constructor
-    public RemoveAllByPrice(Manager collection) {
+    public RemoveAllByPrice(CollectionManager collection) {
         super(collection);
     }
 

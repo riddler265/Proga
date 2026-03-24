@@ -1,6 +1,6 @@
 package commands;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import product.Product;
 
 import java.util.Scanner;
@@ -12,7 +12,7 @@ public class RemoveById extends Command{
     protected Product currentProduct;
 
     //constructor
-    public RemoveById(Manager collection) {
+    public RemoveById(CollectionManager collection) {
         super(collection);
     }
 

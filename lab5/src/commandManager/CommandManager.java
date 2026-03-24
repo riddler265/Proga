@@ -1,6 +1,6 @@
 package commandManager;
 
-import collection.Manager;
+import collectionManager.CollectionManager;
 import commands.*;
 import jsonmanager.JsonManager;
 
@@ -22,7 +22,7 @@ public class CommandManager {
     private boolean isSystemReader = true;
 
     //constructor
-    public CommandManager(Manager collection, JsonManager jsonManager) {
+    public CommandManager(CollectionManager collection, JsonManager jsonManager) {
         commands.put("help", new Help(collection));
         commands.put("exit", new Exit(collection));
         commands.put("info", new Info(collection));
@@ -62,7 +62,7 @@ public class CommandManager {
             commands.get(input.replaceAll("\\s+\\S+$", "")).execute(input, scanner);
             history.add(input);
         } else if (isSystemReader){
-            System.out.println("Unknown command. Write help.\n");
+            System.out.println("Неизвестная команда. Введите \"help\" для помощи.\n");
         } else {
             return;
         }

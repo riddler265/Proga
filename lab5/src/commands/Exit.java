@@ -1,14 +1,13 @@
 package commands;
 
-import collection.Manager;
-import commandManager.CommandManager;
+import collectionManager.CollectionManager;
 
 import java.util.Scanner;
 
 public class Exit extends Command{
 
     //constructor
-    public Exit(Manager collection) {
+    public Exit(CollectionManager collection) {
         super(collection);
     }
 
