@@ -18,7 +18,14 @@ public class Person {
     private String passportID; //Поле может быть null
     private Color hairColor; //Поле может быть null
 
-    //constructor
+    /**
+     * Конструктор.
+     * <p>
+     * @param name Поле не может быть null, Строка не может быть пустой.
+     * @param height Поле может быть null.
+     * @param passportID Значение поля должно быть больше 0.
+     * @param hairColor Поле может быть null.
+     */
     public Person(String name, float height, String passportID, Color hairColor)  {
         this.name = name;
 
@@ -39,7 +46,9 @@ public class Person {
         return height;
     }
 
-    //setters
+    /**
+     * Сеттеры. Возвращают {@link Person} для цепочки вызовов.
+     */
     public Person setName(String name) {
         this.name = name;
         return this;
@@ -50,7 +59,9 @@ public class Person {
         return this;
     }
 
-    //equals(), hachCode(), toString()
+    /**
+     * Переопределение методов equals(), hachCode(), toString().
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

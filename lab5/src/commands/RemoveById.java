@@ -5,6 +5,9 @@ import product.Product;
 
 import java.util.Scanner;
 
+/**
+ * Удаление элемента коллекции по полю id.
+ */
 public class RemoveById extends Command{
 
     //fields

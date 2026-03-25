@@ -6,7 +6,11 @@ import product.Product;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.function.Predicate;
 
+/**
+ * Команда, удаляющая из коллекции все элементы, у которых значение поля price равно заданномму.
+ */
 public class RemoveAllByPrice extends Command{
 
     //fields
@@ -18,7 +22,14 @@ public class RemoveAllByPrice extends Command{
         super(collection);
     }
 
-    //execute
+    /**
+     * Исполнение команды. Используется {@link java.util.Collection#removeIf(Predicate)} для безопасного удаления.
+     * @param input ввод пользователя в консоль.
+     * <p>
+     * @param scanner объект класса {@link Scanner},
+     *     текущий источник чтения.
+     * </p>
+     */
     @Override
     public void execute(String input, Scanner scanner) {
         try {

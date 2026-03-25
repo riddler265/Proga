@@ -4,6 +4,9 @@ import collectionManager.CollectionManager;
 
 import java.util.Scanner;
 
+/**
+ * Команда, выводящая информацию о коллекции.
+ */
 public class Info extends Command{
 
     //constructor

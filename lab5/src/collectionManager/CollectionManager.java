@@ -5,6 +5,9 @@ import java.util.PriorityQueue;
 import product.Product;
 import java.time.LocalDateTime;
 
+/**
+ * Класс, управляющий коллекцией {@link Product}.
+ */
 public class CollectionManager {
 
     //fields
@@ -12,12 +15,17 @@ public class CollectionManager {
     private final LocalDateTime creationTime;
     private Product greatestProduct = null;
 
-    //constructor
+    /**
+     * Конструктор.
+     */
     public CollectionManager() {
         this.creationTime = LocalDateTime.now();
     }
 
-    //getters
+    /**
+     * Метод, возвращающий информацию о коллекции.
+     * @return информация о коллекции.
+     */
     public String getInfo() {
         return "\nТип коллекции: " + collection.getClass().getSimpleName() + "\n" +
                 "Время создания: " + creationTime.toString() + "\n" +
@@ -45,7 +53,14 @@ public class CollectionManager {
         return collection.peek();
     }
 
-    //add
+    /**
+     * Добавление {@link Product} в коллекцию.
+     * <p>
+     * @param product - Продукт. Становится
+     * наибольшим, если коллекция пуста,
+     * сравнивается с наибольшим, если это
+     * не так.
+     */
     public void addToCollection(Product product) {
         collection.add(product);
         System.out.println("В коллекцию добавлен новый предмет: \n" + product.toString() + "\n");

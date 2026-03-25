@@ -4,6 +4,9 @@ import collectionManager.CollectionManager;
 
 import java.util.Scanner;
 
+/**
+ * Команда завершения работы.
+ */
 public class Exit extends Command{
 
     //constructor

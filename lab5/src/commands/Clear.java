@@ -4,6 +4,9 @@ import collectionManager.CollectionManager;
 
 import java.util.Scanner;
 
+/**
+ * Команда очищения коллекции.
+ */
 public class Clear extends Command{
 
     //constructor

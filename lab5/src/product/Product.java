@@ -28,6 +28,7 @@ public class Product implements Comparable<Product>{
 
     /**
      * Конструктор.
+     * <p>
      * @param name имя. Не null и не "".
      * @param coordinates объект класса {@link Coordinates}. Не null.
      * @param price объект класса Float. Null либо значение > 0.0.
@@ -98,7 +99,9 @@ public class Product implements Comparable<Product>{
         return partNumber;
     }
 
-    //setters
+    /**
+     * Сеттеры. Возвращают свой объект для цепочки вызовов.
+     */
     public Product setName(String name) {
         this.name = name;
         return this;
@@ -151,7 +154,11 @@ public class Product implements Comparable<Product>{
         }
     }
 
-    //comparable
+    /**
+     * Реализация метода {@link Comparable#compareTo(Object)} интерфейса {@link Comparable}.
+     * @param o the object to be compared.
+     * @return целое число в диапазоне [-1; 1].
+     */
     @Override
     public int compareTo(Product o) {
         String NameI = name;
@@ -159,7 +166,9 @@ public class Product implements Comparable<Product>{
         return NameI.compareTo(NameII);
     }
 
-    //equals(), hachCode(), toString()
+    /**
+     * Переопределение методов equals(), hachCode(), toString().
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

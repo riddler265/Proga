@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 import collectionManager.CollectionManager;
 
+/**
+ * Команда, выводящая в консоль последние 8 команд
+ */
 public class History extends Command{
 
     //fields

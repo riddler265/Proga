@@ -21,7 +21,11 @@ public class CommandManager {
     //scanner
     private boolean isSystemReader = true;
 
-    //constructor
+    /**
+     * Конструктор. Инициализация команд.
+     * @param collection {@link CollectionManager}, передается командам.
+     * @param jsonManager {@link JsonManager} передается команде {@link Save}.
+     */
     public CommandManager(CollectionManager collection, JsonManager jsonManager) {
         commands.put("help", new Help(collection));
         commands.put("exit", new Exit(collection));
@@ -41,13 +45,24 @@ public class CommandManager {
         commands.put("save", new Save(collection, jsonManager));
     }
 
-    //setters
+    /**
+     * Устанавливает тип сканера.
+     * <p>
+     * @param condition работает сейчас {@link Scanner} System.in
+     * или File.
+     */
     public void setIsSystemReader(boolean condition) {
         if (condition) isSystemReader = true;
-        else  isSystemReader = false;
+        else isSystemReader = false;
     }
 
-    //getters
+    /**
+     * <p>
+     * Метод, возвращающий true, если работает
+     * {@link Scanner} System.in, и false, если
+     * File.
+     * @return булево значение.
+     */
     public boolean isSystemReader() {
         return  isSystemReader;
     }

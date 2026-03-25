@@ -6,6 +6,9 @@ import java.util.Scanner;
 import collectionManager.CollectionManager;
 import product.Product;
 
+/**
+ * Команда, показывающая все элементы коллекции.
+ */
 public class Show extends Command{
 
     //constructor

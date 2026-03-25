@@ -5,6 +5,9 @@ import jsonmanager.JsonManager;
 
 import java.util.Scanner;
 
+/**
+ * Команда сохранения коллекции в json файл.
+ */
 public class Save extends Command{
 
     //fields

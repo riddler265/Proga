@@ -155,10 +155,12 @@ public class UpdateId extends Command{
             setCoordinateX(scanner.nextLine(), scanner);
             System.out.print("\nВведите целое число - координату Y: ");
             setCoordinateY(scanner.nextLine(), scanner);
-            System.out.print("\nВведите имя владельца: ");
-            setPersonName(scanner.nextLine(), scanner);
-            System.out.print("\nВведите рост владельца больше 0: ");
-            setHeight(scanner.nextLine(), scanner);
+            if (currentProduct.getOwner() != null) {
+                System.out.print("\nВведите имя владельца: ");
+                setPersonName(scanner.nextLine(), scanner);
+                System.out.print("\nВведите рост владельца больше 0: ");
+                setHeight(scanner.nextLine(), scanner);
+            }
             System.out.println("\n\nНовые характеристики продукта №" + currentId + ":");
             System.out.println(currentProduct.toString() + "\n");
         } catch (NumberFormatException e) {

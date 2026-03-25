@@ -7,6 +7,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Команда исполнения файла.
+ * <p>
+ *     Поле типа {@link java.nio.file.Path} для хранения
+ *     пути к файлу, ссылка на объект типа {@link CommandManager}
+ *     для исполнения команд из файла.
+ * </p>
+ */
 public class Execute extends Command{
 
     //fields
@@ -19,7 +27,16 @@ public class Execute extends Command{
         this.commandManager = commandManager;
     }
 
-    //execute
+    /**
+     * Метод исполнения команды.
+     * @param input ввод пользователя в консоль.
+     * <p>
+     * @param currentScanner объект класса {@link Scanner},
+     * текущий источник чтения.
+     * Исполняет команды через {@link CommandManager}, пока
+     * в файл имеет строки.
+     * </p>
+     */
     @Override
     public void execute(String input, Scanner currentScanner) {
         path = new File("scripts", input.substring(input.lastIndexOf(" ") + 1));

@@ -6,6 +6,9 @@ import product.Product;
 
 import java.util.Scanner;
 
+/**
+ * Команда, удаляющая элементы, превосходящие заданный.
+ */
 public class RemoveGreater extends RemoveById {
 
     //fields

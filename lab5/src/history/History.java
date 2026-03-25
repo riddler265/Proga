@@ -2,17 +2,26 @@ package history;
 
 import java.util.Arrays;
 
+/**
+ * Класс, хранящий последние 8 команд без аргументов.
+ */
 public class History {
 
     //fields
     private final String[] history = new String[8];
 
-    //get
+    /**
+     * Метод, возвращающий последние 8 команд.
+     * @return {@link Arrays}[String].
+     */
     public String[] getHistory() {
         return Arrays.copyOf(history, history.length);
     }
 
-    //add
+    /**
+     * Метод добавления команды в историю.
+     * @param command - команда
+     */
     public void add(String command) {
         for (int i = 0; i < 7; i++) {
             history[i] = history[i + 1];

@@ -5,12 +5,21 @@ import product.Product;
 
 import java.util.Objects;
 
+/**
+ * Класс координат.
+ */
 public class Coordinates {
     //fields
     private Integer x; //Значение поля должно быть больше -645, Поле не может быть null
     private Integer y; //Поле не может быть null
 
-    //constructor
+    /**
+     * Конструктор.
+     * <p>
+     * @param x координата Х, Значение поля должно быть больше -645, Поле не может быть null,
+     * @param y координата У, Поле не может быть null
+     * @throws IncorrectInputException - невыполнение вышеперечисленных условий.
+     */
     public Coordinates(Integer x, Integer y) throws IncorrectInputException {
         if (x == null || x < -645 || y == null) throw new IncorrectInputException("coordinates");
         else {
@@ -39,7 +48,9 @@ public class Coordinates {
         return this;
     }
 
-    //equals(), hachCode(), toString()
+    /**
+     * Переопределение методов equals(), hachCode(), toString().
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

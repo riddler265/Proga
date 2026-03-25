@@ -11,10 +11,14 @@ public class Main {
 
         System.out.println();
 
-        //collectionManager
+        /**
+         * Создание {@link CollectionManager}.
+         */
         CollectionManager collectionManager = new CollectionManager();
 
-        //jsonManager
+        /**
+         * Работа с json-файлом.
+         */
         String path = System.getenv("PRODUCTS");
         if (path == null || path.isEmpty()) {
             System.out.println("Переменная окружения не установлена!");
@@ -24,11 +28,18 @@ public class Main {
         JsonManager jsonManager = new JsonManager(path, collectionManager);
         jsonManager.load();
 
-        //commandManager
+        /**
+         * <p>
+         *     Создание {@link CommandManager} и {@link Scanner},
+         *     который будет читать ввод в консоли.
+         * </p>
+         */
         Scanner scanner = new Scanner(System.in);
         CommandManager commandManager = new CommandManager(collectionManager, jsonManager);
 
-        //program
+        /**
+         * Запуск программы.
+         */
         while (true) {
             commandManager.execute(scanner.nextLine().trim(), scanner);
         }

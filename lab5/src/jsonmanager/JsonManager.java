@@ -34,6 +34,7 @@ public class JsonManager {
 
     /**
      * Загружает коллекцию из файла и синхронизирует счетчик id.
+     * @return {@link List} {@link Product}.
      */
     private List<Product> loadProducts() {
         File file = new File(filePath);

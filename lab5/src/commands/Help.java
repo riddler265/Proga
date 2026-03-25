@@ -3,6 +3,12 @@ package commands;
 import collectionManager.CollectionManager;
 import java.util.Scanner;
 
+/**
+ * <p>
+ *     Команда, выводящая список
+ *     всех доступных команд.
+ * </p>
+ */
 public class Help extends Command{
     //fields
     private static String commands = "\nhelp - вывести справку по доступным командам." +

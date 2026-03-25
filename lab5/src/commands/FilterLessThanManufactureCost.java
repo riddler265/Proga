@@ -5,6 +5,12 @@ import product.Product;
 
 import java.util.Scanner;
 
+/**
+ * <p>
+ *     Команда, возвращающая все элементы коллекции,
+ *     у которых поле manufactureCost меньше заданного значения.
+ * </p>
+ */
 public class FilterLessThanManufactureCost extends Command{
 
     //fields
