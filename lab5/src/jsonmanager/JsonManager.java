@@ -7,10 +7,10 @@ import com.google.gson.reflect.TypeToken;
 import product.Product;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Класс, отвечающий за чтение/запись в Json файл.
@@ -38,46 +38,46 @@ public class JsonManager {
     private List<Product> loadProducts() {
         File file = new File(filePath);
 
-        // 1. Проверяем, существует ли файл вообще
         if (!file.exists()) {
-            System.out.println("File don`t exist!");
+            System.out.println("Файла не существует!");
             System.exit(1);
         }
 
-        // Используем try-with-resources для автоматического закрытия потока чтения
-        try (Reader reader = new FileReader(file)) {
+        // Используем try-with-resources для Scanner
+        try (Scanner fileScanner = new Scanner(file)) {
 
-            // 2. Описываем тип коллекции для GSON (т.к. это List<Product>, а не просто объект)
-            Type listType = new TypeToken<ArrayList<Product>>(){}.getType();
+            // 1. Читаем всё содержимое файла в одну строку
+            StringBuilder jsonContent = new StringBuilder();
+            while (fileScanner.hasNextLine()) {
+                jsonContent.append(fileScanner.nextLine());
+            }
 
-            // 3. Десериализация
-            List<Product> products = gson.fromJson(reader, listType);
+            // 2. Описываем тип для GSON
+            var listType = new TypeToken<ArrayList<Product>>(){}.getType();
 
-            // 4. Важный момент: если файл пустой, GSON вернет null
+            // 3. Десериализация из накопленной строки
+            List<Product> products = gson.fromJson(jsonContent.toString(), listType);
+
             if (products == null) {
                 return new ArrayList<>();
             }
 
-            // 5. Синхронизация ID
+            // 4. Синхронизация ID (твоя логика остается прежней)
             if (!products.isEmpty()) {
-                // Находим максимальный ID в загруженном списке
-                int maxId = 0;
-                for (Product p : products) {
-                    if (p.getId() > maxId) {
-                        maxId = p.getId();
-                    }
-                }
-                // Передаем этот ID в класс Product, чтобы счетчик стартовал с maxId + 1
+                int maxId = products.stream()
+                        .mapToInt(Product::getId)
+                        .max()
+                        .orElse(0);
                 Product.updateCurrentId(maxId);
             }
 
             return products;
 
-        } catch (IOException e) {
-            System.err.println("Ошибка при чтении файла: " + e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.err.println("Файл не найден: " + e.getMessage());
             return new ArrayList<>();
         } catch (Exception e) {
-            System.err.println("Ошибка при парсинге JSON (возможно, файл поврежден): " + e.getMessage());
+            System.err.println("Ошибка при чтении или парсинге: " + e.getMessage());
             return new ArrayList<>();
         }
     }

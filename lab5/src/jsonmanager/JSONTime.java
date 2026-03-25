@@ -6,9 +6,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * <p>
- *     Класс, позволяющий библиотеке GSON работать с данными типа LocalDateTime.
- * </p>
+ * Класс, позволяющий библиотеке GSON работать с данными типа LocalDateTime.
  */
 public class JSONTime implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {
 

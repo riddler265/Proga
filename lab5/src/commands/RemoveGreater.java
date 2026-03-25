@@ -26,17 +26,11 @@ public class RemoveGreater extends RemoveById {
             currentId = Integer.parseInt(scanner.nextLine());
             currentProduct = collection.getProductById(currentId);
             if (currentProduct != null) {
-                for (Product product : collection.getCollection()) {
-                    if (currentProduct.compareTo(product) > 0) {
-                        collection.removeFromCollection(product);
-                    }
-                }
-                System.out.println("Все продукты, больше заданного удалены\n");
+                collection.getCollection().removeIf(product -> currentProduct.compareTo(product) > 0);
+                System.out.println("Все продукты, больше заданного удалены.\n");
             } else throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            System.out.println("Продукта с таким id нет\n");
+            System.out.println("Продукта с таким id нет.\n");
         }
     }
-
-
 }

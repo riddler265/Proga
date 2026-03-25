@@ -25,7 +25,7 @@ public class RemoveById extends Command{
             currentProduct = collection.getProductById(currentId);
             collection.removeFromCollection(currentProduct);
         } catch (NumberFormatException e) {
-            System.out.println("Продукта с таким id нет\n");
+            System.out.println("Продукта с таким id нет.\n");
         }
     }
 }

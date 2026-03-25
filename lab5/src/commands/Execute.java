@@ -29,9 +29,9 @@ public class Execute extends Command{
                 commandManager.execute(scanner.nextLine(), scanner);
             }
             commandManager.setIsSystemReader(true);
-            System.out.println("Файл исполнен\n");
+            System.out.println("Файл исполнен.\n");
         } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден: " + path.getAbsolutePath() + "\n");
+            System.out.println("Файл не найден: " + path.getAbsolutePath() + ".\n");
         }
     }
 }

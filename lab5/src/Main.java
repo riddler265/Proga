@@ -28,7 +28,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         CommandManager commandManager = new CommandManager(collectionManager, jsonManager);
 
-        //programm
+        //program
         while (true) {
             commandManager.execute(scanner.nextLine().trim(), scanner);
         }

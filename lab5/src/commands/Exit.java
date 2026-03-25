@@ -13,6 +13,7 @@ public class Exit extends Command{
 
     @Override
     public void execute(String input, Scanner scanner) {
+        System.out.println("До свидания!\n");
         System.exit(1);
     }
 }

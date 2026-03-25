@@ -58,7 +58,7 @@ public class AddIfMin extends Add {
 
             if (collection.getLowestProduct() == null || finalProduct.compareTo(collection.getLowestProduct()) < 0) {
                 collection.addToCollection(finalProduct);
-            } else System.out.println("Продукт превышает наименьший элемент коллекции\n");
+            } else System.out.println("Продукт превышает наименьший элемент коллекции.\n");
 
         } catch (ExecuteException e) {
             System.out.println(e.getMessage());

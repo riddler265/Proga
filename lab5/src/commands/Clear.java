@@ -16,6 +16,6 @@ public class Clear extends Command{
     public void execute(String input, Scanner scanner) {
         System.out.println();
         collection.getCollection().clear();
-        System.out.println("Коллекция очищена\n");
+        System.out.println("Коллекция очищена.\n");
     }
 }
