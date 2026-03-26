@@ -9,6 +9,9 @@ import product.Product;
 
 import java.util.Scanner;
 
+/**
+ * Команда, добавляющая элемент в коллекцию, если он будет являться наименьшим в ней.
+ */
 public class AddIfMin extends Add {
 
     //constructor
@@ -35,7 +38,7 @@ public class AddIfMin extends Add {
         } catch (IncorrectInputException e) {
             System.out.println(e.getMessage());
             System.out.println("Возникла ошибка. Попробуйте снова.");
-            execute("add", scanner);
+            execute("add_if_min", scanner);
         }
     }
 

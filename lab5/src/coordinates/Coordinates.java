@@ -48,9 +48,7 @@ public class Coordinates {
         return this;
     }
 
-    /**
-     * Переопределение методов equals(), hachCode(), toString().
-     */
+    //equals(), hachCode(), toString()
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

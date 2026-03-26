@@ -15,26 +15,17 @@ import java.util.Scanner;
  */
 public abstract class Command {
 
-    /**
-     * Переменная, хранящая {@link CollectionManager} менеджера коллекции.
-     */
     protected final CollectionManager collection;
 
-    /**
-     * Конструктор.
-     * @param collection объект класса {@link CollectionManager}.
-     */
     public Command(CollectionManager collection) {
         this.collection = collection;
     }
 
     /**
-     * Абстрактный метод выполнения программы.
-     * @param input ввод пользователя в консоль.
-     * <p>
-     *     @param scanner объект класса {@link Scanner},
-     *     текущий источник чтения.
-     * </p>
+     * Выполняет логику команды.
+     * @param input Аргументы, переданные вместе с командой в одной строке.
+     * @param scanner Объект класса {@link Scanner} для считывания дополнительных данных
+     * в интерактивном режиме.
      */
     public abstract void execute(String input, Scanner scanner);
 }

@@ -9,11 +9,12 @@ import product.Product;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * Команда, обновляющая значения объекта по id.
+ */
 public class UpdateId extends Command{
 
-    //fields
-    //product
-    private int currentId;
+    //fields. Product.
     private Product currentProduct;
 
     //commandManager
@@ -137,7 +138,9 @@ public class UpdateId extends Command{
         isSystemReader = commandManager.isSystemReader();
 
         try {
-            currentId = Integer.parseInt(input.substring(input.lastIndexOf(" ") + 1));
+            //fields
+            //product
+            int currentId = Integer.parseInt(input.substring(input.lastIndexOf(" ") + 1));
             currentProduct = collection.getProductById(currentId);
 
             System.out.println("\nЕсли вы не хотите менять характеристику, нажмите enter");

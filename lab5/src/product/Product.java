@@ -99,9 +99,7 @@ public class Product implements Comparable<Product>{
         return partNumber;
     }
 
-    /**
-     * Сеттеры. Возвращают свой объект для цепочки вызовов.
-     */
+    //setters
     public Product setName(String name) {
         this.name = name;
         return this;
@@ -153,12 +151,7 @@ public class Product implements Comparable<Product>{
             currentId = maxFFile + 1;
         }
     }
-
-    /**
-     * Реализация метода {@link Comparable#compareTo(Object)} интерфейса {@link Comparable}.
-     * @param o the object to be compared.
-     * @return целое число в диапазоне [-1; 1].
-     */
+    
     @Override
     public int compareTo(Product o) {
         String NameI = name;
@@ -166,9 +159,7 @@ public class Product implements Comparable<Product>{
         return NameI.compareTo(NameII);
     }
 
-    /**
-     * Переопределение методов equals(), hachCode(), toString().
-     */
+    //equals(), hachCode(), toString()
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

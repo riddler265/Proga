@@ -1,0 +1,410 @@
+@startuml
+package product {
+    class Product {
+        {static} -currentId: int = 1
+        -id: int
+        -name: String
+        -coordinates: Coordinates
+        -creationDate: LocalDateTime
+        -price: Float
+        -partNumber: String
+        -manufactureCost: float
+        -unitOfMeasure: UnitOfMeasure
+        -owner: Person
+
+        +Product(name: String, coordinates: Coordinates, price: Float, \n\tpartNumber: String, manufactureCost: float, \n\tunitOfMeasure: UnitOfMeasure, owner: Person)
+        +getId(): int
+        +getName(): String
+        +getCoordinates(): Coordinates
+        +getManufactureCost(): float
+        +getPrice(): Float
+        +getCreationDate(): LocalDateTime
+        +getUnitOfMeasure(): UnitOfMeasure
+        +getOwner(): Person
+        +getPartNumber(): String
+        +setName(name: String): Product
+        +setCoordinates(x: Integer, y: Integer): Product
+        +setPrice(price: Float): Product
+        +setPartNumber(partNumber: String): Product
+        +setManufactureCost(manufactureCost: float): Product
+        +setUnitOfMeasure(unitOfMeasure: UnitOfMeasure): Product
+        +setOwner(owner: Person): Product
+        {static} +getCurrentId(): int
+        {static} +updateCurrentId(maxFFile: int): void
+        +compareTo(o: Product): int
+        +equals(o: Object): boolean
+        +hashCode(): int
+        +toString(): String
+    }
+}
+
+interface Comparable<Product> {
+    +compareTo(o: Product): int
+}
+
+Product .up.|> Comparable
+Product *-- "1" coordinates.Coordinates
+Product o-- "1" enums.UnitOfMeasure
+Product o-- "0..1" person.Person
+Product ..> exceptions.IncorrectInputException : <<throws>>
+
+package person {
+    class Person {
+        -name: String
+        -birthday: LocalDateTime
+        -height: float
+        -passportID: String
+        -hairColor: Color
+        +Person(name: String, height: float, passportID: String, hairColor: Color)
+        +getName(): String
+        +getHeight(): float
+        +setName(name: String): Person
+        +setHeight(height: float): Person
+        +equals(o: Object): boolean
+        +hashCode(): int
+        +toString(): String
+    }
+}
+
+person.Person o-- "0..1" enums.Color
+
+package coordinates {
+    class Coordinates {
+        -x: Integer
+        -y: Integer
+        +Coordinates(x: Integer, y: Integer)
+        +getX(): Integer
+        +getY(): Integer
+        +setX(x: Integer): Coordinates
+        +setY(y: Integer): Coordinates
+        +equals(o: Object): boolean
+        +hashCode(): int
+        +toString(): String
+    }
+}
+
+package enums {
+    enum Color {
+        GREEN
+        RED
+        BLACK
+        YELLOW
+        ORANGE
+    }
+
+    enum UnitOfMeasure {
+        METERS
+        SQUARE_METERS
+        LITERS
+        GRAMS
+        {static} +units(): String
+    }
+}
+
+package history {
+    class History {
+        -history: String[8]
+        +getHistory(): String[]
+        +add(command: String): void
+    }
+}
+
+package jsonmanager {
+    class JsonManager {
+        -filePath: String
+        -collection: CollectionManager
+        -gson: Gson
+        +JsonManager(filePath: String, collection: CollectionManager)
+        -loadProducts(): List<Product>
+        +load(): void
+        +save(): void
+    }
+
+    class JSONTime {
+        {static} -formatter: DateTimeFormatter
+        +serialize(src: LocalDateTime, typeOfSrc: Type, context: JsonSerializationContext): JsonElement
+        +deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): LocalDateTime
+    }
+}
+
+interface "JsonSerializer<LocalDateTime>" as JsonSerializer
+interface "JsonDeserializer<LocalDateTime>" as JsonDeserializer
+
+JSONTime .up.|> JsonSerializer
+JSONTime .up.|> JsonDeserializer
+JsonManager o-- "1" JSONTime : <<use>>
+JsonManager ..> product.Product : <<use>>
+
+package collectionManager {
+    class CollectionManager {
+        -collection: PriorityQueue<Product>
+        -creationTime: LocalDateTime
+        -greatestProduct: Product
+        +CollectionManager()
+        +getInfo(): String
+        +getProductById(id: int): Product
+        +getCollection(): PriorityQueue<Product>
+        +getGreatestProduct(): Product
+        +getLowestProduct(): Product
+        +addToCollection(product: Product): void
+    }
+}
+
+collectionManager.CollectionManager o-- "*" product.Product
+
+package commandManager {
+    class CommandManager {
+        -commands: Map<String, Command>
+        -history: History
+        -isSystemReader: boolean
+        +CommandManager(collection: CollectionManager, jsonManager: JsonManager)
+        +setIsSystemReader(condition: boolean): void
+        +isSystemReader(): boolean
+        +execute(input: String, scanner: Scanner): void
+    }
+}
+
+commandManager.CommandManager o-- "1" history.History
+commandManager.CommandManager ..> jsonmanager.JsonManager : <<use>>
+commandManager.CommandManager ..> collectionManager.CollectionManager : <<use>>
+
+package commands {
+    abstract class Command {
+        # collection: CollectionManager
+        + Command(collection: CollectionManager)
+        + {abstract} execute(input: String, scanner: Scanner): void
+    }
+}
+
+commands.Command o-- "1" collectionManager.CollectionManager
+commandManager.CommandManager o-- "*" commands.Command
+
+package commands {
+    class Add {
+        -commandManager: CommandManager
+        -productName: String
+        -price: Float
+        -partNumber: String
+        -manufactureCost: float
+        -unitOfMeasure: UnitOfMeasure
+        -isSystemReader: boolean
+        -x: Integer
+        -y: Integer
+        -personName: String
+        -height: float
+        -finalProduct: Product
+        -finalCoordinates: Coordinates
+        -finalOwner: Person
+        +Add(collection: CollectionManager, commandManager: CommandManager)
+        +execute(input: String, scanner: Scanner): void
+        -createCoordinates(scanner: Scanner): void
+        -createPerson(scanner: Scanner): void
+        -createProduct(scanner: Scanner): void
+    }
+}
+
+commands.Add -up-|> commands.Command
+commands.Add o-- "1" commandManager.CommandManager
+commands.Add ..> product.Product : <<create>>
+commands.Add ..> person.Person : <<create>>
+commands.Add ..> coordinates.Coordinates : <<create>>
+
+package commands {
+    class Add {
+        -commandManager: CommandManager
+        -productName: String
+        -price: Float
+        -partNumber: String
+        -manufactureCost: float
+        -unitOfMeasure: UnitOfMeasure
+        -isSystemReader: boolean
+        -x: Integer
+        -y: Integer
+        -personName: String
+        -height: float
+        -finalProduct: Product
+        -finalCoordinates: Coordinates
+        -finalOwner: Person
+        +Add(collection: CollectionManager, commandManager: CommandManager)
+        +execute(input: String, scanner: Scanner): void
+        -createCoordinates(scanner: Scanner): void
+        -createPerson(scanner: Scanner): void
+        -createProduct(scanner: Scanner): void
+    }
+}
+
+commands.Add -up-|> commands.Command
+commands.Add o-- "1" commandManager.CommandManager
+commands.Add ..> product.Product : <<create>>
+commands.Add ..> person.Person : <<create>>
+commands.Add ..> coordinates.Coordinates : <<create>>
+
+package commands {
+    class Clear {
+        +Clear(collection: CollectionManager)
+        +execute(input: String, scanner: Scanner): void
+    }
+}
+
+commands.Clear -up-|> commands.Command
+
+package commands {
+    class Execute {
+        -path: File
+        -commandManager: CommandManager
+        +Execute(collection: CollectionManager, commandManager: CommandManager)
+        +execute(input: String, currentScanner: Scanner): void
+    }
+}
+
+commands.Execute -up-|> commands.Command
+commands.Execute o-- "1" commandManager.CommandManager
+commands.Execute ..> exceptions.ExecuteException : <<throws>>
+
+
+
+coordinates.Coordinates ..> exceptions.IncorrectInputException : <<throws>>
+
+package commands {
+    class Exit {
+        +Exit(collection: CollectionManager)
+        +execute(input: String, scanner: Scanner): void
+    }
+}
+
+commands.Exit -up-|> commands.Command
+
+package commands {
+    class FilterGreaterThanManufactureCost {
+        +FilterGreaterThanManufactureCost(collection: CollectionManager)
+        +execute(input: String, scanner: Scanner): void
+    }
+}
+
+commands.FilterGreaterThanManufactureCost -up-|> commands.FilterLessThanManufactureCost
+
+package commands {
+    class FilterLessThanManufactureCost {
+        # currentManufactureCost: float
+        + FilterLessThanManufactureCost(collection: CollectionManager)
+        + execute(input: String, scanner: Scanner): void
+    }
+}
+
+commands.FilterLessThanManufactureCost -up-|> commands.Command
+
+package commands {
+    class Help {
+        {static} -commands: String
+        +Help(collection: CollectionManager)
+        +execute(input: String, scanner: Scanner): void
+    }
+}
+
+commands.Help -up-|> commands.Command
+
+package commands {
+    class History {
+        - history: history.History
+        + History(collection: CollectionManager, history: history.History)
+        + execute(input: String, scanner: Scanner): void
+    }
+}
+
+commands.History -up-|> commands.Command
+commands.History o-- "1" history.History
+
+package commands {
+    class Info {
+        +Info(collection: CollectionManager)
+        +execute(input: String, scanner: Scanner): void
+    }
+}
+
+commands.Info -up-|> commands.Command
+
+package commands {
+    class RemoveAllByPrice {
+        - currentPrice: float
+        - toRemove: List<Product>
+        + RemoveAllByPrice(collection: CollectionManager)
+        + execute(input: String, scanner: Scanner): void
+    }
+}
+
+commands.RemoveAllByPrice -up-|> commands.Command
+
+package commands {
+    class RemoveById {
+        # currentId: int
+        # currentProduct: Product
+        + RemoveById(collection: CollectionManager)
+        + execute(input: String, scanner: Scanner): void
+    }
+}
+
+commands.RemoveById -up-|> commands.Command
+
+package commands {
+    class RemoveGreater {
+        - commandManager: CommandManager
+        + RemoveGreater(collection: CollectionManager, commandManager: CommandManager)
+        + execute(input: String, scanner: Scanner): void
+    }
+}
+
+commands.RemoveGreater -up-|> commands.RemoveById
+commands.RemoveGreater o-- "1" commandManager.CommandManager
+
+package commands {
+    class Save {
+        - jsonManager: JsonManager
+        + Save(collection: CollectionManager, jsonManager: JsonManager)
+        + execute(input: String, scanner: Scanner): void
+    }
+
+    class Show {
+        + Show(collection: CollectionManager)
+        + execute(input: String, scanner: Scanner): void
+    }
+
+    class UpdateId {
+        - currentProduct: Product
+        - commandManager: CommandManager
+        - isSystemReader: boolean
+        + UpdateId(collection: CollectionManager, commandManager: CommandManager)
+        + execute(input: String, scanner: Scanner): void
+        - setProductName(input: String, scanner: Scanner): void
+        - setPrice(input: String, scanner: Scanner): void
+        - setPartNumber(input: String, scanner: Scanner): void
+        - setManufactureCost(input: String, scanner: Scanner): void
+        - setUnitOfMeasure(input: String, scanner: Scanner): void
+        - setCoordinateX(input: String, scanner: Scanner): void
+        - setCoordinateY(input: String, scanner: Scanner): void
+    }
+}
+
+commands.Save -up-|> commands.Command
+commands.Show -up-|> commands.Command
+commands.UpdateId -up-|> commands.Command
+
+commands.Save o-- "1" jsonmanager.JsonManager
+commands.UpdateId o-- "1" commandManager.CommandManager
+commands.UpdateId ..> product.Product : <<modifies>>
+
+package exceptions {
+    class RuntimeException << (S,#FF7700) >>
+    
+    class ExecuteException {
+        +ExecuteException(message: String)
+    }
+    
+    class IncorrectInputException {
+        +IncorrectInputException(message: String)
+    }
+    
+    ExecuteException -up-|> RuntimeException
+    IncorrectInputException -up-|> RuntimeException
+}
+
+@enduml

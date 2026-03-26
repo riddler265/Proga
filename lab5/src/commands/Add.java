@@ -12,6 +12,9 @@ import product.Product;
 
 import java.util.Scanner;
 
+/**
+ * Команда, добавляющая элемент в коллекцию.
+ */
 public class Add extends Command {
 
     //fields

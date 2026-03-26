@@ -11,6 +11,7 @@ import java.util.Objects;
  * Класс человека.
  */
 public class Person {
+
     //fields
     private String name; //Поле не может быть null, Строка не может быть пустой
     private LocalDateTime birthday; //Поле может быть null
@@ -46,9 +47,7 @@ public class Person {
         return height;
     }
 
-    /**
-     * Сеттеры. Возвращают {@link Person} для цепочки вызовов.
-     */
+    //setters
     public Person setName(String name) {
         this.name = name;
         return this;
@@ -59,9 +58,7 @@ public class Person {
         return this;
     }
 
-    /**
-     * Переопределение методов equals(), hachCode(), toString().
-     */
+    //equals(), hachCode(), toString()
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
