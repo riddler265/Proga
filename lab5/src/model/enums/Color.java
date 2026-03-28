@@ -13,10 +13,14 @@ public enum Color {
     ORANGE(5);
 
     private final int id;
-    private static final String message = "\n\tGreen(1), \n\tRed(2), \n\tBlack(3), \n\tYellow(4), \n\tOrange(5)";
+    private static final String message = "\n\tGreen(1), \n\tRed(2), \n\tBlack(3), \n\tYellow(4), \n\tOrange(5), \n\tNull";
 
     Color(int id) {
         this.id = id;
+    }
+
+    public static String getColorsInfo() {
+        return "Green(1), Red(2), Black(3), Yellow(4), Orange(5), Null";
     }
 
     public static Color getcolor(String input) throws IncorrectInputException {

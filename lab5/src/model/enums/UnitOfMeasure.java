@@ -12,10 +12,14 @@ public enum UnitOfMeasure {
     GRAMS(4);
 
     private final int id;
-    private static final String message = "\nMeters(1)\n, Square_meters(2)\n, Liters(3)\n, grams(4)";
+    private static final String message = "\n\tMeters(1), \n\tSquare_meters(2), \n\tLiters(3), \n\tgrams(4)";
 
     UnitOfMeasure(int id) {
         this.id = id;
+    }
+
+    public static String getUnitsInfo() {
+        return "Meters(1), Square_meters(2), Liters(3), grams(4)";
     }
 
     public static UnitOfMeasure getUnit(String input) throws IncorrectInputException {
