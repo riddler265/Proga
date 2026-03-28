@@ -16,7 +16,7 @@ public class CommandManager {
     //fields
     //collections
     private final Map<String, Command> commands = new HashMap<>();
-    private final history.History history = new history.History();
+    private final stack.History history = new stack.History();
     //scanner
     private boolean isSystemReader = true;
 
@@ -30,7 +30,7 @@ public class CommandManager {
         commands.put("exit", new Exit(collection));
         commands.put("info", new Info(collection));
         commands.put("show", new Show(collection));
-        commands.put("history", new History(collection, history));
+        commands.put("stack", new History(collection, history));
         commands.put("clear", new Clear(collection));
         commands.put("add", new Add(collection, this));
         commands.put("update id", new UpdateId(collection, this));
