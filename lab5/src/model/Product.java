@@ -4,6 +4,8 @@ import model.enums.UnitOfMeasure;
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -12,9 +14,7 @@ import java.util.Objects;
  */
 public class Product implements Comparable<Product>, Validate {
 
-    /**
-     * Поля класса.
-     */
+    //fields
     private static int currentId = 1;
     private final int id = currentId++; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -65,37 +65,53 @@ public class Product implements Comparable<Product>, Validate {
 
     //region setters
     public void setName(String name) throws IncorrectInputException {
-        if (name == null || name.isEmpty()) throw new IncorrectInputException("name");
+        if (name == null || name.isEmpty()) throw new IncorrectInputException("\n\tне пустая строка");
         else this.name = name;
     }
 
-    public void setCoordinates(Integer x, Integer y) {
-        this.coordinates.setX(x).setY(y);
-    }
-
-    public void setPrice(Float price) throws IncorrectInputException {
-        if (price != null && price <= 0) throw new IncorrectInputException("price");
-        else this.price = price;
+    public void setPrice(String price) throws IncorrectInputException {
+        if (price.equals("Null") || price.equals("Nl")) this.price = null;
+        try {
+            this.price = parse(price).floatValue();
+            if (this.price <= 0.0) throw new NumberFormatException();
+        } catch (NumberFormatException e) {
+            throw new IncorrectInputException("\n\tNull,\n\tчисло больше 0");
+        }
     }
 
     public void setPartNumber(String partNumber) throws IncorrectInputException {
-        if (partNumber != null && partNumber.isEmpty()) throw new IncorrectInputException("part number");
+        if (partNumber.equals("Null") || partNumber.equals("Nl")) this.partNumber = null;
+        if (partNumber.isEmpty()) throw new IncorrectInputException("\n\tне пустая строка,\n\tNull");
         else this.partNumber = partNumber;
     }
 
-    public void setManufactureCost(float manufactureCost) {
-        this.manufactureCost = manufactureCost;
+    public void setManufactureCost(String manufactureCost) {
+        try {
+            this.manufactureCost = parse(manufactureCost).floatValue();
+        } catch (NumberFormatException e) {
+            throw new IncorrectInputException("\n\tчисло");
+        }
     }
 
-    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) throws IncorrectInputException {
-        if (unitOfMeasure == null) throw new IncorrectInputException("Unit of measure");
-        else this.unitOfMeasure = unitOfMeasure;
+    public void setUnitOfMeasure(String unitOfMeasure) throws IncorrectInputException {
+        this.unitOfMeasure = UnitOfMeasure.getUnit(unitOfMeasure);
     }
 
-    public void setOwner(Person owner) throws IncorrectInputException {
-        if (owner == null) throw new IncorrectInputException("owner");
+    public Product setOwner(Person owner) {
         this.owner = owner;
+        return this;
+    }
+
+    public Product setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+        return this;
     }//endregion
+
+    private BigDecimal parse(String input) throws NumberFormatException {
+        BigDecimal bd = new BigDecimal(input.replace(',', '.'));
+        bd = bd.setScale(5, RoundingMode.HALF_UP);
+        return bd;
+    }
 
     //region id
     /**

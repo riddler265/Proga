@@ -4,6 +4,8 @@ import model.enums.Color;
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
@@ -42,33 +44,39 @@ public class Person implements Validate {
     }//endregion
 
     //region setters
-    public Person setName(String name) throws IncorrectInputException {
-        if (name == null || name.isEmpty()) throw new IncorrectInputException("name");
+    public void setName(String name) throws IncorrectInputException {
+        if (name == null || name.isEmpty()) throw new IncorrectInputException("\n\tне пустая строка");
         else this.name = name;
-        return this;
     }
 
-    public Person setBirthday(LocalDateTime birthday) {
-        this.birthday = birthday;
-        return this;
+    public void setBirthday(String birthday) throws IncorrectInputException {
+        this.birthday = null;
     }
 
-    public Person setHeight(float height) throws IncorrectInputException {
-        if (height <= 0.0) throw new IncorrectInputException("height");
-        else this.height = height;
-        return this;
+    public void setHeight(String height) throws IncorrectInputException {
+        try {
+            this.height = parse(height).floatValue();
+            if (this.height <= 0.0) throw new NumberFormatException();
+        } catch (NumberFormatException e) {
+            throw new IncorrectInputException("\n\tчисло больше 0");
+        }
     }
 
-    public Person setPassportID(String passportID) throws IncorrectInputException {
-        if (passportID == null) throw new IncorrectInputException("passport id");
-        else this.passportID = passportID;
-        return this;
+    public void setPassportID(String passportID) {
+        if (passportID.equals("Null") || passportID.equals("Nl")) this.passportID = null;
+        this.passportID = passportID;
     }
 
-    public Person setHairColor(Color hairColor) {
-        this.hairColor = hairColor;
-        return this;
+    public void setHairColor(String hairColor) throws IncorrectInputException {
+        if (hairColor.equals("Null") || hairColor.equals("Nl")) this.hairColor = null;
+        this.hairColor = Color.getcolor(hairColor);
     }//endregion
+
+    private BigDecimal parse(String input) throws NumberFormatException {
+        BigDecimal bd = new BigDecimal(input.replace(',', '.'));
+        bd = bd.setScale(5, RoundingMode.HALF_UP);
+        return bd;
+    }
 
     @Override
     public boolean validate() {

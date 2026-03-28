@@ -3,6 +3,8 @@ package model;
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
@@ -24,17 +26,30 @@ public class Coordinates implements Validate {
     }//endregion
 
     //region setters
-    public Coordinates setX(Integer x) throws IncorrectInputException {
-        if (x == null || x < -645) throw new IncorrectInputException("coordinate x");
-        else this.x = x;
+    public Coordinates setX(String input) throws IncorrectInputException {
+        try {
+            this.x = parse(input).intValue();
+            if (x < -645) throw new NumberFormatException();
+        } catch (NumberFormatException e) {
+            throw new IncorrectInputException("\n\tцелое число > -645");
+        }
         return this;
     }
 
-    public Coordinates setY(Integer y) throws IncorrectInputException {
-        if (y == null) throw new IncorrectInputException("coordinate y");
-        else this.y = y;
+    public Coordinates setY(String input) throws IncorrectInputException {
+        try {
+            this.y = parse(input).intValue();
+        } catch (NumberFormatException e) {
+            throw new IncorrectInputException("\n\tцелое число");
+        }
         return this;
     }//endregion
+
+    private BigDecimal parse(String input) throws NumberFormatException {
+        BigDecimal bd = new BigDecimal(input.replace(',', '.'));
+        bd = bd.setScale(5, RoundingMode.HALF_UP);
+        return bd;
+    }
 
     @Override
     public boolean validate() {
