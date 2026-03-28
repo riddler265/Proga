@@ -1,7 +1,7 @@
 package commands;
 
-import collectionManager.CollectionManager;
-import commandManager.CommandManager;
+import managers.CollectionManager;
+import managers.CommandManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;

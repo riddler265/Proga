@@ -3,8 +3,8 @@ package commands;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
-import collectionManager.CollectionManager;
-import product.Product;
+import managers.CollectionManager;
+import model.Product;
 
 /**
  * Команда, показывающая все элементы коллекции.

@@ -1,8 +1,8 @@
-package collectionManager;
+package managers;
 
 import java.util.PriorityQueue;
 
-import product.Product;
+import model.Product;
 import java.time.LocalDateTime;
 
 /**

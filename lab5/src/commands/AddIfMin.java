@@ -1,11 +1,11 @@
 package commands;
 
-import collectionManager.CollectionManager;
-import commandManager.CommandManager;
-import enums.UnitOfMeasure;
+import managers.CollectionManager;
+import managers.CommandManager;
+import model.enums.UnitOfMeasure;
 import exceptions.ExecuteException;
 import exceptions.IncorrectInputException;
-import product.Product;
+import model.Product;
 
 import java.util.Scanner;
 

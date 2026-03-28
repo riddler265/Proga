@@ -1,6 +1,6 @@
-import collectionManager.CollectionManager;
-import commandManager.CommandManager;
-import jsonmanager.JsonManager;
+import managers.CollectionManager;
+import managers.CommandManager;
+import managers.json.JsonManager;
 
 import java.util.*;
 

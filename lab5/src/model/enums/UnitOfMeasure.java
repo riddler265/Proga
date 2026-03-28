@@ -1,4 +1,4 @@
-package enums;
+package model.enums;
 
 /**
  * Перечисление единиц измерения.

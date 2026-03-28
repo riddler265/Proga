@@ -1,8 +1,7 @@
 package commands;
 
-import collectionManager.CollectionManager;
-import commandManager.CommandManager;
-import product.Product;
+import managers.CollectionManager;
+import managers.CommandManager;
 
 import java.util.Scanner;
 

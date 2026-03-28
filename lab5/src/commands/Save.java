@@ -1,7 +1,7 @@
 package commands;
 
-import collectionManager.CollectionManager;
-import jsonmanager.JsonManager;
+import managers.CollectionManager;
+import managers.json.JsonManager;
 
 import java.util.Scanner;
 

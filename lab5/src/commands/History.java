@@ -2,7 +2,7 @@ package commands;
 
 import java.util.Scanner;
 
-import collectionManager.CollectionManager;
+import managers.CollectionManager;
 
 /**
  * Команда, выводящая в консоль последние 8 команд
