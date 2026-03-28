@@ -12,7 +12,7 @@ import model.Product;
  * {@link Coordinates}.
  */
 public class IncorrectInputException extends RuntimeException {
-    public IncorrectInputException(String message) {
-        super("Incorrect " + message + ". Try again:");
+    public IncorrectInputException(String conditions) {
+        super("Допустимые значения параметра: " + conditions + "\nПопробуйте еще раз: ");
     }
 }
