@@ -14,8 +14,8 @@ public class Save extends Command{
     private final JsonManager jsonManager;
 
     //constructor
-    public Save(CollectionManager collection, JsonManager jsonManager) {
-        super(collection);
+    public Save(CollectionManager collectionManager, JsonManager jsonManager) {
+        super(collectionManager);
         this.jsonManager = jsonManager;
     }
 

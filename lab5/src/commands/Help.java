@@ -29,8 +29,8 @@ public class Help extends Command{
             "\nfilter_greater_than_manufacture_cost manufactureCost - вывести элементы, значение поля manufactureCost которых больше заданного.\n";
 
     //constructor
-    public Help(CollectionManager collection) {
-        super(collection);
+    public Help(CollectionManager collectionManager) {
+        super(collectionManager);
     }
 
     @Override

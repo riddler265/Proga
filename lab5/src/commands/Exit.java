@@ -10,8 +10,8 @@ import java.util.Scanner;
 public class Exit extends Command{
 
     //constructor
-    public Exit(CollectionManager collection) {
-        super(collection);
+    public Exit(CollectionManager collectionManager) {
+        super(collectionManager);
     }
 
     @Override

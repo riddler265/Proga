@@ -10,10 +10,10 @@ import managers.CollectionManager;
 public class History extends Command{
 
     //fields
-    private final history.History history;
+    private final stack.History history;
 
     //constructor
-    public History(CollectionManager collection, history.History history) {
+    public History(CollectionManager collection, stack.History history) {
         super(collection);
         this.history = history;
     }

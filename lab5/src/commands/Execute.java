@@ -22,8 +22,8 @@ public class Execute extends Command{
     private final CommandManager commandManager;
 
     //constructor
-    public Execute(CollectionManager collection, CommandManager commandManager) {
-        super(collection);
+    public Execute(CollectionManager collectionManager, CommandManager commandManager) {
+        super(collectionManager);
         this.commandManager = commandManager;
     }
 

@@ -10,13 +10,13 @@ import java.util.Scanner;
 public class Info extends Command{
 
     //constructor
-    public Info(CollectionManager collection) {
-        super(collection);
+    public Info(CollectionManager collectionManager) {
+        super(collectionManager);
     }
 
     //execute
     @Override
     public void execute(String input, Scanner scanner) {
-        System.out.println(collection.getInfo());
+        System.out.println(collectionManager.getInfo());
     }
 }

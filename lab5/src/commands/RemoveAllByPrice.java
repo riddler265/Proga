@@ -15,11 +15,10 @@ public class RemoveAllByPrice extends Command{
 
     //fields
     private float currentPrice;
-    private final List<Product> toRemove= new ArrayList<>();
 
     //constructor
-    public RemoveAllByPrice(CollectionManager collection) {
-        super(collection);
+    public RemoveAllByPrice(CollectionManager collectionManager) {
+        super(collectionManager);
     }
 
     /**
@@ -35,7 +34,7 @@ public class RemoveAllByPrice extends Command{
         try {
             currentPrice = Float.parseFloat(input.substring(input.lastIndexOf(" ") + 1));
             if (currentPrice > 0.0) {
-                collection.getCollection().removeIf(product -> product.getPrice() == currentPrice);
+                collectionManager.getCollection().removeIf(product -> product.getPrice() == currentPrice);
                 System.out.println("\nВсе предметы с заданной ценой удалены.\n");
             } else throw new NumberFormatException();
         } catch (NumberFormatException e) {

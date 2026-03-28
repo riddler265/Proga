@@ -15,8 +15,8 @@ public class RemoveById extends Command{
     protected Product currentProduct;
 
     //constructor
-    public RemoveById(CollectionManager collection) {
-        super(collection);
+    public RemoveById(CollectionManager collectionManager) {
+        super(collectionManager);
     }
 
     //execute
@@ -25,8 +25,8 @@ public class RemoveById extends Command{
     public void execute(String input, Scanner scanner) {
         try {
             currentId = Integer.parseInt(input.substring(input.lastIndexOf(" ") + 1));
-            currentProduct = collection.getProductById(currentId);
-            collection.removeFromCollection(currentProduct);
+            currentProduct = collectionManager.getProductById(currentId);
+            collectionManager.removeFromCollection(currentProduct);
         } catch (NumberFormatException e) {
             System.out.println("Продукта с таким id нет.\n");
         }

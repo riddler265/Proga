@@ -12,15 +12,15 @@ import model.Product;
 public class Show extends Command{
 
     //constructor
-    public Show(CollectionManager collection) {
-        super(collection);
+    public Show(CollectionManager collectionManager) {
+        super(collectionManager);
     }
 
     //execute
     @Override
     public void execute(String input, Scanner scanner) {
         System.out.println();
-        PriorityQueue<Product> dopleganger = new PriorityQueue<>(collection.getCollection());
+        PriorityQueue<Product> dopleganger = new PriorityQueue<>(collectionManager.getCollection());
         if (dopleganger.isEmpty()) {
             System.out.println("Коллекция пуста.");
         } else {

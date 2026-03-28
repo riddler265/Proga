@@ -15,10 +15,10 @@ import java.util.Scanner;
  */
 public abstract class Command {
 
-    protected final CollectionManager collection;
+    protected final CollectionManager collectionManager;
 
     public Command(CollectionManager collection) {
-        this.collection = collection;
+        this.collectionManager = collection;
     }
 
     /**

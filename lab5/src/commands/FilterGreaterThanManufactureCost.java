@@ -14,8 +14,8 @@ import java.util.Scanner;
 public class FilterGreaterThanManufactureCost extends FilterLessThanManufactureCost{
 
     //constructor
-    public FilterGreaterThanManufactureCost(CollectionManager collection) {
-        super(collection);
+    public FilterGreaterThanManufactureCost(CollectionManager collectionManager) {
+        super(collectionManager);
     }
 
     //execute
@@ -23,7 +23,7 @@ public class FilterGreaterThanManufactureCost extends FilterLessThanManufactureC
         try {
             currentManufactureCost = Float.parseFloat(input.substring(input.lastIndexOf(" ") + 1));
             if (currentManufactureCost > 0) {
-                for (Product product : collection.getCollection()) {
+                for (Product product : collectionManager.getCollection()) {
                     if (product.getManufactureCost() > currentManufactureCost) {
                         System.out.println(product);
                     }

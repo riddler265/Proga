@@ -26,9 +26,9 @@ public class RemoveGreater extends RemoveById {
         System.out.print("Введите id продукта: ");
         try {
             currentId = Integer.parseInt(scanner.nextLine());
-            currentProduct = collection.getProductById(currentId);
+            currentProduct = collectionManager.getProductById(currentId);
             if (currentProduct != null) {
-                collection.getCollection().removeIf(product -> currentProduct.compareTo(product) > 0);
+               collectionManager.getCollection().removeIf(product -> currentProduct.compareTo(product) > 0);
                 System.out.println("Все продукты, больше заданного удалены.\n");
             } else throw new NumberFormatException();
         } catch (NumberFormatException e) {

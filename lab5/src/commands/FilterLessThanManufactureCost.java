@@ -17,8 +17,8 @@ public class FilterLessThanManufactureCost extends Command{
     protected float currentManufactureCost;
 
     //constructor
-    public FilterLessThanManufactureCost(CollectionManager collection) {
-        super(collection);
+    public FilterLessThanManufactureCost(CollectionManager collectionManager) {
+        super(collectionManager);
     }
 
     //execute
@@ -27,7 +27,7 @@ public class FilterLessThanManufactureCost extends Command{
         try {
             currentManufactureCost = Float.parseFloat(input.substring(input.lastIndexOf(" ") + 1));
             if (currentManufactureCost > 0) {
-                for (Product product : collection.getCollection()) {
+                for (Product product : collectionManager.getCollection()) {
                     if (product.getManufactureCost() < currentManufactureCost) {
                         System.out.println(product);
                     }
