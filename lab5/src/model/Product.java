@@ -70,12 +70,14 @@ public class Product implements Comparable<Product>, Validate {
     }
 
     public void setPrice(String price) throws IncorrectInputException {
-        if (price.equals("Null") || price.equals("Nl")) this.price = null;
-        try {
-            this.price = parse(price).floatValue();
-            if (this.price <= 0.0) throw new NumberFormatException();
-        } catch (NumberFormatException e) {
-            throw new IncorrectInputException("\n\tNull,\n\tчисло больше 0");
+        if (price.equalsIgnoreCase("Null") || price.equalsIgnoreCase("Nl")) this.price = null;
+        else {
+            try {
+                this.price = parse(price).floatValue();
+                if (this.price <= 0.0) throw new NumberFormatException();
+            } catch (NumberFormatException e) {
+                throw new IncorrectInputException("\n\tNull,\n\tчисло больше 0");
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package commands;
 
+import exceptions.IncorrectInputException;
 import managers.CollectionManager;
 import managers.CommandManager;
 import model.enums.Color;
@@ -24,106 +25,98 @@ public class UpdateId extends Add {
     //skip
     public boolean skip(String input) {
         return input.trim().equalsIgnoreCase("\\s") || input.trim().equalsIgnoreCase("/s");
-    }
-    //endregion
+    }//endregion
 
-    //region setters
+    //region writing
     //product
-    public void setProductName(String input, Scanner scanner) throws ExecuteException{
-        if (!skip(input)) writeProductName(input, scanner);
+    @Override
+    public void writeProductName(String input, Scanner scanner) throws ExecuteException{
+        if (!skip(input)) {
+            super.writeProductName(input, scanner);
+        }
     }
 
-    public void setPrice(String input, Scanner scanner) throws ExecuteException {
-        if (!skip(input)) writePrice(input, scanner);
+    @Override
+    public void writePrice(String input, Scanner scanner) throws ExecuteException {
+        if (!skip(input)) {
+            super.writePrice(input, scanner);
+        }
+    }
+    @Override
+    public void writePartNumber(String input, Scanner scanner) {
+        if (!skip(input)) {
+            super.writePartNumber(input, scanner);
+        }
     }
 
-    public void setPartNumber(String input, Scanner scanner) {
-        if (!skip(input)) writePartNumber(input, scanner);
+    @Override
+    public void writeManufactureCost(String input, Scanner scanner) throws ExecuteException {
+        if (!skip(input)) {
+            super.writeManufactureCost(input, scanner);
+        }
     }
 
-    public void setManufactureCost(String input, Scanner scanner) throws ExecuteException {
-        if (!skip(input)) writeManufactureCost(input,scanner);
-    }
-
-    protected void setUnitOfMeasure(String input, Scanner scanner) throws ExecuteException {
-        if (!skip(input)) writeUnitOfMeasure(input, scanner);
+    @Override
+    protected void writeUnitOfMeasure(String input, Scanner scanner) throws ExecuteException {
+        if (!skip(input)) {
+            super.writeUnitOfMeasure(input, scanner);
+        }
     }
 
     //coordinates
-    protected void setCoordinateX(String input, Scanner scanner) {
-        if (!skip(input)) writeCoordinateX(input, scanner);
+    @Override
+    protected void writeCoordinateX(String input, Scanner scanner) {
+        if (!skip(input)) {
+            super.writeCoordinateX(input, scanner);
+        }
     }
 
-    protected void setCoordinateY(String input, Scanner scanner) throws ExecuteException {
-        if (!skip(input)) writeCoordinateY(input, scanner);
+    @Override
+    protected void writeCoordinateY(String input, Scanner scanner) throws ExecuteException {
+        if (!skip(input)) {
+            super.writeCoordinateY(input, scanner);
+        }
     }
 
     //person
-    protected void setPersonName(String input, Scanner scanner) {
-        if (!skip(input)) writePersonName(input, scanner);
-    }
-
-    protected void setBirthday(String input, Scanner scanner) {
-        if (!skip(input)) writeBirthday(input, scanner);
-    }
-
-    protected void setHeight(String input, Scanner scanner) throws ExecuteException {
-        if (!skip(input)) writeHeight(input, scanner);
-    }
-
-    protected void setPassportID(String input, Scanner scanner) {
-        if (!skip(input)) writePassportID(input, scanner);
-    }
-
-    protected void setHairColor(String input, Scanner scanner) {
-        if (!skip(input)) writeHairColor(input, scanner);
-    }//endregion
-
-    //region create
     @Override
-    protected void createPerson(Scanner scanner) throws ExecuteException {
-
-        announce("Введите имя владельца","");
-        setPersonName(scanner.nextLine(), scanner);
-        announce("Введите дату рождения владельца", "");
-        setBirthday(scanner.nextLine(), scanner);
-        announce("Введите рост владельца", "больше 0");
-        setHeight(scanner.nextLine(), scanner);
-        announce("Введите данные паспорта", "строка/Null");
-        setPassportID(scanner.nextLine(), scanner);
-        announce("Введите цвет волос владельца", Color.getColorsInfo());
-        System.out.println();
-        setHairColor(scanner.nextLine(), scanner);
-
+    protected void writePersonName(String input, Scanner scanner) {
+        if (!skip(input)) {
+            super.writePersonName(input, scanner);
+        }
     }
 
     @Override
-    protected void createCoordinates(Scanner scanner) throws ExecuteException {
-
-        announce("Введите координату X", "целое число больше -645");
-        setCoordinateX(scanner.nextLine(), scanner);
-        announce("Введите координату Y", "целое число");
-        setCoordinateY(scanner.nextLine(), scanner);
+    protected void writeBirthday(String input, Scanner scanner) {
+        if (!skip(input)) {
+            super.writeBirthday(input, scanner);
+        }
     }
 
     @Override
-    protected void createProduct(Scanner scanner) throws ExecuteException {
+    protected void writeHeight(String input, Scanner scanner) throws ExecuteException {
+        if (!skip(input)) {
+            super.writeHeight(input, scanner);
+        }
+    }
 
-        announce("Введите название продукта", "не пустая строка");
-        setProductName(scanner.nextLine(), scanner);
-        announce("Введите цену продукта больше 0", "число больше 0/Null");
-        setPrice(scanner.nextLine(), scanner);
-        announce("Введите номер партии", "число больше 0/Null");
-        setPartNumber(scanner.nextLine(), scanner);
-        announce("Введите стоимость производства продукта", "число");
-        setManufactureCost(scanner.nextLine(), scanner);
-        announce("Введите единицу измерения", UnitOfMeasure.getUnitsInfo());
-        System.out.println();
-        setUnitOfMeasure(scanner.nextLine(), scanner);
+    @Override
+    protected void writePassportID(String input, Scanner scanner) {
+        if (!skip(input)) {
+            super.writePassportID(input, scanner);
+        }
+    }
+
+    @Override
+    protected void writeHairColor(String input, Scanner scanner) {
+        if (!skip(input)) {
+            super.writeHairColor(input, scanner);
+        }
     }//endregion
 
     @Override
     public void execute(String input, Scanner scanner) {
+
         isSystemReader = commandManager.isSystemReader();
 
         try {
@@ -136,7 +129,9 @@ public class UpdateId extends Add {
             System.out.println("Если не хотите менять параметр - введите \\s");
 
             createCoordinates(scanner);
-            createPerson(scanner);
+            if (finalOwner != null) {
+                createPerson(scanner);
+            }
             createProduct(scanner);
             System.out.println("\nНовые параметры продукта №" + finalProduct.getId());
 
