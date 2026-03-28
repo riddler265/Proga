@@ -1,7 +1,7 @@
 package commands;
 
-import collectionManager.CollectionManager;
-import product.Product;
+import managers.CollectionManager;
+import model.Product;
 
 import java.util.Scanner;
 

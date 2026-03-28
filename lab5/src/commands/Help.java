@@ -1,6 +1,6 @@
 package commands;
 
-import collectionManager.CollectionManager;
+import managers.CollectionManager;
 import java.util.Scanner;
 
 /**

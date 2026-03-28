@@ -1,10 +1,9 @@
-package product;
+package model;
 
-import coordinates.Coordinates;
-import enums.UnitOfMeasure;
+import model.enums.UnitOfMeasure;
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
-import person.Person;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 

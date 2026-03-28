@@ -1,10 +1,10 @@
-package jsonmanager;
+package managers.json;
 
-import collectionManager.CollectionManager;
+import managers.CollectionManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import product.Product;
+import model.Product;
 
 import java.io.*;
 import java.time.LocalDateTime;

@@ -1,6 +1,6 @@
-package person;
+package model;
 
-import enums.Color;
+import model.enums.Color;
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
 

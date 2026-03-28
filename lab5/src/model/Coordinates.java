@@ -1,8 +1,7 @@
-package coordinates;
+package model;
 
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
-import product.Product;
 
 import java.util.Objects;
 

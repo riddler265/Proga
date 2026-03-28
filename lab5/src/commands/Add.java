@@ -1,14 +1,14 @@
 package commands;
 
-import collectionManager.CollectionManager;
-import commandManager.CommandManager;
-import coordinates.Coordinates;
-import enums.Color;
-import enums.UnitOfMeasure;
+import managers.CollectionManager;
+import managers.CommandManager;
+import model.Coordinates;
+import model.enums.Color;
+import model.enums.UnitOfMeasure;
 import exceptions.ExecuteException;
 import exceptions.IncorrectInputException;
-import person.Person;
-import product.Product;
+import model.Person;
+import model.Product;
 
 import java.util.Scanner;
 

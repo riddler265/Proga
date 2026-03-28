@@ -1,8 +1,7 @@
-package commandManager;
+package managers;
 
-import collectionManager.CollectionManager;
 import commands.*;
-import jsonmanager.JsonManager;
+import managers.json.JsonManager;
 
 import java.util.Map;
 import java.util.HashMap;
