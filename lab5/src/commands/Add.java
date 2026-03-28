@@ -10,6 +10,7 @@ import exceptions.IncorrectInputException;
 import model.Person;
 import model.Product;
 
+import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -20,6 +21,7 @@ public class Add extends Command {
     //fields
     //commandManager
     protected final CommandManager commandManager;
+    protected boolean isSystemReader;
 
     //product
     protected String productName;
@@ -28,16 +30,16 @@ public class Add extends Command {
     protected float manufactureCost;
     protected UnitOfMeasure unitOfMeasure;
 
-    //scanner
-    protected boolean isSystemReader;
-
     //coordinates
     protected Integer x;
     protected Integer y;
 
     //person
     protected String personName;
+    protected LocalDateTime birthday;
     protected float height;
+    protected String passportID;
+    protected Color hairColor;
 
     //finalObjects
     protected Product finalProduct;
@@ -50,52 +52,68 @@ public class Add extends Command {
         this.commandManager = commandManager;
     }
 
+    //region helpers
     //conditions
     protected boolean needOwner(String input, Scanner scanner) throws ExecuteException {
-        if (input.equalsIgnoreCase("yes")) return true;
-        else if (input.equalsIgnoreCase("no")) return false;
+        if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) return true;
+        else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) return false;
         else if (isSystemReader) {
             System.out.print("Введите yes/no: ");
             return needOwner(scanner.nextLine(), scanner);
         } else throw new ExecuteException(getClass().getSimpleName());
     }
 
-    //writing
+    //announce
+    protected void announce(String message, String conditions) {
+        String suffix = java.util.Optional.ofNullable(conditions)
+                .filter(c -> !c.isBlank())
+                .map(c -> " (" + c + ")")
+                .orElse("");
+
+        System.out.print("\n" + message + suffix + ": ");
+    }//endregion
+
+    //region writing
+    //product
     protected void writeProductName(String input, Scanner scanner) throws ExecuteException {
-        if (!(input == null || input.isEmpty())) productName = input;
-        else if (isSystemReader) {
-            System.out.print("Строка не может быть пустой. Введите имя: ");
-            writeProductName(scanner.nextLine(), scanner);
-        } else throw new ExecuteException(getClass().getSimpleName());
+        try {
+            finalProduct.setName(input);
+        } catch (IncorrectInputException e) {
+            if (isSystemReader) {
+                System.out.print(e.getMessage());
+                writeProductName(scanner.nextLine(), scanner);
+            } else throw new ExecuteException(getClass().getSimpleName());
+        }
     }
 
     protected void writePrice(String input, Scanner scanner) throws ExecuteException {
-        if (input.isEmpty()) {
-            price = null;
-            return;
-        }
         try {
-            price = Float.parseFloat(input);
-            if (price <= 0.0) throw new NumberFormatException();
-        } catch (NumberFormatException e) {
+            finalProduct.setPrice(input);
+        } catch (IncorrectInputException e) {
             if (isSystemReader) {
-                System.out.print("Введите число больше 0: ");
+                System.out.print(e.getMessage());
                 writePrice(scanner.nextLine(), scanner);
             } else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
     protected void writePartNumber(String input, Scanner scanner) throws ExecuteException {
-        if (input.isEmpty()) partNumber = null;
-        else partNumber = input;
+        try {
+            finalProduct.setPartNumber(input);
+        } catch (IncorrectInputException e) {
+            if (isSystemReader) {
+                System.out.print(e.getMessage());
+                writePartNumber(scanner.nextLine(), scanner);
+            } else throw new ExecuteException(getClass().getSimpleName());
+        }
     }
 
     protected void writeManufactureCost(String input, Scanner scanner) throws ExecuteException {
         try {
-            manufactureCost = Float.parseFloat(input);
-        } catch (NumberFormatException e) {
+            finalProduct.setManufactureCost(input);
+        } catch (IncorrectInputException e) {
             if (isSystemReader) {
-                System.out.print("Введите число: ");
+                System.out.print(e.getMessage());
                 writeManufactureCost(scanner.nextLine(), scanner);
             } else throw new ExecuteException(getClass().getSimpleName());
         }
@@ -103,24 +121,22 @@ public class Add extends Command {
 
     protected void writeUnitOfMeasure(String input, Scanner scanner) throws ExecuteException {
         try {
-            unitOfMeasure = UnitOfMeasure.valueOf(input.toUpperCase());
-        } catch (IllegalArgumentException e) {
+            finalProduct.setUnitOfMeasure(input);
+        } catch (IncorrectInputException e) {
             if (isSystemReader) {
-                System.out.println("Введите единицу измерения. " + UnitOfMeasure.units() + ":");
+                System.out.print(e.getMessage());
                 writeUnitOfMeasure(scanner.nextLine(), scanner);
             } else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
+    //coordinates
     protected void writeCoordinateX(String input, Scanner scanner) throws ExecuteException {
         try {
-            x = Integer.parseInt(input);
-            if (x <= -645) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
+            finalCoordinates.setX(input);
+        } catch (IncorrectInputException e) {
             if (isSystemReader) {
-                System.out.print("Введите целое число больше -645: ");
+                System.out.print(e.getMessage());
                 writeCoordinateX(scanner.nextLine(), scanner);
             } else throw new ExecuteException(getClass().getSimpleName());
         }
@@ -128,108 +144,125 @@ public class Add extends Command {
 
     protected void writeCoordinateY(String input, Scanner scanner) throws ExecuteException{
         try {
-            y = Integer.parseInt(input);
-        } catch (NumberFormatException e) {
+            finalCoordinates.setY(input);
+        } catch (IncorrectInputException e) {
             if (isSystemReader) {
-                System.out.print("Введите целое число: ");
-                writeCoordinateY(scanner.nextLine(), scanner);
+                System.out.print(e.getMessage());
+                writeCoordinateX(scanner.nextLine(), scanner);
             } else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
+    //person
     protected void writePersonName(String input, Scanner scanner) throws ExecuteException {
-        if (!(input == null || input.isEmpty())) {
-            personName = input;
-        } else if (isSystemReader) {
-            System.out.print("Строка не может быть пустой. Введите имя: ");
-            writePersonName(scanner.nextLine(), scanner);
-        } else throw new ExecuteException(getClass().getSimpleName());
+        try {
+            finalOwner.setName(input);
+        } catch (IncorrectInputException e) {
+            if (isSystemReader) {
+                System.out.print(e.getMessage());
+                writePersonName(scanner.nextLine(), scanner);
+            } else throw new ExecuteException(getClass().getSimpleName());
+        }
+    }
+
+    protected void writeBirthday(String input, Scanner scanner) {
+        try {
+            finalOwner.setBirthday(input);
+        } catch (IncorrectInputException e) {
+            if (isSystemReader) {
+                System.out.print(e.getMessage());
+                writeBirthday(scanner.nextLine(), scanner);
+            } else throw new ExecuteException(getClass().getSimpleName());
+        }
     }
 
     protected void writeHeight(String input, Scanner scanner) throws ExecuteException{
         try {
-            height = Float.parseFloat(input);
-            if (height <= 0) {
-                throw new NumberFormatException();
-            }
-        } catch (NumberFormatException e) {
+            finalOwner.setHeight(input);
+        } catch (IncorrectInputException e) {
             if (isSystemReader) {
-                System.out.print("Введите число больше 0: ");
+                System.out.print(e.getMessage());
                 writeHeight(scanner.nextLine(), scanner);
             } else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
-    //create
-    protected void createPerson(Scanner scanner) throws ExecuteException {
-        try {
-            System.out.print("\nБудет ли у продукта владелец? yes/no: ");
-            if (needOwner(scanner.nextLine(), scanner)) {
-                System.out.print("\nВведите имя владельца: ");
-                writePersonName(scanner.nextLine(), scanner);
-                System.out.print("\nВведите рост владельца больше 0: ");
-                writeHeight(scanner.nextLine(), scanner);
+    protected void writePassportID(String input, Scanner scanner) {
+        finalOwner.setPassportID(input);
+    }
 
-                finalOwner = new Person(personName, height, null, Color.BLACK);
-            } else finalOwner = null;
+    protected void writeHairColor(String input, Scanner scanner) {
+        try {
+            finalOwner.setHairColor(input);
         } catch (IncorrectInputException e) {
-            System.out.println(e.getMessage());
-            createPerson(scanner);
+            if (isSystemReader) {
+                System.out.print(e.getMessage());
+                writeHairColor(scanner.nextLine(), scanner);
+            } else throw new ExecuteException(getClass().getSimpleName());
         }
+    }//endregion
+
+    //region create
+    protected void createPerson(Scanner scanner) throws ExecuteException {
+
+        announce("Будет ли у продукта владелец?", "yes/no");
+        if (needOwner(scanner.nextLine(), scanner)) {
+            announce("Введите имя владельца","");
+            writePersonName(scanner.nextLine(), scanner);
+            announce("Введите дату рождения владельца", "");
+            writeBirthday(scanner.nextLine(), scanner);
+            announce("Введите рост владельца", "больше 0");
+            writeHeight(scanner.nextLine(), scanner);
+            announce("Введите данные паспорта", "строка/Null");
+            writePassportID(scanner.nextLine(), scanner);
+            announce("Введите цвет волос владельца", Color.getColorsInfo());
+            System.out.println();
+            writeHairColor(scanner.nextLine(), scanner);
+        } else finalOwner = null;
     }
 
     protected void createCoordinates(Scanner scanner) throws ExecuteException {
-        try {
-            System.out.print("\nВведите целое число больше -645 - координату X: ");
-            writeCoordinateX(scanner.nextLine(), scanner);
-            System.out.print("\nВведите целое число - координату Y: ");
-            writeCoordinateY(scanner.nextLine(), scanner);
 
-            finalCoordinates = new Coordinates(x, y);
-        } catch (IncorrectInputException e) {
-            System.out.println(e.getMessage());
-            createCoordinates(scanner);
-        }
+        announce("Введите координату X", "целое число больше -645");
+        writeCoordinateX(scanner.nextLine(), scanner);
+        announce("Введите координату Y", "целое число");
+        writeCoordinateY(scanner.nextLine(), scanner);
     }
 
     protected void createProduct(Scanner scanner) throws ExecuteException {
-        try {
-            System.out.print("\nВведите название продукта: ");
-            writeProductName(scanner.nextLine(), scanner);
-            System.out.print("\nВведите цену продукта больше 0: ");
-            writePrice(scanner.nextLine(), scanner);
-            System.out.print("\nВведите номер партии: ");
-            writePartNumber(scanner.nextLine(), scanner);
-            System.out.print("\nВведите стоимость производства продукта: ");
-            writeManufactureCost(scanner.nextLine(), scanner);
-            System.out.println("\nВведите единицу измерения. " + UnitOfMeasure.units() + ":");
-            writeUnitOfMeasure(scanner.nextLine(), scanner);
 
-            finalProduct = new Product(productName, finalCoordinates, price, partNumber, manufactureCost, unitOfMeasure, finalOwner);
-            collection.addToCollection(finalProduct);
-        } catch (IncorrectInputException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Возникла ошибка. Попробуйте снова.");
-            execute("add", scanner);
-        }
-    }
+        announce("Введите название продукта", "не пустая строка");
+        writeProductName(scanner.nextLine(), scanner);
+        announce("Введите цену продукта больше 0", "число больше 0/Null");
+        writePrice(scanner.nextLine(), scanner);
+        announce("Введите номер партии", "число больше 0/Null");
+        writePartNumber(scanner.nextLine(), scanner);
+        announce("Введите стоимость производства продукта", "число");
+        writeManufactureCost(scanner.nextLine(), scanner);
+        announce("Введите единицу измерения", UnitOfMeasure.getUnitsInfo());
+        System.out.println();
+        writeUnitOfMeasure(scanner.nextLine(), scanner);
+
+        finalProduct.setOwner(finalOwner).setCoordinates(finalCoordinates);
+    }//endregion
 
 
     //execute
     @Override
     public void execute(String input, Scanner scanner) {
+
         isSystemReader = commandManager.isSystemReader();
 
+        finalProduct = new Product();
+        finalOwner = new Person();
+        finalCoordinates = new Coordinates();
+
         try {
-            //createCoordinates
             createCoordinates(scanner);
-
-            //createOwner
             createPerson(scanner);
-
-            //createProduct
             createProduct(scanner);
             System.out.println();
+            collectionManager.addToCollection(finalProduct);
         } catch (ExecuteException e) {
             System.out.println(e.getMessage());
         }

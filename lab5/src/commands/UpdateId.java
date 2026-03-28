@@ -2,6 +2,7 @@ package commands;
 
 import managers.CollectionManager;
 import managers.CommandManager;
+import model.enums.Color;
 import model.enums.UnitOfMeasure;
 import exceptions.ExecuteException;
 import model.Product;
@@ -12,166 +13,137 @@ import java.util.Scanner;
 /**
  * Команда, обновляющая значения объекта по id.
  */
-public class UpdateId extends Command{
-
-    //fields. Product.
-    private Product currentProduct;
-
-    //commandManager
-    private final CommandManager commandManager;
-    private boolean isSystemReader;
+public class UpdateId extends Add {
 
     //constructor
     public UpdateId(CollectionManager collection, CommandManager commandManager) {
-        super(collection);
-        this.commandManager = commandManager;
+        super(collection, commandManager);
     }
 
-    //setters
-    public void setProductName(String input, Scanner scanner) {
-        if (!input.isEmpty()) currentProduct.setName(input);
+    //region helpers
+    //skip
+    public boolean skip(String input) {
+        return input.trim().equalsIgnoreCase("\\s") || input.trim().equalsIgnoreCase("/s");
+    }
+    //endregion
+
+    //region setters
+    //product
+    public void setProductName(String input, Scanner scanner) throws ExecuteException{
+        if (!skip(input)) writeProductName(input, scanner);
     }
 
     public void setPrice(String input, Scanner scanner) throws ExecuteException {
-        if (input.equalsIgnoreCase("null")) {
-            currentProduct.setPrice(null);
-        } else if (!input.isEmpty()) {
-            try {
-                Float price = Float.parseFloat(input);
-                if (price <= 0.0) throw new NumberFormatException();
-            } catch (NumberFormatException e) {
-                if (isSystemReader) {
-                    System.out.print("Введите число больше 0: ");
-                    setPrice(scanner.nextLine(), scanner);
-                } else throw new ExecuteException(getClass().getSimpleName());
-            }
-        }
+        if (!skip(input)) writePrice(input, scanner);
     }
 
     public void setPartNumber(String input, Scanner scanner) {
-        if (input.equals("null")) currentProduct.setPartNumber(null);
-        else if (input.isEmpty()) currentProduct.setPartNumber(input);
+        if (!skip(input)) writePartNumber(input, scanner);
     }
 
     public void setManufactureCost(String input, Scanner scanner) throws ExecuteException {
-        if (!input.isEmpty()) {
-            try {
-                float manufactureCost = Float.parseFloat(input);
-                currentProduct.setManufactureCost(manufactureCost);
-            } catch (NumberFormatException e) {
-                if (isSystemReader) {
-                    System.out.print("Введите число: ");
-                    setManufactureCost(scanner.nextLine(), scanner);
-                } else throw new ExecuteException(getClass().getSimpleName());
-            }
-        }
+        if (!skip(input)) writeManufactureCost(input,scanner);
     }
 
     protected void setUnitOfMeasure(String input, Scanner scanner) throws ExecuteException {
-        if (!input.isEmpty()) {
-            try {
-                UnitOfMeasure unitOfMeasure = UnitOfMeasure.valueOf(input.toUpperCase());
-                currentProduct.setUnitOfMeasure(unitOfMeasure);
-            } catch (IllegalArgumentException e) {
-                if (isSystemReader) {
-                    System.out.println("Введите единицу измерения. " + UnitOfMeasure.units() + ":");
-                    setUnitOfMeasure(scanner.nextLine(), scanner);
-                } else throw new ExecuteException(getClass().getSimpleName());
-            }
-        }
+        if (!skip(input)) writeUnitOfMeasure(input, scanner);
     }
 
+    //coordinates
     protected void setCoordinateX(String input, Scanner scanner) {
-        if (!input.isEmpty()) {
-            try {
-                Integer x = Integer.parseInt(input);
-                if (x <= -645) {
-                    throw new NumberFormatException();
-                }
-                currentProduct.getCoordinates().setX(x);
-            } catch (NumberFormatException e) {
-                if (isSystemReader) {
-                    System.out.print("Введите целое число больше -645: ");
-                    setCoordinateX(scanner.nextLine(), scanner);
-                } else throw new ExecuteException(getClass().getSimpleName());
-            }
-        }
+        if (!skip(input)) writeCoordinateX(input, scanner);
     }
 
     protected void setCoordinateY(String input, Scanner scanner) throws ExecuteException {
-        if (!input.isEmpty()) {
-            try {
-                Integer y = Integer.parseInt(input);
-                currentProduct.getCoordinates().setY(y);
-            } catch (NumberFormatException e) {
-                if (isSystemReader) {
-                    System.out.print("Введите целое число: ");
-                    setCoordinateY(scanner.nextLine(), scanner);
-                } else throw new ExecuteException(getClass().getSimpleName());
-            }
-        }
+        if (!skip(input)) writeCoordinateY(input, scanner);
     }
 
+    //person
     protected void setPersonName(String input, Scanner scanner) {
-        if (!input.isEmpty()) currentProduct.getOwner().setName(input);
+        if (!skip(input)) writePersonName(input, scanner);
+    }
+
+    protected void setBirthday(String input, Scanner scanner) {
+        if (!skip(input)) writeBirthday(input, scanner);
     }
 
     protected void setHeight(String input, Scanner scanner) throws ExecuteException {
-        if (!input.isEmpty()) {
-            try {
-                float height = Float.parseFloat(input);
-                if (height <= 0) {
-                    throw new NumberFormatException();
-                }
-                currentProduct.getOwner().setHeight(height);
-            } catch (NumberFormatException e) {
-                if (isSystemReader) {
-                    System.out.print("Введите число больше 0: ");
-                    setHeight(scanner.nextLine(), scanner);
-                } else throw new ExecuteException(getClass().getSimpleName());
-            }
-        }
+        if (!skip(input)) writeHeight(input, scanner);
     }
+
+    protected void setPassportID(String input, Scanner scanner) {
+        if (!skip(input)) writePassportID(input, scanner);
+    }
+
+    protected void setHairColor(String input, Scanner scanner) {
+        if (!skip(input)) writeHairColor(input, scanner);
+    }//endregion
+
+    //region create
+    @Override
+    protected void createPerson(Scanner scanner) throws ExecuteException {
+
+        announce("Введите имя владельца","");
+        setPersonName(scanner.nextLine(), scanner);
+        announce("Введите дату рождения владельца", "");
+        setBirthday(scanner.nextLine(), scanner);
+        announce("Введите рост владельца", "больше 0");
+        setHeight(scanner.nextLine(), scanner);
+        announce("Введите данные паспорта", "строка/Null");
+        setPassportID(scanner.nextLine(), scanner);
+        announce("Введите цвет волос владельца", Color.getColorsInfo());
+        System.out.println();
+        setHairColor(scanner.nextLine(), scanner);
+
+    }
+
+    @Override
+    protected void createCoordinates(Scanner scanner) throws ExecuteException {
+
+        announce("Введите координату X", "целое число больше -645");
+        setCoordinateX(scanner.nextLine(), scanner);
+        announce("Введите координату Y", "целое число");
+        setCoordinateY(scanner.nextLine(), scanner);
+    }
+
+    @Override
+    protected void createProduct(Scanner scanner) throws ExecuteException {
+
+        announce("Введите название продукта", "не пустая строка");
+        setProductName(scanner.nextLine(), scanner);
+        announce("Введите цену продукта больше 0", "число больше 0/Null");
+        setPrice(scanner.nextLine(), scanner);
+        announce("Введите номер партии", "число больше 0/Null");
+        setPartNumber(scanner.nextLine(), scanner);
+        announce("Введите стоимость производства продукта", "число");
+        setManufactureCost(scanner.nextLine(), scanner);
+        announce("Введите единицу измерения", UnitOfMeasure.getUnitsInfo());
+        System.out.println();
+        setUnitOfMeasure(scanner.nextLine(), scanner);
+    }//endregion
 
     @Override
     public void execute(String input, Scanner scanner) {
         isSystemReader = commandManager.isSystemReader();
 
         try {
-            //fields
-            //product
-            int currentId = Integer.parseInt(input.substring(input.lastIndexOf(" ") + 1));
-            currentProduct = collection.getProductById(currentId);
 
-            System.out.println("\nЕсли вы не хотите менять характеристику, нажмите enter");
-            System.out.print("\nВведите название продукта: ");
-            setProductName(scanner.nextLine(), scanner);
-            System.out.print("\nВведите цену продукта больше 0: ");
-            setPrice(scanner.nextLine(), scanner);
-            System.out.print("\nВведите номер партии: ");
-            setPartNumber(scanner.nextLine(), scanner);
-            System.out.print("\nВведите стоимость производства продукта: ");
-            setManufactureCost(scanner.nextLine(), scanner);
-            System.out.println("\nВведите единицу измерения. " + UnitOfMeasure.units() + ":");
-            setUnitOfMeasure(scanner.nextLine(), scanner);
-            System.out.print("\nВведите целое число больше -645 - координату X: ");
-            setCoordinateX(scanner.nextLine(), scanner);
-            System.out.print("\nВведите целое число - координату Y: ");
-            setCoordinateY(scanner.nextLine(), scanner);
-            if (currentProduct.getOwner() != null) {
-                System.out.print("\nВведите имя владельца: ");
-                setPersonName(scanner.nextLine(), scanner);
-                System.out.print("\nВведите рост владельца больше 0: ");
-                setHeight(scanner.nextLine(), scanner);
-            }
-            System.out.println("\n\nНовые характеристики продукта №" + currentId + ":");
-            System.out.println(currentProduct.toString() + "\n");
+            int currentId = Integer.parseInt(input.substring(input.lastIndexOf(" ") + 1));
+            finalProduct = collectionManager.getProductById(currentId);
+            finalCoordinates = finalProduct.getCoordinates();
+            finalOwner = finalProduct.getOwner();
+
+            System.out.println("Если не хотите менять параметр - введите \\s");
+
+            createCoordinates(scanner);
+            createPerson(scanner);
+            createProduct(scanner);
+            System.out.println("\nНовые параметры продукта №" + finalProduct.getId());
+
         } catch (NumberFormatException e) {
             System.out.println("Продукта с таким id нет\n");
         } catch (ExecuteException e) {
             System.out.println(e.getMessage());
-        } catch (NoSuchElementException e) {
-            System.out.println("\nПроверьте правильность написания команд в исполняемом файле.");
         }
     }
 }
