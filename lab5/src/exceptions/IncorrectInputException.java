@@ -13,6 +13,25 @@ import model.Product;
  */
 public class IncorrectInputException extends RuntimeException {
     public IncorrectInputException(String conditions) {
-        super("Допустимые значения параметра: " + conditions + "\nПопробуйте еще раз: ");
+        super(format(conditions));
+    }
+
+    private static String format(String cond) {
+        if (cond == null || cond.isBlank()) {
+            return "Некорректный ввод. Попробуйте еще раз: ";
+        }
+
+        // Если запятой нет — это одиночный параметр
+        if (!cond.contains(",")) {
+            return "\nДопустимое значение параметра: " + cond.trim() + ".\nПопробуйте еще раз: ";
+        }
+
+        // Если запятые есть — строим список с переносами
+        String list = java.util.Arrays.stream(cond.split(","))
+                .map(String::trim)
+                .filter(s -> !s.isEmpty())
+                .collect(java.util.stream.Collectors.joining("\n\t", "\n\t", ""));
+
+        return "\nДопустимые значения параметра: " + list + "\nПопробуйте еще раз: ";
     }
 }

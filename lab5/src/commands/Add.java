@@ -148,7 +148,7 @@ public class Add extends Command {
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
-                writeCoordinateX(scanner.nextLine(), scanner);
+                writeCoordinateY(scanner.nextLine(), scanner);
             } else throw new ExecuteException(getClass().getSimpleName());
         }
     }
@@ -235,7 +235,7 @@ public class Add extends Command {
         writeProductName(scanner.nextLine(), scanner);
         announce("Введите цену продукта больше 0", "число больше 0/Null");
         writePrice(scanner.nextLine(), scanner);
-        announce("Введите номер партии", "число больше 0/Null");
+        announce("Введите номер партии", "не пустая строка/Null");
         writePartNumber(scanner.nextLine(), scanner);
         announce("Введите стоимость производства продукта", "число");
         writeManufactureCost(scanner.nextLine(), scanner);

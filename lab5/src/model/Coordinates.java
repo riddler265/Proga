@@ -31,7 +31,7 @@ public class Coordinates implements Validate {
             this.x = parse(input).intValue();
             if (x < -645) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            throw new IncorrectInputException("\n\tцелое число > -645");
+            throw new IncorrectInputException("целое число > -645");
         }
         return this;
     }
@@ -40,7 +40,7 @@ public class Coordinates implements Validate {
         try {
             this.y = parse(input).intValue();
         } catch (NumberFormatException e) {
-            throw new IncorrectInputException("\n\tцелое число");
+            throw new IncorrectInputException("целое число");
         }
         return this;
     }//endregion
