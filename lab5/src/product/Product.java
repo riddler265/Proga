@@ -3,6 +3,7 @@ package product;
 import coordinates.Coordinates;
 import enums.UnitOfMeasure;
 import exceptions.IncorrectInputException;
+import interfaces.Validate;
 import person.Person;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -10,7 +11,7 @@ import java.util.Objects;
 /**
  * Класс, элементами которого управляет коллекция.
  */
-public class Product implements Comparable<Product>{
+public class Product implements Comparable<Product>, Validate {
 
     /**
      * Поля класса.
@@ -26,115 +27,78 @@ public class Product implements Comparable<Product>{
     private UnitOfMeasure unitOfMeasure; //Поле не может быть null
     private Person owner; //Поле может быть null
 
-    /**
-     * Конструктор.
-     * <p>
-     * @param name имя. Не null и не "".
-     * @param coordinates объект класса {@link Coordinates}. Не null.
-     * @param price объект класса Float. Null либо значение > 0.0.
-     * @param partNumber номер партии. Не пустая строка.
-     * @param manufactureCost стоимость производства.
-     * @param unitOfMeasure единицы измерения. Не null.
-     * @param owner объект класса {@link Person}.
-     * @throws IncorrectInputException если формат ввода не соответствует.
-     */
-    public Product(String name, Coordinates coordinates, Float price, String partNumber,
-                   float manufactureCost, UnitOfMeasure unitOfMeasure, Person owner)
-            throws IncorrectInputException {
-
-        if (name == null || name.isEmpty()) throw new IncorrectInputException("name");
-        else this.name = name;
-
-        if (coordinates == null) throw new IncorrectInputException("coordinates");
-        else this.coordinates = coordinates;
-
-        if (price != null && price <= 0) throw new IncorrectInputException("price");
-        else this.price = price;
-
-        if (partNumber != null && partNumber.isEmpty()) throw new IncorrectInputException("part number");
-        else this.partNumber = partNumber;
-
-        this.manufactureCost = manufactureCost;
-
-        if (unitOfMeasure == null) throw new IncorrectInputException("unit of measure");
-        else this.unitOfMeasure = unitOfMeasure;
-
-        this.owner = owner;
-    }
-
-    //getters
-    public int getId() {
+    //region getters
+    public int getId () {
         return id;
     }
 
-    public String getName() {
+    public String getName () {
         return name;
     }
 
-    public Coordinates getCoordinates() {
+    public Coordinates getCoordinates () {
         return coordinates;
     }
 
-    public float getManufactureCost() {
+    public float getManufactureCost () {
         return manufactureCost;
     }
 
-    public Float getPrice() {
+    public Float getPrice () {
         return price;
     }
 
-    public LocalDateTime getCreationDate() {
+    public LocalDateTime getCreationDate () {
         return creationDate;
     }
 
-    public UnitOfMeasure getUnitOfMeasure() {
+    public UnitOfMeasure getUnitOfMeasure () {
         return unitOfMeasure;
     }
 
-    public Person getOwner() {
+    public Person getOwner () {
         return owner;
     }
 
-    public String getPartNumber() {
+    public String getPartNumber () {
         return partNumber;
+    }//endregion
+
+    //region setters
+    public void setName(String name) throws IncorrectInputException {
+        if (name == null || name.isEmpty()) throw new IncorrectInputException("name");
+        else this.name = name;
     }
 
-    //setters
-    public Product setName(String name) {
-        this.name = name;
-        return this;
-    }
-
-    public Product setCoordinates(Integer x, Integer y) {
+    public void setCoordinates(Integer x, Integer y) {
         this.coordinates.setX(x).setY(y);
-        return this;
     }
 
-    public Product setPrice(Float price) {
-        this.price = price;
-        return this;
+    public void setPrice(Float price) throws IncorrectInputException {
+        if (price != null && price <= 0) throw new IncorrectInputException("price");
+        else this.price = price;
     }
 
-    public Product setPartNumber(String partNumber) {
-        this.partNumber = partNumber;
-        return this;
+    public void setPartNumber(String partNumber) throws IncorrectInputException {
+        if (partNumber != null && partNumber.isEmpty()) throw new IncorrectInputException("part number");
+        else this.partNumber = partNumber;
     }
 
-    public Product setManufactureCost(float manufactureCost) {
+    public void setManufactureCost(float manufactureCost) {
         this.manufactureCost = manufactureCost;
-        return this;
     }
 
-    public Product setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
-        this.unitOfMeasure = unitOfMeasure;
-        return this;
+    public void setUnitOfMeasure(UnitOfMeasure unitOfMeasure) throws IncorrectInputException {
+        if (unitOfMeasure == null) throw new IncorrectInputException("Unit of measure");
+        else this.unitOfMeasure = unitOfMeasure;
     }
 
-    public Product setOwner(Person owner) {
+    public void setOwner(Person owner) throws IncorrectInputException {
+        if (owner == null) throw new IncorrectInputException("owner");
         this.owner = owner;
-        return this;
-    }
+    }//endregion
 
+    //region id
     /**
      * Узнать свободное id.
      * @return целочисленное, еще не занятое никаким объектом id/
@@ -150,7 +114,7 @@ public class Product implements Comparable<Product>{
         if(maxFFile >= currentId) {
             currentId = maxFFile + 1;
         }
-    }
+    }//endregion
     
     @Override
     public int compareTo(Product o) {
@@ -159,7 +123,19 @@ public class Product implements Comparable<Product>{
         return NameI.compareTo(NameII);
     }
 
-    //equals(), hachCode(), toString()
+    @Override
+    public boolean validate() {
+        if (id <= 0) return false;
+        if (name == null || name.trim().isEmpty()) return false;
+        if (coordinates == null) return false;
+        if (creationDate == null) return false;
+        if (price != null && price <= 0) return false;
+        if (partNumber != null && partNumber.trim().isEmpty()) return false;
+        if (unitOfMeasure == null) return false;
+        return true;
+    }
+
+    //region equals(), hachCode(), toString()
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -187,5 +163,5 @@ public class Product implements Comparable<Product>{
         if (owner != null) info += ". Owner - " +  owner.getName() + ".";
         else info += ".";
         return info;
-    }
+    }//endregion
 }

@@ -2,7 +2,7 @@ package person;
 
 import enums.Color;
 import exceptions.IncorrectInputException;
-import product.Product;
+import interfaces.Validate;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * Класс человека.
  */
-public class Person {
+public class Person implements Validate {
 
     //fields
     private String name; //Поле не может быть null, Строка не может быть пустой
@@ -20,7 +20,7 @@ public class Person {
     private String passportID; //Поле может быть null
     private Color hairColor; //Поле может быть null
 
-    //getters
+    //region getters
     public String getName() {
         return name;
     }
@@ -39,8 +39,9 @@ public class Person {
 
     public Color getHairColor() {
         return hairColor;
-    }
-    //setters
+    }//endregion
+
+    //region setters
     public Person setName(String name) throws IncorrectInputException {
         if (name == null || name.isEmpty()) throw new IncorrectInputException("name");
         else this.name = name;
@@ -67,9 +68,17 @@ public class Person {
     public Person setHairColor(Color hairColor) {
         this.hairColor = hairColor;
         return this;
+    }//endregion
+
+    @Override
+    public boolean validate() {
+        if (this.name == null || this.name.trim().isEmpty()) return false;
+        if (this.height <= 0) return false;
+        if (this.passportID != null && this.passportID.trim().isEmpty()) return false;
+        return true;
     }
 
-    //equals(), hachCode(), toString()
+    //region equals(), hachCode(), toString()
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -90,5 +99,5 @@ public class Person {
                 "\nHeight: " + height +
                 "\nPassport id: " + passportID +
                 "\nHair color: " + hairColor;
-    }
+    }//endregion
 }

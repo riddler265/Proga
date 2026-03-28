@@ -1,6 +1,7 @@
 package coordinates;
 
 import exceptions.IncorrectInputException;
+import interfaces.Validate;
 import product.Product;
 
 import java.util.Objects;
@@ -8,7 +9,7 @@ import java.util.Objects;
 /**
  * Класс координат.
  */
-public class Coordinates {
+public class Coordinates implements Validate {
     //fields
     private Integer x; //Значение поля должно быть больше -645, Поле не может быть null
     private Integer y; //Поле не может быть null
@@ -38,14 +39,23 @@ public class Coordinates {
     }
 
     //setters
-    public Coordinates setX(Integer x) {
-        this.x = x;
+    public Coordinates setX(Integer x) throws IncorrectInputException {
+        if (x == null || x < -645) throw new IncorrectInputException("coordinate x");
+        else this.x = x;
         return this;
     }
 
-    public Coordinates setY(Integer y) {
-        this.y = y;
+    public Coordinates setY(Integer y) throws IncorrectInputException {
+        if (y == null) throw new IncorrectInputException("coordinate y");
+        else this.y = y;
         return this;
+    }
+
+    @Override
+    public boolean validate() {
+        if (x == null || x < -645) return false;
+        if (y == null) return false;
+        return true;
     }
 
     //equals(), hachCode(), toString()
