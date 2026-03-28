@@ -5,6 +5,7 @@ import exceptions.IncorrectInputException;
 import product.Product;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -19,42 +20,52 @@ public class Person {
     private String passportID; //Поле может быть null
     private Color hairColor; //Поле может быть null
 
-    /**
-     * Конструктор.
-     * <p>
-     * @param name Поле не может быть null, Строка не может быть пустой.
-     * @param height Поле может быть null.
-     * @param passportID Значение поля должно быть больше 0.
-     * @param hairColor Поле может быть null.
-     */
-    public Person(String name, float height, String passportID, Color hairColor)  {
-        this.name = name;
-
-        this.birthday = LocalDateTime.now();
-
-        this.height = height;
-
-        this.passportID = passportID;
-        this.hairColor = hairColor;
-    }
-
     //getters
     public String getName() {
         return name;
+    }
+
+    public LocalDateTime getBirthday() {
+        return birthday;
     }
 
     public float getHeight() {
         return height;
     }
 
+    public String getPassportID() {
+        return passportID;
+    }
+
+    public Color getHairColor() {
+        return hairColor;
+    }
     //setters
-    public Person setName(String name) {
-        this.name = name;
+    public Person setName(String name) throws IncorrectInputException {
+        if (name == null || name.isEmpty()) throw new IncorrectInputException("name");
+        else this.name = name;
         return this;
     }
 
-    public Person setHeight(float height) {
-        this.height = height;
+    public Person setBirthday(LocalDateTime birthday) {
+        this.birthday = birthday;
+        return this;
+    }
+
+    public Person setHeight(float height) throws IncorrectInputException {
+        if (height <= 0.0) throw new IncorrectInputException("height");
+        else this.height = height;
+        return this;
+    }
+
+    public Person setPassportID(String passportID) throws IncorrectInputException {
+        if (passportID == null) throw new IncorrectInputException("passport id");
+        else this.passportID = passportID;
+        return this;
+    }
+
+    public Person setHairColor(Color hairColor) {
+        this.hairColor = hairColor;
         return this;
     }
 
@@ -74,10 +85,10 @@ public class Person {
 
     @Override
     public String toString() {
-        String info = "";
-        info += name;
-        info += ". Birthday is " + birthday;
-        info += ". Height: " + height;
-        return info;
+        return name +
+                "\nBirthday: " + birthday.format(DateTimeFormatter.ISO_LOCAL_DATE) +
+                "\nHeight: " + height +
+                "\nPassport id: " + passportID +
+                "\nHair color: " + hairColor;
     }
 }
