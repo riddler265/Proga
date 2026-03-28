@@ -1,4 +1,4 @@
-package history;
+package stack;
 
 import java.util.Arrays;
 
@@ -23,9 +23,9 @@ public class History {
      * @param command - команда
      */
     public void add(String command) {
-        for (int i = 0; i < 7; i++) {
+        for (int i = 0; i < history.length - 1; i++) {
             history[i] = history[i + 1];
         }
-        history[7] = command;
+        history[history.length - 1] = command;
     }
 }
