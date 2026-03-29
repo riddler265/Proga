@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
@@ -21,6 +22,9 @@ public class Person implements Validate {
     private float height; //Значение поля должно быть больше 0
     private String passportID; //Поле может быть null
     private Color hairColor; //Поле может быть null
+
+    //formater
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     //region getters
     public String getName() {
@@ -45,12 +49,19 @@ public class Person implements Validate {
 
     //region setters
     public void setName(String name) throws IncorrectInputException {
-        if (name == null || name.isEmpty()) throw new IncorrectInputException("\n\tне пустая строка");
+        if (name == null || name.isEmpty()) throw new IncorrectInputException("не пустая строка");
         else this.name = name;
     }
 
     public void setBirthday(String birthday) throws IncorrectInputException {
-        this.birthday = null;
+        if (birthday.equals("Null") || birthday.equals("Nl")) this.birthday = null;
+        else {
+            try {
+                this.birthday = LocalDateTime.parse(birthday, formatter);
+            } catch (DateTimeParseException e) {
+                throw new IncorrectInputException("dd-MM-yyyy HH:mm:ss");
+            }
+        }
     }
 
     public void setHeight(String height) throws IncorrectInputException {
@@ -58,18 +69,18 @@ public class Person implements Validate {
             this.height = parse(height).floatValue();
             if (this.height <= 0.0) throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            throw new IncorrectInputException("\n\tчисло больше 0");
+            throw new IncorrectInputException("число больше 0");
         }
     }
 
     public void setPassportID(String passportID) {
         if (passportID.equals("Null") || passportID.equals("Nl")) this.passportID = null;
-        this.passportID = passportID;
+        else this.passportID = passportID;
     }
 
     public void setHairColor(String hairColor) throws IncorrectInputException {
         if (hairColor.equals("Null") || hairColor.equals("Nl")) this.hairColor = null;
-        this.hairColor = Color.getcolor(hairColor);
+        else this.hairColor = Color.getcolor(hairColor);
     }//endregion
 
     private BigDecimal parse(String input) throws NumberFormatException {

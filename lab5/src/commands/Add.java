@@ -4,6 +4,7 @@ import managers.CollectionManager;
 import managers.CommandManager;
 import model.Coordinates;
 import model.enums.Color;
+import model.enums.Strategy;
 import model.enums.UnitOfMeasure;
 import exceptions.ExecuteException;
 import exceptions.IncorrectInputException;
@@ -54,9 +55,9 @@ public class Add extends Command {
 
     //region helpers
     //conditions
-    protected boolean needOwner(String input, Scanner scanner) throws ExecuteException {
-        if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) return true;
-        else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) return false;
+    protected Strategy needOwner(String input, Scanner scanner) throws ExecuteException {
+        if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) return Strategy.Y;
+        else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) return Strategy.N;
         else if (isSystemReader) {
             System.out.print("Введите yes/no: ");
             return needOwner(scanner.nextLine(), scanner);
@@ -206,19 +207,23 @@ public class Add extends Command {
     protected void createPerson(Scanner scanner) throws ExecuteException {
 
         announce("Будет ли у продукта владелец?", "yes/no");
-        if (needOwner(scanner.nextLine(), scanner)) {
-            announce("Введите имя владельца","");
-            writePersonName(scanner.nextLine(), scanner);
-            announce("Введите дату рождения владельца", "");
-            writeBirthday(scanner.nextLine(), scanner);
-            announce("Введите рост владельца", "больше 0");
-            writeHeight(scanner.nextLine(), scanner);
-            announce("Введите данные паспорта", "строка/Null");
-            writePassportID(scanner.nextLine(), scanner);
-            announce("Введите цвет волос владельца", Color.getColorsInfo());
-            System.out.println();
-            writeHairColor(scanner.nextLine(), scanner);
-        } else finalOwner = null;
+        switch (needOwner(scanner.nextLine(), scanner)) {
+            case Y:
+                announce("Введите имя владельца","");
+                writePersonName(scanner.nextLine(), scanner);
+                announce("Введите дату рождения владельца", "dd-MM-yyyy HH:mm:ss");
+                writeBirthday(scanner.nextLine(), scanner);
+                announce("Введите рост владельца", "больше 0, 5 знаков после запятой");
+                writeHeight(scanner.nextLine(), scanner);
+                announce("Введите данные паспорта", "строка/Null");
+                writePassportID(scanner.nextLine(), scanner);
+                announce("Введите цвет волос владельца", Color.getColorsInfo());
+                System.out.println();
+                writeHairColor(scanner.nextLine(), scanner);
+                break;
+            case N, S:
+                finalOwner = null;
+        }
     }
 
     protected void createCoordinates(Scanner scanner) throws ExecuteException {

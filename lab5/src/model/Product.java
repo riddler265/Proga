@@ -76,14 +76,14 @@ public class Product implements Comparable<Product>, Validate {
                 this.price = parse(price).floatValue();
                 if (this.price <= 0.0) throw new NumberFormatException();
             } catch (NumberFormatException e) {
-                throw new IncorrectInputException("\n\tNull,\n\tчисло больше 0");
+                throw new IncorrectInputException("Null, число больше 0");
             }
         }
     }
 
     public void setPartNumber(String partNumber) throws IncorrectInputException {
         if (partNumber.equals("Null") || partNumber.equals("Nl")) this.partNumber = null;
-        if (partNumber.isEmpty()) throw new IncorrectInputException("\n\tне пустая строка,\n\tNull");
+        if (partNumber.isEmpty()) throw new IncorrectInputException("не пустая строка, Null");
         else this.partNumber = partNumber;
     }
 
@@ -91,7 +91,7 @@ public class Product implements Comparable<Product>, Validate {
         try {
             this.manufactureCost = parse(manufactureCost).floatValue();
         } catch (NumberFormatException e) {
-            throw new IncorrectInputException("\n\tчисло");
+            throw new IncorrectInputException("число");
         }
     }
 
@@ -111,7 +111,7 @@ public class Product implements Comparable<Product>, Validate {
 
     private BigDecimal parse(String input) throws NumberFormatException {
         BigDecimal bd = new BigDecimal(input.replace(',', '.'));
-        bd = bd.setScale(5, RoundingMode.HALF_UP);
+        bd = bd.setScale(5, RoundingMode.HALF_EVEN);
         return bd;
     }
 

@@ -4,10 +4,12 @@ import exceptions.IncorrectInputException;
 import managers.CollectionManager;
 import managers.CommandManager;
 import model.enums.Color;
+import model.enums.Strategy;
 import model.enums.UnitOfMeasure;
 import exceptions.ExecuteException;
 import model.Product;
 
+import java.awt.*;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -23,9 +25,21 @@ public class UpdateId extends Add {
 
     //region helpers
     //skip
-    public boolean skip(String input) {
+    protected boolean skip(String input) {
         return input.trim().equalsIgnoreCase("\\s") || input.trim().equalsIgnoreCase("/s");
-    }//endregion
+    }
+
+    @Override
+    protected Strategy needOwner(String input, Scanner scanner) throws ExecuteException {
+        if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) return Strategy.Y;
+        else if (input.equalsIgnoreCase("Null") || input.equalsIgnoreCase("N")) return Strategy.N;
+        else if (skip(input)) return Strategy.S;
+        else if (isSystemReader) {
+            System.out.print("Введите yes/no: ");
+            return needOwner(scanner.nextLine(), scanner);
+        } else throw new ExecuteException(getClass().getSimpleName());
+    }
+    //endregion
 
     //region writing
     //product
@@ -115,6 +129,28 @@ public class UpdateId extends Add {
     }//endregion
 
     @Override
+    protected void createPerson(Scanner scanner) throws ExecuteException {
+        announce("Что с владельцем?", "yes/no");
+        switch (needOwner(scanner.nextLine(), scanner)) {
+            case Y:
+                announce("Введите имя владельца","");
+                writePersonName(scanner.nextLine(), scanner);
+                announce("Введите дату рождения владельца", "dd-MM-yyyy HH:mm:ss");
+                writeBirthday(scanner.nextLine(), scanner);
+                announce("Введите рост владельца", "больше 0, 5 знаков после запятой");
+                writeHeight(scanner.nextLine(), scanner);
+                announce("Введите данные паспорта", "строка/Null");
+                writePassportID(scanner.nextLine(), scanner);
+                announce("Введите цвет волос владельца", Color.getColorsInfo());
+                System.out.println();
+                writeHairColor(scanner.nextLine(), scanner);
+                break;
+            case N, S:
+                finalOwner = null;
+        }
+    }
+
+    @Override
     public void execute(String input, Scanner scanner) {
 
         isSystemReader = commandManager.isSystemReader();
@@ -129,11 +165,9 @@ public class UpdateId extends Add {
             System.out.println("Если не хотите менять параметр - введите \\s");
 
             createCoordinates(scanner);
-            if (finalOwner != null) {
-                createPerson(scanner);
-            }
+            createPerson(scanner);
             createProduct(scanner);
-            System.out.println("\nНовые параметры продукта №" + finalProduct.getId());
+            System.out.println("\nНовые параметры продукта №" + finalProduct.getId() + "\n" + finalProduct.toString());
 
         } catch (NumberFormatException e) {
             System.out.println("Продукта с таким id нет\n");
