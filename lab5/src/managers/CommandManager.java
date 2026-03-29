@@ -1,6 +1,7 @@
 package managers;
 
 import commands.*;
+import exceptions.RecursionException;
 import managers.json.JsonManager;
 
 import java.util.Map;
@@ -77,7 +78,7 @@ public class CommandManager {
      * @param input входящие данные.
      * @param scanner откуда данные берутся.
      */
-    public void execute(String input, Scanner scanner) {
+    public void execute(String input, Scanner scanner) throws RecursionException {
 
         //clear
         String command = input.replaceAll("\\s+\\S+$", "");
