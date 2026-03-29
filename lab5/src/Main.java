@@ -1,7 +1,9 @@
+import exceptions.RecursionException;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.json.JsonManager;
 
+import java.io.File;
 import java.util.*;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
@@ -15,16 +17,10 @@ public class Main {
 
         System.out.println();
 
-        /**
-         * Создание {@link CollectionManager}.
-         */
         CollectionManager collectionManager = new CollectionManager();
 
-        /**
-         * Работа с json-файлом.
-         */
-        String path = System.getenv("PRODUCTS");
-        if (path == null || path.isEmpty()) {
+        File path = new File(System.getenv("PRODUCTS"));
+        if (!path.exists() && path.isDirectory()) {
             System.out.println("Переменная окружения не установлена!");
             System.exit(1);
         }
@@ -32,20 +28,17 @@ public class Main {
         JsonManager jsonManager = new JsonManager(path, collectionManager);
         jsonManager.load();
 
-        /**
-         * <p>
-         *     Создание {@link CommandManager} и {@link Scanner},
-         *     который будет читать ввод в консоли.
-         * </p>
-         */
         Scanner scanner = new Scanner(System.in);
         CommandManager commandManager = new CommandManager(collectionManager, jsonManager);
 
-        /**
-         * Запуск программы.
-         */
         while (true) {
-            commandManager.execute(scanner.nextLine().trim(), scanner);
+            try {
+                commandManager.execute(scanner.nextLine().trim(), scanner);
+            } catch (RecursionException e) {
+                System.out.println(e.getMessage());
+            } finally {
+                commandManager.setIsSystemReader(true);
+            }
         }
     }
 }
