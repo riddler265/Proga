@@ -8,9 +8,7 @@ import model.Product;
 
 import java.io.*;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Класс, отвечающий за чтение/запись в Json файл.
@@ -18,12 +16,12 @@ import java.util.Scanner;
 public class JsonManager {
 
     //fields
-    private final String filePath;
+    private final File path;
     private final CollectionManager collection;
     private final Gson gson;
 
-    public JsonManager(String filePath, CollectionManager collection) {
-        this.filePath = filePath;
+    public JsonManager(File path, CollectionManager collection) {
+        this.path = path;
         this.collection = collection;
         // Настраиваем GSON: подключаем адаптер для даты и делаем JSON читаемым
         this.gson = new GsonBuilder()
@@ -37,15 +35,7 @@ public class JsonManager {
      * @return {@link List} {@link Product}.
      */
     private List<Product> loadProducts() {
-        File file = new File(filePath);
-
-        if (!file.exists()) {
-            System.out.println("Файла не существует!");
-            System.exit(1);
-        }
-
-        // Используем try-with-resources для Scanner
-        try (Scanner fileScanner = new Scanner(file)) {
+        try (Scanner fileScanner = new Scanner(path)) {
 
             // 1. Читаем всё содержимое файла в одну строку
             StringBuilder jsonContent = new StringBuilder();
@@ -72,10 +62,15 @@ public class JsonManager {
                 Product.updateCurrentId(maxId);
             }
 
+            if(products.removeIf(product -> !product.validate())) {
+                System.out.println("В файле поля объектов нарушают ограничения. Они будут удалены.");
+                save(products);
+            }
+
             return products;
 
         } catch (FileNotFoundException e) {
-            System.err.println("Файл не найден: " + e.getMessage());
+            System.err.println("Ошибка загрузки данных: " + e.getMessage());
             return new ArrayList<>();
         } catch (Exception e) {
             System.err.println("Ошибка при чтении или парсинге: " + e.getMessage());
@@ -92,33 +87,30 @@ public class JsonManager {
         }
     }
 
+    private void writeToPath(File targetPath, Collection<Product> collection) throws IOException {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(targetPath))) {
+            String jsonString = gson.toJson(collection);
+            writer.write(jsonString);
+        }
+    }
     /**
      * Сохранение продуктов из коллекции в файл.
      */
-    public void save() {
-        Gson gson = new GsonBuilder()
-                .setPrettyPrinting()
-                .registerTypeAdapter(LocalDateTime.class, new JSONTime())
-                .create();
-
-        // 2. Используем PrintWriter для записи в файл
-        // try-with-resources сам закроет файл после записи
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(this.filePath))) {
-
-            // 3. Сериализуем коллекцию в строку
-            String jsonString = gson.toJson(collection.getCollection());
-
-            // 4. Записываем строку в буфер
-            writer.write(jsonString);
-
-            // ВАЖНО: При использовании BufferedWriter данные могут "застрять" в буфере.
-            // Метод close() (который вызовется сам благодаря try-with-resources)
-            // автоматически вызовет flush() и все допишет.
-
-            System.out.println("Данные успешно сохранены в файл через BufferedWriter.\n");
-
+    public void save(Collection<Product> collection) {
+        try {
+            // Пытаемся сохранить по основному пути
+            writeToPath(this.path, collection);
         } catch (IOException e) {
-            System.err.println("Ошибка при записи в файл: " + e.getMessage());
+            System.err.println("Ошибка записи в основной файл. Попытка сохранить в резервный...");
+
+            // Создаем резервный файл (например, backup_data.json)
+            File backupPath = new File("backup_" + path.getName());
+            try {
+                writeToPath(backupPath, collection);
+                System.out.println("Коллекция успешно сохранена в: " + backupPath.getAbsolutePath());
+            } catch (IOException ex) {
+                System.err.println("Критическая ошибка: не удалось сохранить даже в резервный файл.");
+            }
         }
     }
 
