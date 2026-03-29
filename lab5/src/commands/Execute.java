@@ -1,10 +1,12 @@
 package commands;
 
+import exceptions.RecursionException;
 import managers.CollectionManager;
 import managers.CommandManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 /**
@@ -17,14 +19,14 @@ import java.util.Scanner;
  */
 public class Execute extends Command{
 
-    //fields
-    private File path;
     private final CommandManager commandManager;
+    private final stack.Stack stack;
 
     //constructor
     public Execute(CollectionManager collectionManager, CommandManager commandManager) {
         super(collectionManager);
         this.commandManager = commandManager;
+        this.stack = commandManager.getStack();
     }
 
     /**
@@ -39,16 +41,22 @@ public class Execute extends Command{
      */
     @Override
     public void execute(String input, Scanner currentScanner) {
-        path = new File("scripts", input.substring(input.lastIndexOf(" ") + 1));
+        //fields
+        File path = new File("scripts", input.substring(input.lastIndexOf(" ") + 1));
         try (Scanner scanner = new Scanner(path)) {
             commandManager.setIsSystemReader(false);
+            stack.add(path);
             while (scanner.hasNextLine()) {
                 commandManager.execute(scanner.nextLine(), scanner);
             }
+            System.out.println("Файл " + input.substring(input.lastIndexOf(" ") + 1) + " исполнен.\n");
             commandManager.setIsSystemReader(true);
-            System.out.println("Файл исполнен.\n");
         } catch (FileNotFoundException e) {
             System.out.println("Файл не найден: " + path.getAbsolutePath() + ".\n");
+        } catch (IOException e) {
+            System.out.println("Ошибка.");
+        } catch (RecursionException e) {
+            System.out.println(e.getMessage());
         }
     }
 }

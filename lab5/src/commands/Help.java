@@ -11,22 +11,40 @@ import java.util.Scanner;
  */
 public class Help extends Command{
     //fields
-    private static String commands = "\nhelp - вывести справку по доступным командам." +
-            "\ninfo - вывести информацию о коллекции." +
-            "\nshow - вывести все элементы коллекции." +
-            "\nadd {element} - добавить новый элемент в коллекцию." +
-            "\nupdate id {element} - обновить значение элемента коллекции, id которого равен заданному." +
-            "\nremove_by_id id - удалить элемент из коллекции по его id." +
-            "\nclear - очистить коллекцию." +
-            "\nsave - сохранить коллекцию в файл." +
-            "\nexecute_script file_name - считать и исполнить скрипт из указанного файла." +
-            "\nexit - завершить программу (без сохранения в файл)." +
-            "\nadd_if_min {element} - добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции." +
-            "\nremove_greater {element} - удалить из коллекции все элементы, превышающие заданный." +
-            "\nhistory - вывести последние 8 команд." +
-            "\nremove_all_by_price price - удалить из коллекции все элементы, значение поля price которого эквивалентно заданному." +
-            "\nfilter_less_than_manufacture_cost manufactureCost - вывести элементы, значение поля manufactureCost которых меньше заданного." +
-            "\nfilter_greater_than_manufacture_cost manufactureCost - вывести элементы, значение поля manufactureCost которых больше заданного.\n";
+    private final static String commands = """
+            
+            help - вывести справку по доступным командам.\
+            
+            info - вывести информацию о коллекции.\
+            
+            show - вывести все элементы коллекции.\
+            
+            add {element} - добавить новый элемент в коллекцию.\
+            
+            update id {element} - обновить значение элемента коллекции, id которого равен заданному.\
+            
+            remove_by_id id - удалить элемент из коллекции по его id.\
+            
+            clear - очистить коллекцию.\
+            
+            save - сохранить коллекцию в файл.\
+            
+            execute_script file_name - считать и исполнить скрипт из указанного файла.\
+            
+            exit - завершить программу (без сохранения в файл).\
+            
+            add_if_min {element} - добавить новый элемент в коллекцию, если его значение меньше, чем у наименьшего элемента этой коллекции.\
+            
+            remove_greater {element} - удалить из коллекции все элементы, превышающие заданный.\
+            
+            history - вывести последние 8 команд.\
+            
+            remove_all_by_price price - удалить из коллекции все элементы, значение поля price которого эквивалентно заданному.\
+            
+            filter_less_than_manufacture_cost manufactureCost - вывести элементы, значение поля manufactureCost которых меньше заданного.\
+            
+            filter_greater_than_manufacture_cost manufactureCost - вывести элементы, значение поля manufactureCost которых больше заданного.
+            """;
 
     //constructor
     public Help(CollectionManager collectionManager) {

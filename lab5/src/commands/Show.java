@@ -19,13 +19,12 @@ public class Show extends Command{
     //execute
     @Override
     public void execute(String input, Scanner scanner) {
-        System.out.println();
-        PriorityQueue<Product> dopleganger = new PriorityQueue<>(collectionManager.getCollection());
-        if (dopleganger.isEmpty()) {
-            System.out.println("Коллекция пуста.");
+        PriorityQueue<Product> doppelganger = new PriorityQueue<>(collectionManager.getCollection());
+        if (doppelganger.isEmpty()) {
+            System.out.println("\nКоллекция пуста.");
         } else {
-            while (!dopleganger.isEmpty()) {
-                System.out.println(dopleganger.poll()); 
+            while (!doppelganger.isEmpty()) {
+                System.out.println("\n" + doppelganger.poll());
             }
         }
         System.out.println();

@@ -4,9 +4,7 @@ import managers.CollectionManager;
 import managers.CommandManager;
 import model.Coordinates;
 import model.Person;
-import model.enums.UnitOfMeasure;
 import exceptions.ExecuteException;
-import exceptions.IncorrectInputException;
 import model.Product;
 
 import java.util.Scanner;

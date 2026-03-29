@@ -20,7 +20,6 @@ public class RemoveById extends Command{
     }
 
     //execute
-
     @Override
     public void execute(String input, Scanner scanner) {
         try {

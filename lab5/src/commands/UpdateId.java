@@ -1,16 +1,12 @@
 package commands;
 
-import exceptions.IncorrectInputException;
 import managers.CollectionManager;
 import managers.CommandManager;
+import model.Person;
 import model.enums.Color;
 import model.enums.Strategy;
-import model.enums.UnitOfMeasure;
 import exceptions.ExecuteException;
-import model.Product;
-
 import java.awt.*;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 /**
@@ -32,7 +28,7 @@ public class UpdateId extends Add {
     @Override
     protected Strategy needOwner(String input, Scanner scanner) throws ExecuteException {
         if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) return Strategy.Y;
-        else if (input.equalsIgnoreCase("Null") || input.equalsIgnoreCase("N")) return Strategy.N;
+        else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) return Strategy.N;
         else if (skip(input)) return Strategy.S;
         else if (isSystemReader) {
             System.out.print("Введите yes/no: ");
@@ -128,11 +124,13 @@ public class UpdateId extends Add {
         }
     }//endregion
 
+    //region creation
     @Override
     protected void createPerson(Scanner scanner) throws ExecuteException {
         announce("Что с владельцем?", "yes/no");
         switch (needOwner(scanner.nextLine(), scanner)) {
             case Y:
+                if (finalOwner == null) finalOwner = new Person();
                 announce("Введите имя владельца","");
                 writePersonName(scanner.nextLine(), scanner);
                 announce("Введите дату рождения владельца", "dd-MM-yyyy HH:mm:ss");
@@ -145,10 +143,13 @@ public class UpdateId extends Add {
                 System.out.println();
                 writeHairColor(scanner.nextLine(), scanner);
                 break;
-            case N, S:
+            case N:
                 finalOwner = null;
+                break;
+            case S:
+                break;
         }
-    }
+    }//endregion
 
     @Override
     public void execute(String input, Scanner scanner) {
@@ -167,7 +168,7 @@ public class UpdateId extends Add {
             createCoordinates(scanner);
             createPerson(scanner);
             createProduct(scanner);
-            System.out.println("\nНовые параметры продукта №" + finalProduct.getId() + "\n" + finalProduct.toString());
+            System.out.println("\nНовые параметры продукта №" + finalProduct.getId() + "\n" + finalProduct.toString() + "\n");
 
         } catch (NumberFormatException e) {
             System.out.println("Продукта с таким id нет\n");

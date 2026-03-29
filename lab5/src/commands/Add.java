@@ -11,7 +11,6 @@ import exceptions.IncorrectInputException;
 import model.Person;
 import model.Product;
 
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 /**
@@ -23,24 +22,6 @@ public class Add extends Command {
     //commandManager
     protected final CommandManager commandManager;
     protected boolean isSystemReader;
-
-    //product
-    protected String productName;
-    protected Float price;
-    protected String partNumber;
-    protected float manufactureCost;
-    protected UnitOfMeasure unitOfMeasure;
-
-    //coordinates
-    protected Integer x;
-    protected Integer y;
-
-    //person
-    protected String personName;
-    protected LocalDateTime birthday;
-    protected float height;
-    protected String passportID;
-    protected Color hairColor;
 
     //finalObjects
     protected Product finalProduct;
@@ -66,12 +47,14 @@ public class Add extends Command {
 
     //announce
     protected void announce(String message, String conditions) {
-        String suffix = java.util.Optional.ofNullable(conditions)
-                .filter(c -> !c.isBlank())
-                .map(c -> " (" + c + ")")
-                .orElse("");
+        if (isSystemReader) {
+            String suffix = java.util.Optional.ofNullable(conditions)
+                    .filter(c -> !c.isBlank())
+                    .map(c -> " (" + c + ")")
+                    .orElse("");
 
-        System.out.print("\n" + message + suffix + ": ");
+            System.out.print("\n" + message + suffix + ": ");
+        }
     }//endregion
 
     //region writing
