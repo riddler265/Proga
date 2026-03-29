@@ -63,7 +63,7 @@ public class CollectionManager {
      */
     public void addToCollection(Product product) {
         collection.add(product);
-        System.out.println("В коллекцию добавлен новый предмет: \n" + product.toString() + "\n");
+        System.out.println("В коллекцию добавлен новый предмет: \n\n" + product.toString() + "\n");
         if (greatestProduct == null) {
             greatestProduct = product;
         }

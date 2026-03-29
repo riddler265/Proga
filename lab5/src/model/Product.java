@@ -168,17 +168,25 @@ public class Product implements Comparable<Product>, Validate {
 
     @Override
     public String toString() {
-        String info = "";
-        info += "Продукт №" + id;
-        info += " - " + name;
-        info += ". " + coordinates;
-        info += ". Creation time is " + creationDate;
-        info += ". Price is " + price;
-        info += ". Part number is " + partNumber;
-        info += ". Manufacture cost is " + manufactureCost;
-        info += ". Unit of measure is " + unitOfMeasure;
-        if (owner != null) info += ". Owner - " +  owner.getName() + ".";
-        else info += ".";
-        return info;
+        if (owner == null) {
+            return "Продукт №" + id +
+                    " - " + name +
+                    ".\nКоординаты: " + coordinates +
+                    ".\nВремя создания: " + creationDate +
+                    ".\nЦена: " + price +
+                    ".\nНомер партии: " + partNumber +
+                    ".\nЦена производства: " + manufactureCost +
+                    ".\nЕдиница измерения: " + unitOfMeasure + ".";
+        } else {
+            return "Продукт №" + id +
+                    " - " + name +
+                    ".\nКоординаты: " + coordinates +
+                    ".\nВремя создания: " + creationDate +
+                    ".\nЦена: " + price +
+                    ".\nНомер партии: " + partNumber +
+                    ".\nЦена производства: " + manufactureCost +
+                    ".\nЕдиница измерения: " + unitOfMeasure +
+                    ".\nВладелец: " + owner.getName() + ".";
+        }
     }//endregion
 }
