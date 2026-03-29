@@ -25,6 +25,5 @@ public class Save extends Command{
     @Override
     public void execute(String input, Scanner scanner) {
             jsonManager.save(collectionManager.getCollection());
-            System.out.println("Коллекция успешно сохранена в файл.\n");
     }
 }
