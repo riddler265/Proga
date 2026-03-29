@@ -40,7 +40,7 @@ public class Execute extends Command{
      * </p>
      */
     @Override
-    public void execute(String input, Scanner currentScanner) {
+    public void execute(String input, Scanner currentScanner) throws RecursionException {
         //fields
         File path = new File("scripts", input.substring(input.lastIndexOf(" ") + 1));
         try (Scanner scanner = new Scanner(path)) {
@@ -55,8 +55,8 @@ public class Execute extends Command{
             System.out.println("Файл не найден: " + path.getAbsolutePath() + ".\n");
         } catch (IOException e) {
             System.out.println("Ошибка.");
-        } catch (RecursionException e) {
-            System.out.println(e.getMessage());
+        } finally {
+            stack.remove(path);
         }
     }
 }
