@@ -14,8 +14,12 @@ public class Stack {
         if (!(stack.add(file.getCanonicalFile()))) throw new RecursionException(file);
     }
 
-    public boolean remove(File file) {
-        return stack.remove(file);
+    public void remove(File file) {
+        stack.remove(file);
+    }
+
+    public boolean isEmpty() {
+        return stack.isEmpty();
     }
 
     public void clear() {
