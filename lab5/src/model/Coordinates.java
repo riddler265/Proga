@@ -74,6 +74,6 @@ public class Coordinates implements Validate {
 
     @Override
     public String toString() {
-        return "X: " + x.toString() + ", Y:" + y.toString();
+        return "X: " + x.toString() + ", Y: " + y.toString();
     }//endregion
 }
