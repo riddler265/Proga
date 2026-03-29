@@ -5,7 +5,7 @@
 Copyright jQuery Foundation and other contributors, https://jquery.org/
 
 This software consists of voluntary contributions made by many
-individuals. For exact contribution history, see the revision history
+individuals. For exact contribution stack, see the revision stack
 available at https://github.com/jquery/jquery-ui
 
 The following license applies to all parts of this software except as

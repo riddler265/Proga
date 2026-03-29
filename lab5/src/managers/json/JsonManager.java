@@ -70,10 +70,10 @@ public class JsonManager {
             return products;
 
         } catch (FileNotFoundException e) {
-            System.err.println("Ошибка загрузки данных: " + e.getMessage());
+            System.err.println("Ошибка загрузки данных: " + e.getMessage() + "\n");
             return new ArrayList<>();
         } catch (Exception e) {
-            System.err.println("Ошибка при чтении или парсинге: " + e.getMessage());
+            System.err.println("Ошибка при чтении или парсинге: " + e.getMessage() + "\n");
             return new ArrayList<>();
         }
     }

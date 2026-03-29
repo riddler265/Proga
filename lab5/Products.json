@@ -1,31 +1,44 @@
 [
   {
-    "id": 4,
-    "name": "Покойо",
+    "id": 5,
+    "name": "123",
     "coordinates": {
       "x": 1,
-      "y": 2
+      "y": 1
     },
-    "creationDate": "2026-03-19T20:35:24.1980626",
-    "price": 1.0,
+    "creationDate": "2026-03-29T15:54:00.6738388",
+    "price": 3.0,
     "partNumber": "2",
-    "manufactureCost": 3.0,
+    "manufactureCost": 1.0,
     "unitOfMeasure": "METERS"
   },
   {
-    "id": 3,
-    "name": "Вилы",
+    "id": 6,
+    "name": "123",
+    "coordinates": {
+      "x": 123,
+      "y": 123
+    },
+    "creationDate": "2026-03-29T16:49:08.7283329",
+    "price": 123.0,
+    "partNumber": "123",
+    "manufactureCost": 123.0,
+    "unitOfMeasure": "METERS"
+  },
+  {
+    "id": 1,
+    "name": "Световой меч",
     "coordinates": {
       "x": 10,
       "y": 20
     },
     "creationDate": "2026-03-15T12:00:00",
-    "price": 999.0,
+    "price": 999.99,
     "partNumber": "SN-789-ABC",
     "manufactureCost": 450.5,
     "unitOfMeasure": "METERS",
     "owner": {
-      "name": "Kakish",
+      "name": "Anakin",
       "birthday": "2000-01-01T12:00:00",
       "height": 188.0,
       "hairColor": "BLACK"
@@ -51,19 +64,19 @@
     }
   },
   {
-    "id": 1,
-    "name": "Световой меч",
+    "id": 3,
+    "name": "Вилы",
     "coordinates": {
       "x": 10,
       "y": 20
     },
     "creationDate": "2026-03-15T12:00:00",
-    "price": 999.99,
+    "price": 999.0,
     "partNumber": "SN-789-ABC",
     "manufactureCost": 450.5,
     "unitOfMeasure": "METERS",
     "owner": {
-      "name": "Anakin",
+      "name": "Kakish",
       "birthday": "2000-01-01T12:00:00",
       "height": 188.0,
       "hairColor": "BLACK"

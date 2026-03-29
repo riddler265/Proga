@@ -101,9 +101,9 @@ package enums {
     }
 }
 
-package history {
+package stack {
     class History {
-        -history: String[8]
+        -stack: String[8]
         +getHistory(): String[]
         +add(command: String): void
     }
@@ -155,7 +155,7 @@ collectionManager.CollectionManager o-- "*" product.Product
 package commandManager {
     class CommandManager {
         -commands: Map<String, Command>
-        -history: History
+        -stack: History
         -isSystemReader: boolean
         +CommandManager(collection: CollectionManager, jsonManager: JsonManager)
         +setIsSystemReader(condition: boolean): void
@@ -164,7 +164,7 @@ package commandManager {
     }
 }
 
-commandManager.CommandManager o-- "1" history.History
+commandManager.CommandManager o-- "1" stack.History
 commandManager.CommandManager ..> jsonmanager.JsonManager : <<use>>
 commandManager.CommandManager ..> collectionManager.CollectionManager : <<use>>
 
@@ -305,14 +305,14 @@ commands.Help -up-|> commands.Command
 
 package commands {
     class History {
-        - history: history.History
-        + History(collection: CollectionManager, history: history.History)
+        - stack: stack.History
+        + History(collection: CollectionManager, stack: stack.History)
         + execute(input: String, scanner: Scanner): void
     }
 }
 
 commands.History -up-|> commands.Command
-commands.History o-- "1" history.History
+commands.History o-- "1" stack.History
 
 package commands {
     class Info {

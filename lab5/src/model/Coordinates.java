@@ -29,7 +29,7 @@ public class Coordinates implements Validate {
     public Coordinates setX(String input) throws IncorrectInputException {
         try {
             this.x = parse(input).intValue();
-            if (x < -645) throw new NumberFormatException();
+            if (x <= -645) throw new NumberFormatException();
         } catch (NumberFormatException e) {
             throw new IncorrectInputException("целое число > -645");
         }

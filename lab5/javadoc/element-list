@@ -5,7 +5,7 @@ commands
 coordinates
 enums
 exceptions
-history
+stack
 jsonmanager
 person
 product
