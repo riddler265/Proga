@@ -1,6 +1,7 @@
 package model.enums;
 
 import exceptions.IncorrectInputException;
+import util.NumbParser;
 
 /**
  * Перечисление единиц измерения.
@@ -30,11 +31,11 @@ public enum UnitOfMeasure {
         String trimmedInput = input.trim();
 
         try {
-            int id = (int) Double.parseDouble(trimmedInput.replace(',', '.'));
+            int id = NumbParser.parseInt(input);
             for (UnitOfMeasure unit : values()) {
                 if (unit.id == id) return unit;
             }
-        } catch (NumberFormatException e) {}
+        } catch (NumberFormatException | ArithmeticException ignored) {}
 
         for (UnitOfMeasure unit : values()) {
             if (unit.name().equalsIgnoreCase(trimmedInput)) {

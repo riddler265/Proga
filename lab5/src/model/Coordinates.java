@@ -2,10 +2,8 @@ package model;
 
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Objects;
+import util.NumbParser;
 
 /**
  * Класс координат.
@@ -28,9 +26,9 @@ public class Coordinates implements Validate {
     //region setters
     public Coordinates setX(String input) throws IncorrectInputException {
         try {
-            this.x = parse(input).intValue();
-            if (x <= -645) throw new NumberFormatException();
-        } catch (NumberFormatException e) {
+            this.x = NumbParser.parseInt(input);
+            if (x <= -645) throw new ArithmeticException();
+        } catch (ArithmeticException | NumberFormatException e) {
             throw new IncorrectInputException("целое число > -645");
         }
         return this;
@@ -38,18 +36,12 @@ public class Coordinates implements Validate {
 
     public Coordinates setY(String input) throws IncorrectInputException {
         try {
-            this.y = parse(input).intValue();
-        } catch (NumberFormatException e) {
+            this.y = NumbParser.parseInt(input);
+        } catch (ArithmeticException | NumberFormatException e) {
             throw new IncorrectInputException("целое число");
         }
         return this;
     }//endregion
-
-    private BigDecimal parse(String input) throws NumberFormatException {
-        BigDecimal bd = new BigDecimal(input.replace(',', '.'));
-        bd = bd.setScale(5, RoundingMode.HALF_UP);
-        return bd;
-    }
 
     @Override
     public boolean validate() {

@@ -137,7 +137,7 @@ public class UpdateId extends Add {
                 writeBirthday(scanner.nextLine(), scanner);
                 announce("Введите рост владельца", "больше 0, 5 знаков после запятой");
                 writeHeight(scanner.nextLine(), scanner);
-                announce("Введите данные паспорта", "строка/Null");
+                announce("Введите данные паспорта", "Null/строка");
                 writePassportID(scanner.nextLine(), scanner);
                 announce("Введите цвет волос владельца", Color.getColorsInfo());
                 System.out.println();

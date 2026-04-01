@@ -3,10 +3,9 @@ package model;
 import model.enums.UnitOfMeasure;
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import util.NumbParser;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 /**
@@ -73,9 +72,9 @@ public class Product implements Comparable<Product>, Validate {
         if (price.equalsIgnoreCase("Null") || price.equalsIgnoreCase("Nl")) this.price = null;
         else {
             try {
-                this.price = parse(price).floatValue();
+                this.price = NumbParser.parseFloat(price);
                 if (this.price <= 0.0) throw new NumberFormatException();
-            } catch (NumberFormatException e) {
+            } catch (ArithmeticException | NumberFormatException e) {
                 throw new IncorrectInputException("Null, число больше 0");
             }
         }
@@ -89,8 +88,8 @@ public class Product implements Comparable<Product>, Validate {
 
     public void setManufactureCost(String manufactureCost) {
         try {
-            this.manufactureCost = parse(manufactureCost).floatValue();
-        } catch (NumberFormatException e) {
+            this.manufactureCost = NumbParser.parseFloat(manufactureCost);
+        } catch (ArithmeticException | NumberFormatException e) {
             throw new IncorrectInputException("число");
         }
     }
@@ -108,12 +107,6 @@ public class Product implements Comparable<Product>, Validate {
         this.coordinates = coordinates;
         return this;
     }//endregion
-
-    private BigDecimal parse(String input) throws NumberFormatException {
-        BigDecimal bd = new BigDecimal(input.replace(',', '.'));
-        bd = bd.setScale(5, RoundingMode.HALF_EVEN);
-        return bd;
-    }
 
     //region id
     /**
@@ -172,7 +165,7 @@ public class Product implements Comparable<Product>, Validate {
             return "Продукт №" + id +
                     " - " + name +
                     ".\nКоординаты: " + coordinates +
-                    ".\nВремя создания: " + creationDate +
+                    ".\nВремя создания: " + creationDate.format(DateTimeFormatter.ISO_LOCAL_DATE) +
                     ".\nЦена: " + price +
                     ".\nНомер партии: " + partNumber +
                     ".\nЦена производства: " + manufactureCost +
@@ -181,7 +174,7 @@ public class Product implements Comparable<Product>, Validate {
             return "Продукт №" + id +
                     " - " + name +
                     ".\nКоординаты: " + coordinates +
-                    ".\nВремя создания: " + creationDate +
+                    ".\nВремя создания: " + creationDate.format(DateTimeFormatter.ISO_LOCAL_DATE) +
                     ".\nЦена: " + price +
                     ".\nНомер партии: " + partNumber +
                     ".\nЦена производства: " + manufactureCost +

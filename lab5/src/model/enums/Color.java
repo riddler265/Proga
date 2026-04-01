@@ -1,6 +1,7 @@
 package model.enums;
 
 import exceptions.IncorrectInputException;
+import util.NumbParser;
 
 /**
  * Перечисление цветов волос.
@@ -31,11 +32,11 @@ public enum Color {
         String trimmedInput = input.trim();
 
         try {
-            int id = (int) Double.parseDouble(trimmedInput.replace(',', '.'));
+            int id = NumbParser.parseInt(input);
             for (Color color : values()) {
                 if (color.id == id) return color;
             }
-        } catch (NumberFormatException e) {}
+        } catch (NumberFormatException | ArithmeticException ignored) {}
 
         for (Color color : values()) {
             if (color.name().equalsIgnoreCase(trimmedInput)) {

@@ -196,9 +196,9 @@ public class Add extends Command {
                 writePersonName(scanner.nextLine(), scanner);
                 announce("Введите дату рождения владельца", "dd-MM-yyyy HH:mm:ss");
                 writeBirthday(scanner.nextLine(), scanner);
-                announce("Введите рост владельца", "больше 0, 5 знаков после запятой");
+                announce("Введите рост владельца", "больше 0, округление до 5 знаков");
                 writeHeight(scanner.nextLine(), scanner);
-                announce("Введите данные паспорта", "строка/Null");
+                announce("Введите данные паспорта", "Null/строка");
                 writePassportID(scanner.nextLine(), scanner);
                 announce("Введите цвет волос владельца", Color.getColorsInfo());
                 System.out.println();
@@ -221,11 +221,11 @@ public class Add extends Command {
 
         announce("Введите название продукта", "не пустая строка");
         writeProductName(scanner.nextLine(), scanner);
-        announce("Введите цену продукта больше 0", "число больше 0/Null");
+        announce("Введите цену продукта больше 0", "Null/число больше 0, округление до 5 знаков");
         writePrice(scanner.nextLine(), scanner);
-        announce("Введите номер партии", "не пустая строка/Null");
+        announce("Введите номер партии", "Null/не пустая строка");
         writePartNumber(scanner.nextLine(), scanner);
-        announce("Введите стоимость производства продукта", "число");
+        announce("Введите стоимость производства продукта", "число, округление до 5 знаков");
         writeManufactureCost(scanner.nextLine(), scanner);
         announce("Введите единицу измерения", UnitOfMeasure.getUnitsInfo());
         System.out.println();

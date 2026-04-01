@@ -3,9 +3,7 @@ package model;
 import model.enums.Color;
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
-
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import util.NumbParser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -66,9 +64,9 @@ public class Person implements Validate {
 
     public void setHeight(String height) throws IncorrectInputException {
         try {
-            this.height = parse(height).floatValue();
+            this.height = NumbParser.parseFloat(height);
             if (this.height <= 0.0) throw new NumberFormatException();
-        } catch (NumberFormatException e) {
+        } catch (ArithmeticException | NumberFormatException e) {
             throw new IncorrectInputException("число больше 0");
         }
     }
@@ -82,12 +80,6 @@ public class Person implements Validate {
         if (hairColor.equals("Null") || hairColor.equals("Nl")) this.hairColor = null;
         else this.hairColor = Color.getcolor(hairColor);
     }//endregion
-
-    private BigDecimal parse(String input) throws NumberFormatException {
-        BigDecimal bd = new BigDecimal(input.replace(',', '.'));
-        bd = bd.setScale(5, RoundingMode.HALF_UP);
-        return bd;
-    }
 
     @Override
     public boolean validate() {
