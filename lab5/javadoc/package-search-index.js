@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"collectionManager"},{"l":"commandManager"},{"l":"commands"},{"l":"coordinates"},{"l":"enums"},{"l":"exceptions"},{"l":"history"},{"l":"jsonmanager"},{"l":"person"},{"l":"product"}];updateSearchResults();
