@@ -192,7 +192,7 @@ public class Add extends Command {
         announce("Будет ли у продукта владелец?", "yes/no");
         switch (needOwner(scanner.nextLine(), scanner)) {
             case Y:
-                announce("Введите имя владельца","");
+                announce("Введите имя владельца","не пустая строка");
                 writePersonName(scanner.nextLine(), scanner);
                 announce("Введите дату рождения владельца", "dd-MM-yyyy HH:mm:ss");
                 writeBirthday(scanner.nextLine(), scanner);
@@ -204,7 +204,7 @@ public class Add extends Command {
                 System.out.println();
                 writeHairColor(scanner.nextLine(), scanner);
                 break;
-            case N, S:
+            case N:
                 finalOwner = null;
         }
     }
