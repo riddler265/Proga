@@ -1,5 +1,6 @@
 package commands;
 
+import managers.AnnounceManager;
 import managers.CollectionManager;
 
 import java.util.Scanner;
@@ -16,11 +17,23 @@ import java.util.Scanner;
 public abstract class Command {
 
     protected final CollectionManager collectionManager;
+    protected final AnnounceManager announceManager = AnnounceManager.getInstance();
 
     public Command(CollectionManager collection) {
         this.collectionManager = collection;
     }
 
+    protected void print(String key, String ... params) {
+        announceManager.print(key, params);
+    }
+
+    protected void println(String key, String ... params) {
+        announceManager.println(key, params);
+    }
+
+    protected String cTCL(String key, String ... params) {
+        return announceManager.cTCL(key, params);
+    }
     /**
      * Выполняет логику команды.
      * @param input Аргументы, переданные вместе с командой в одной строке.

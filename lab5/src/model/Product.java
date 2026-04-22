@@ -1,5 +1,6 @@
 package model;
 
+import managers.AnnounceManager;
 import model.enums.UnitOfMeasure;
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
@@ -7,6 +8,7 @@ import util.NumbParser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Класс, элементами которого управляет коллекция.
@@ -161,25 +163,12 @@ public class Product implements Comparable<Product>, Validate {
 
     @Override
     public String toString() {
-        if (owner == null) {
-            return "Продукт №" + id +
-                    " - " + name +
-                    ".\nКоординаты: " + coordinates +
-                    ".\nВремя создания: " + creationDate.format(DateTimeFormatter.ISO_LOCAL_DATE) +
-                    ".\nЦена: " + price +
-                    ".\nНомер партии: " + partNumber +
-                    ".\nЦена производства: " + manufactureCost +
-                    ".\nЕдиница измерения: " + unitOfMeasure + ".";
-        } else {
-            return "Продукт №" + id +
-                    " - " + name +
-                    ".\nКоординаты: " + coordinates +
-                    ".\nВремя создания: " + creationDate.format(DateTimeFormatter.ISO_LOCAL_DATE) +
-                    ".\nЦена: " + price +
-                    ".\nНомер партии: " + partNumber +
-                    ".\nЦена производства: " + manufactureCost +
-                    ".\nЕдиница измерения: " + unitOfMeasure +
-                    ".\nВладелец: " + owner.getName() + ".";
-        }
+        return AnnounceManager.getInstance().cTCL("product.info", Integer.toString(id), name,
+                coordinates.toString(), creationDate.format(Person.formatter),
+                Float.toString(price), partNumber, Float.toString(manufactureCost),
+                unitOfMeasure.toString(),
+                Optional.ofNullable(owner)
+                        .map(Person::getName)
+                        .orElse(AnnounceManager.getInstance().cTCL("no.owner")));
     }//endregion
 }

@@ -1,5 +1,6 @@
 package model;
 
+import managers.AnnounceManager;
 import model.enums.Color;
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
@@ -22,7 +23,7 @@ public class Person implements Validate {
     private Color hairColor; //Поле может быть null
 
     //formater
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+    public static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     //region getters
     public String getName() {
@@ -105,10 +106,8 @@ public class Person implements Validate {
 
     @Override
     public String toString() {
-        return name +
-                "\nBirthday: " + birthday.format(DateTimeFormatter.ISO_LOCAL_DATE) +
-                "\nHeight: " + height +
-                "\nPassport id: " + passportID +
-                "\nHair color: " + hairColor;
+        return AnnounceManager.getInstance().cTCL("person.info", name,
+                birthday.format(DateTimeFormatter.ISO_LOCAL_DATE),
+                Float.toString(height), passportID, hairColor.toString());
     }//endregion
 }

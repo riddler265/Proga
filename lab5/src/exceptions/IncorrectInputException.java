@@ -1,5 +1,6 @@
 package exceptions;
 
+import managers.AnnounceManager;
 import model.Coordinates;
 import model.Person;
 import model.Product;
@@ -18,12 +19,12 @@ public class IncorrectInputException extends RuntimeException {
 
     private static String format(String cond) {
         if (cond == null || cond.isBlank()) {
-            return "Некорректный ввод. Попробуйте еще раз: ";
+            return AnnounceManager.getInstance().cTCL("incorrectInput.e.no.conditions");
         }
 
         // Если запятой нет — это одиночный параметр
         if (!cond.contains(",")) {
-            return "\nДопустимое значение параметра: " + cond.trim() + ".\nПопробуйте еще раз: ";
+            return AnnounceManager.getInstance().cTCL("incorrectInput.e.one.conditions", cond.trim());
         }
 
         // Если запятые есть — строим список с переносами
@@ -32,6 +33,6 @@ public class IncorrectInputException extends RuntimeException {
                 .filter(s -> !s.isEmpty())
                 .collect(java.util.stream.Collectors.joining("\n\t", "\n\t", ""));
 
-        return "\nДопустимые значения параметра: " + list + "\nПопробуйте еще раз: ";
+        return AnnounceManager.getInstance().cTCL("incorrectInput.e.many.conditions", list);
     }
 }

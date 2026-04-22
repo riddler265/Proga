@@ -1,4 +1,5 @@
 import exceptions.RecursionException;
+import managers.AnnounceManager;
 import managers.CollectionManager;
 import managers.CommandManager;
 import managers.json.JsonManager;
@@ -14,22 +15,20 @@ import java.util.*;
  */
 public class Main {
     public static void main(String[] args) {
-
         System.out.println();
-
-        CollectionManager collectionManager = new CollectionManager();
 
         File path = new File(System.getenv("PRODUCTS"));
         if (!path.exists() && path.isDirectory()) {
-            System.out.println("Переменная окружения не установлена!");
+            AnnounceManager.getInstance().println("environment.error");
             System.exit(1);
         }
 
+        CollectionManager collectionManager = new CollectionManager();
         JsonManager jsonManager = new JsonManager(path, collectionManager);
         jsonManager.load();
+        CommandManager commandManager = new CommandManager(collectionManager, jsonManager);
 
         Scanner scanner = new Scanner(System.in);
-        CommandManager commandManager = new CommandManager(collectionManager, jsonManager);
 
         while (true) {
             try {

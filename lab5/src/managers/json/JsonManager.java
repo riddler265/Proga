@@ -1,5 +1,6 @@
 package managers.json;
 
+import managers.AnnounceManager;
 import managers.CollectionManager;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,6 +20,7 @@ public class JsonManager {
     private final File path;
     private final CollectionManager collection;
     private final Gson gson;
+    private final AnnounceManager announceManager= AnnounceManager.getInstance();
 
     public JsonManager(File path, CollectionManager collection) {
         this.path = path;
@@ -63,17 +65,14 @@ public class JsonManager {
             }
 
             if(products.removeIf(product -> !product.validate())) {
-                System.out.println("В файле поля объектов нарушают ограничения. Они будут удалены.");
+                announceManager.println("invalid.objects");
                 save(products);
             }
 
             return products;
 
-        } catch (FileNotFoundException e) {
-            System.err.println("Ошибка загрузки данных: " + e.getMessage() + "\n");
-            return new ArrayList<>();
         } catch (Exception e) {
-            System.err.println("Ошибка при чтении или парсинге: " + e.getMessage() + "\n");
+            announceManager.println("load.exception", e.getMessage());
             return new ArrayList<>();
         }
     }
@@ -100,16 +99,17 @@ public class JsonManager {
         try {
             // Пытаемся сохранить по основному пути
             writeToPath(this.path, collection);
+            announceManager.println("save.success", path.getAbsolutePath());
         } catch (IOException e) {
-            System.err.println("Ошибка записи в основной файл. Попытка сохранить в резервный...");
+            announceManager.println("save.exception");
 
             // Создаем резервный файл (например, backup_data.json)
             File backupPath = new File("backup_" + path.getName());
             try {
                 writeToPath(backupPath, collection);
-                System.out.println("Коллекция успешно сохранена в: " + backupPath.getAbsolutePath());
+                announceManager.println("save.success", backupPath.getAbsolutePath());
             } catch (IOException ex) {
-                System.err.println("Критическая ошибка: не удалось сохранить даже в резервный файл.");
+                announceManager.println("save.dException");
             }
         }
     }

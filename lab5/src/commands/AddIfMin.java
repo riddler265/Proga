@@ -1,5 +1,6 @@
 package commands;
 
+import managers.AnnounceManager;
 import managers.CollectionManager;
 import managers.CommandManager;
 import model.Coordinates;
@@ -37,7 +38,7 @@ public class AddIfMin extends Add {
 
             if (finalProduct.compareTo(collectionManager.getLowestProduct()) < 0) {
                 collectionManager.addToCollection(finalProduct);
-            } else System.out.println("Продукт превышает наименьший элемент коллекции.\n");
+            } else println("addIM.failure");
 
         } catch (NullPointerException e) {
             collectionManager.addToCollection((finalProduct));

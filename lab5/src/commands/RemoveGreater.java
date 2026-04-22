@@ -1,5 +1,6 @@
 package commands;
 
+import managers.AnnounceManager;
 import managers.CollectionManager;
 import managers.CommandManager;
 
@@ -14,8 +15,8 @@ public class RemoveGreater extends RemoveById {
     private final CommandManager commandManager;
 
     //constructor
-    public RemoveGreater(CollectionManager collection, CommandManager commandManager) {
-        super(collection);
+    public RemoveGreater(CollectionManager collectionManager, CommandManager commandManager) {
+        super(collectionManager);
         this.commandManager = commandManager;
     }
 
@@ -23,16 +24,16 @@ public class RemoveGreater extends RemoveById {
     @Override
     public void execute(String input, Scanner scanner) {
         commandManager.execute("show", scanner);
-        System.out.print("Введите id продукта: ");
+        println("write.id");
         try {
             currentId = Integer.parseInt(scanner.nextLine());
             currentProduct = collectionManager.getProductById(currentId);
             if (currentProduct != null) {
                collectionManager.getCollection().removeIf(product -> currentProduct.compareTo(product) > 0);
-                System.out.println("Все продукты, больше заданного удалены.\n");
+                println("remove.greater.success");
             } else throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            System.out.println("Продукта с таким id нет.\n");
+            println("no.element.id");
         }
     }
 }

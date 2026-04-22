@@ -1,5 +1,6 @@
 package commands;
 
+import managers.AnnounceManager;
 import managers.CollectionManager;
 import java.util.Scanner;
 import java.util.function.Predicate;
@@ -31,10 +32,10 @@ public class RemoveAllByPrice extends Command{
             currentPrice = Float.parseFloat(input.substring(input.lastIndexOf(" ") + 1));
             if (currentPrice > 0.0) {
                 collectionManager.getCollection().removeIf(product -> product.getPrice() == currentPrice);
-                System.out.println("\nВсе предметы с заданной ценой удалены.\n");
+                println("remove.by.price.success");
             } else throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            System.out.println("Нужно ввести положительное число.");
+            println("remove.by.price.condition");
         }
     }
 }

@@ -1,5 +1,6 @@
 package commands;
 
+import managers.AnnounceManager;
 import managers.CollectionManager;
 import model.Product;
 
@@ -27,7 +28,7 @@ public class RemoveById extends Command{
             currentProduct = collectionManager.getProductById(currentId);
             collectionManager.removeFromCollection(currentProduct);
         } catch (NumberFormatException e) {
-            System.out.println("Продукта с таким id нет.\n");
+            System.out.println("no.element.id");
         }
     }
 }

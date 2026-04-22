@@ -3,9 +3,7 @@ package commands;
 import exceptions.RecursionException;
 import managers.CollectionManager;
 import managers.CommandManager;
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -49,12 +47,10 @@ public class Execute extends Command{
             while (scanner.hasNextLine()) {
                 commandManager.execute(scanner.nextLine(), scanner);
             }
-            System.out.println("Файл " + input.substring(input.lastIndexOf(" ") + 1) + " исполнен.\n");
+            println("execute.success", input.substring(input.lastIndexOf(" ") + 1));
             commandManager.setIsSystemReader(true);
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден: " + path.getAbsolutePath() + ".\n");
         } catch (IOException e) {
-            System.out.println("Ошибка.");
+            println("execute.failure", e.getMessage(), path.getAbsolutePath());
         } finally {
             stack.remove(path);
         }

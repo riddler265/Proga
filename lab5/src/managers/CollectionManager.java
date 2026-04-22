@@ -2,6 +2,7 @@ package managers;
 
 import java.util.PriorityQueue;
 
+import model.Person;
 import model.Product;
 import java.time.LocalDateTime;
 
@@ -14,6 +15,7 @@ public class CollectionManager {
     private final PriorityQueue<Product> collection = new PriorityQueue<>();
     private final LocalDateTime creationTime;
     private Product greatestProduct = null;
+    private final AnnounceManager announceManager = AnnounceManager.getInstance();
 
     /**
      * Конструктор.
@@ -27,10 +29,8 @@ public class CollectionManager {
      * @return информация о коллекции.
      */
     public String getInfo() {
-        return "\nТип коллекции: " + collection.getClass().getSimpleName() + "\n" +
-                "Время создания: " + creationTime.toString() + "\n" +
-                "Тип элемента: Product\n" +
-                "Размер коллекции: " + collection.size() + "\n";
+        return announceManager.cTCL("collection.info", collection.getClass().getSimpleName(),
+                creationTime.format(Person.formatter), Integer.toString(collection.size()));
     }
 
     public Product getProductById(int id) {
@@ -63,7 +63,7 @@ public class CollectionManager {
      */
     public void addToCollection(Product product) {
         collection.add(product);
-        System.out.println("В коллекцию добавлен новый продукт: \n\n" + product.toString() + "\n");
+        announceManager.println("add.success", product.toString());
         if (greatestProduct == null) {
             greatestProduct = product;
         }
@@ -74,7 +74,7 @@ public class CollectionManager {
 
     public void removeFromCollection(Product product) {
         collection.remove(product);
-        System.out.println("Из коллекции удален предмет:\n" + product + "\n");
+        announceManager.println("remove.success", Integer.toString(product.getId()), product.getName());
     }
 
 }

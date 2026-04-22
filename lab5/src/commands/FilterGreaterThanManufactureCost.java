@@ -1,5 +1,6 @@
 package commands;
 
+import managers.AnnounceManager;
 import managers.CollectionManager;
 import model.Product;
 
@@ -31,7 +32,7 @@ public class FilterGreaterThanManufactureCost extends FilterLessThanManufactureC
                 System.out.println();
             } else throw new NumberFormatException();
         } catch (NumberFormatException e) {
-            System.out.println("Число должно быть больше нуля.\n");
+            println("remove.by.price.condition");
         }
     }
 }

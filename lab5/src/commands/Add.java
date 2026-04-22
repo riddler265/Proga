@@ -1,5 +1,6 @@
 package commands;
 
+import managers.AnnounceManager;
 import managers.CollectionManager;
 import managers.CommandManager;
 import model.Coordinates;
@@ -37,23 +38,30 @@ public class Add extends Command {
     //region helpers
     //conditions
     protected Strategy needOwner(String input, Scanner scanner) throws ExecuteException {
-        if (input.equalsIgnoreCase("yes") || input.equalsIgnoreCase("y")) return Strategy.Y;
-        else if (input.equalsIgnoreCase("no") || input.equalsIgnoreCase("n")) return Strategy.N;
+        if (input.equalsIgnoreCase(cTCL("yes")) || input.equalsIgnoreCase(cTCL("y"))) return Strategy.Y;
+        else if (input.equalsIgnoreCase(cTCL("no")) || input.equalsIgnoreCase(cTCL("n"))) return Strategy.N;
         else if (isSystemReader) {
-            System.out.print("Введите yes/no: ");
+            announce("need.owner", "yes", "no");
             return needOwner(scanner.nextLine(), scanner);
         } else throw new ExecuteException(getClass().getSimpleName());
     }
 
     //announce
-    protected void announce(String message, String conditions) {
+    protected void announce(String message_key, String... condition_keys) {
         if (isSystemReader) {
-            String suffix = java.util.Optional.ofNullable(conditions)
-                    .filter(c -> !c.isBlank())
-                    .map(c -> " (" + c + ")")
+            String suffix = java.util.Optional.ofNullable(condition_keys)
+                    .filter(c -> c.length > 0)
+                    .map(c -> java.util.Arrays.stream(c)
+                            .filter(key -> key != null && !key.isBlank())
+                            // Прогоняем каждый ключ через твой метод cTCL
+                            .map(this::cTCL)
+                            .collect(java.util.stream.Collectors.joining(", ")))
+                    .filter(result -> !result.isEmpty())
+                    .map(result -> "(" + result + ")")
                     .orElse("");
 
-            System.out.print("\n" + message + suffix + ": ");
+            print("announce", cTCL(message_key), suffix);
+            //System.out.print("\nВведите " + cTCL(message_key) + suffix + ": ");
         }
     }//endregion
 
@@ -189,18 +197,18 @@ public class Add extends Command {
     //region create
     protected void createPerson(Scanner scanner) throws ExecuteException {
 
-        announce("Будет ли у продукта владелец?", "yes/no");
+        announce("need.owner", "yes", "no");
         switch (needOwner(scanner.nextLine(), scanner)) {
             case Y:
-                announce("Введите имя владельца","не пустая строка");
+                announce("owner.name","not.empty.string.condition");
                 writePersonName(scanner.nextLine(), scanner);
-                announce("Введите дату рождения владельца", "dd-MM-yyyy HH:mm:ss");
+                announce("owner.birthday", "date.condition");
                 writeBirthday(scanner.nextLine(), scanner);
-                announce("Введите рост владельца", "больше 0, округление до 5 знаков");
+                announce("owner.height", "positive.condition", "rounding.condition");
                 writeHeight(scanner.nextLine(), scanner);
-                announce("Введите данные паспорта", "Null/строка");
+                announce("owner.passport.id", "null", "string.condition");
                 writePassportID(scanner.nextLine(), scanner);
-                announce("Введите цвет волос владельца", Color.getColorsInfo());
+                announce("owner.hair.color", Color.getColorsInfo());
                 System.out.println();
                 writeHairColor(scanner.nextLine(), scanner);
                 break;
@@ -211,23 +219,23 @@ public class Add extends Command {
 
     protected void createCoordinates(Scanner scanner) throws ExecuteException {
 
-        announce("Введите координату X", "целое число больше -645");
+        announce("coordinate.x", "integer.condition", "bigger.than.minus.645");
         writeCoordinateX(scanner.nextLine(), scanner);
-        announce("Введите координату Y", "целое число");
+        announce("coordinate.y", "integer.condition");
         writeCoordinateY(scanner.nextLine(), scanner);
     }
 
     protected void createProduct(Scanner scanner) throws ExecuteException {
 
-        announce("Введите название продукта", "не пустая строка");
+        announce("product.name", "not.empty.string.condition");
         writeProductName(scanner.nextLine(), scanner);
-        announce("Введите цену продукта больше 0", "Null/число больше 0, округление до 5 знаков");
+        announce("product.price", "null", "positive.condition", "rounding.condition");
         writePrice(scanner.nextLine(), scanner);
-        announce("Введите номер партии", "Null/не пустая строка");
+        announce("product.partNumber", "null", "not.empty.string.condition");
         writePartNumber(scanner.nextLine(), scanner);
-        announce("Введите стоимость производства продукта", "число, округление до 5 знаков");
+        announce("product.manufactureCost", "rounding.condition");
         writeManufactureCost(scanner.nextLine(), scanner);
-        announce("Введите единицу измерения", UnitOfMeasure.getUnitsInfo());
+        announce("product.unitOfMeasure", UnitOfMeasure.getUnitsInfo());
         System.out.println();
         writeUnitOfMeasure(scanner.nextLine(), scanner);
 

@@ -20,6 +20,8 @@ public class CommandManager {
     private final Map<String, Command> commands = new HashMap<>();
     private final stack.History history = new stack.History();
     private final stack.Stack stack = new stack.Stack();
+    //announceManager
+    private final AnnounceManager announceManager = AnnounceManager.getInstance();
     //scanner
     private boolean isSystemReader = true;
 
@@ -58,6 +60,10 @@ public class CommandManager {
         else isSystemReader = false;
     }
 
+    public AnnounceManager getAnnounceManager() {
+        return announceManager;
+    }
+
     public stack.Stack getStack() {
         return stack;
     }
@@ -89,7 +95,7 @@ public class CommandManager {
             commands.get(command).execute(argument, scanner);
             history.add(command);
         } else if (isSystemReader){
-            System.out.println("Неизвестная команда. Введите \"help\" для помощи.\n");
+            announceManager.println("unknown.command");
         } else {
             return;
         }

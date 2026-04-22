@@ -1,5 +1,6 @@
 package commands;
 
+import managers.AnnounceManager;
 import managers.CollectionManager;
 
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class Exit extends Command{
 
     @Override
     public void execute(String input, Scanner scanner) {
-        System.out.println("До свидания!\n");
+        println("goodbye");
         System.exit(1);
     }
 }

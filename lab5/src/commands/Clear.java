@@ -1,5 +1,6 @@
 package commands;
 
+import managers.AnnounceManager;
 import managers.CollectionManager;
 
 import java.util.Scanner;
@@ -19,6 +20,6 @@ public class Clear extends Command{
     public void execute(String input, Scanner scanner) {
         System.out.println();
         collectionManager.getCollection().clear();
-        System.out.println("Коллекция очищена.\n");
+        System.out.println("clear.notification");
     }
 }

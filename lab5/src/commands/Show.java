@@ -3,6 +3,7 @@ package commands;
 import java.util.PriorityQueue;
 import java.util.Scanner;
 
+import managers.AnnounceManager;
 import managers.CollectionManager;
 import model.Product;
 
@@ -21,7 +22,7 @@ public class Show extends Command{
     public void execute(String input, Scanner scanner) {
         PriorityQueue<Product> doppelganger = new PriorityQueue<>(collectionManager.getCollection());
         if (doppelganger.isEmpty()) {
-            System.out.println("\nКоллекция пуста.");
+            println("show.empty");
         } else {
             while (!doppelganger.isEmpty()) {
                 System.out.println("\n" + doppelganger.poll());
