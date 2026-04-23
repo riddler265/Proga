@@ -1,31 +1,37 @@
 package model.enums;
 
 import exceptions.IncorrectInputException;
+import managers.AnnounceManager;
 import util.NumbParser;
 
 /**
  * Перечисление единиц измерения.
  */
 public enum UnitOfMeasure {
-    METERS(1),
-    SQUARE_METERS(2),
-    LITERS(3),
-    GRAMS(4);
+    METERS(1, "unit.meter"),
+    SQUARE_METERS(2, "unit.sq_meter"),
+    LITERS(3, "unit.liter"),
+    GRAMS(4, "unit.gram");
 
     private final int id;
-    private static final String message = "\n\tMeters(1), \n\tSquare_meters(2), \n\tLiters(3), \n\tgrams(4)";
+    private final String locale;
 
-    UnitOfMeasure(int id) {
+
+    UnitOfMeasure(int id, String locale) {
         this.id = id;
+        this.locale = locale;
     }
 
     public static String getUnitsInfo() {
-        return "Meters(1), Square_meters(2), Liters(3), grams(4)";
+        return AnnounceManager.getInstance().cTCL("unit.meter") + "(" + METERS.id + ")" + ", " +
+                AnnounceManager.getInstance().cTCL("unit.sq_meter") + "(" + SQUARE_METERS.id + ")" + ", " +
+                AnnounceManager.getInstance().cTCL("unit.liter") + "(" + LITERS.id + ")" + ", " +
+                AnnounceManager.getInstance().cTCL("unit.gram") + "(" + GRAMS.id + ")";
     }
 
     public static UnitOfMeasure getUnit(String input) throws IncorrectInputException {
         if (input == null || input.isBlank()) {
-            throw new IncorrectInputException(message);
+            throw new IncorrectInputException(getUnitsInfo());
         }
 
         String trimmedInput = input.trim();
@@ -38,10 +44,10 @@ public enum UnitOfMeasure {
         } catch (NumberFormatException | ArithmeticException ignored) {}
 
         for (UnitOfMeasure unit : values()) {
-            if (unit.name().equalsIgnoreCase(trimmedInput)) {
+            if (AnnounceManager.getInstance().cTCL(unit.locale).equalsIgnoreCase(trimmedInput)) {
                 return unit;
             }
         }
-        throw new IncorrectInputException(message);
+        throw new IncorrectInputException(getUnitsInfo());
     }
 }

@@ -1,32 +1,38 @@
 package model.enums;
 
 import exceptions.IncorrectInputException;
+import managers.AnnounceManager;
 import util.NumbParser;
 
 /**
  * Перечисление цветов волос.
  */
 public enum Color {
-    GREEN(1),
-    RED(2),
-    BLACK(3),
-    YELLOW(4),
-    ORANGE(5);
+    GREEN(1, "color.green"),
+    RED(2, "color.red"),
+    BLACK(3, "color.black"),
+    YELLOW(4, "color.yellow"),
+    ORANGE(5, "color.orange");
 
     private final int id;
-    private static final String message = "\n\tGreen(1), \n\tRed(2), \n\tBlack(3), \n\tYellow(4), \n\tOrange(5), \n\tNull";
+    private final String locale;
 
-    Color(int id) {
+    Color(int id, String locale) {
         this.id = id;
+        this.locale = locale;
     }
 
     public static String getColorsInfo() {
-        return "Green(1), Red(2), Black(3), Yellow(4), Orange(5), Null";
+        return AnnounceManager.getInstance().cTCL("color.green") + "(" + GREEN.id + ")" + ", " +
+                AnnounceManager.getInstance().cTCL("color.red") + "(" + RED.id + ")" + ", " +
+                AnnounceManager.getInstance().cTCL("color.black") + "(" + BLACK.id + ")" + ", " +
+                AnnounceManager.getInstance().cTCL("color.yellow") + "(" + YELLOW.id + ")" +
+                AnnounceManager.getInstance().cTCL("color.orange") + "(" + ORANGE.id + ")";
     }
 
     public static Color getcolor(String input) throws IncorrectInputException {
         if (input == null || input.isBlank()) {
-            throw new IncorrectInputException(message);
+            throw new IncorrectInputException(getColorsInfo());
         }
 
         String trimmedInput = input.trim();
@@ -39,10 +45,10 @@ public enum Color {
         } catch (NumberFormatException | ArithmeticException ignored) {}
 
         for (Color color : values()) {
-            if (color.name().equalsIgnoreCase(trimmedInput)) {
+            if (AnnounceManager.getInstance().cTCL(color.locale).equalsIgnoreCase(trimmedInput)) {
                 return color;
             }
         }
-        throw new IncorrectInputException(message);
+        throw new IncorrectInputException(getColorsInfo());
     }
 }

@@ -48,7 +48,7 @@ public class Person implements Validate {
 
     //region setters
     public void setName(String name) throws IncorrectInputException {
-        if (name == null || name.isEmpty()) throw new IncorrectInputException("не пустая строка");
+        if (name == null || name.isEmpty()) throw new IncorrectInputException("not.empty.string.condition");
         else this.name = name;
     }
 
@@ -58,7 +58,7 @@ public class Person implements Validate {
             try {
                 this.birthday = LocalDateTime.parse(birthday, formatter);
             } catch (DateTimeParseException e) {
-                throw new IncorrectInputException("dd-MM-yyyy HH:mm:ss");
+                throw new IncorrectInputException("date.condition");
             }
         }
     }
@@ -68,7 +68,7 @@ public class Person implements Validate {
             this.height = NumbParser.parseFloat(height);
             if (this.height <= 0.0) throw new NumberFormatException();
         } catch (ArithmeticException | NumberFormatException e) {
-            throw new IncorrectInputException("число больше 0");
+            throw new IncorrectInputException("positive.condition");
         }
     }
 

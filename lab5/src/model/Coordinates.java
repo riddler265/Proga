@@ -29,7 +29,7 @@ public class Coordinates implements Validate {
             this.x = NumbParser.parseInt(input);
             if (x <= -645) throw new ArithmeticException();
         } catch (ArithmeticException | NumberFormatException e) {
-            throw new IncorrectInputException("целое число > -645");
+            throw new IncorrectInputException("integer.condition, positive.condition");
         }
         return this;
     }
@@ -38,7 +38,7 @@ public class Coordinates implements Validate {
         try {
             this.y = NumbParser.parseInt(input);
         } catch (ArithmeticException | NumberFormatException e) {
-            throw new IncorrectInputException("целое число");
+            throw new IncorrectInputException("integer.condition");
         }
         return this;
     }//endregion

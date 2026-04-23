@@ -66,7 +66,7 @@ public class Product implements Comparable<Product>, Validate {
 
     //region setters
     public void setName(String name) throws IncorrectInputException {
-        if (name == null || name.isEmpty()) throw new IncorrectInputException("\n\tне пустая строка");
+        if (name == null || name.isEmpty()) throw new IncorrectInputException("not.empty.string.condition");
         else this.name = name;
     }
 
@@ -77,14 +77,14 @@ public class Product implements Comparable<Product>, Validate {
                 this.price = NumbParser.parseFloat(price);
                 if (this.price <= 0.0) throw new NumberFormatException();
             } catch (ArithmeticException | NumberFormatException e) {
-                throw new IncorrectInputException("Null, число больше 0");
+                throw new IncorrectInputException("null, positive.condition");
             }
         }
     }
 
     public void setPartNumber(String partNumber) throws IncorrectInputException {
         if (partNumber.equals("Null") || partNumber.equals("Nl")) this.partNumber = null;
-        if (partNumber.isEmpty()) throw new IncorrectInputException("не пустая строка, Null");
+        if (partNumber.isEmpty()) throw new IncorrectInputException("null, not.empty.string.condition");
         else this.partNumber = partNumber;
     }
 
@@ -92,7 +92,7 @@ public class Product implements Comparable<Product>, Validate {
         try {
             this.manufactureCost = NumbParser.parseFloat(manufactureCost);
         } catch (ArithmeticException | NumberFormatException e) {
-            throw new IncorrectInputException("число");
+            throw new IncorrectInputException("number.condition");
         }
     }
 

@@ -47,6 +47,7 @@ public class CommandManager {
         commands.put("filter_less_than_manufacture_cost", new FilterLessThanManufactureCost(collection));
         commands.put("filter_greater_than_manufacture_cost", new FilterGreaterThanManufactureCost(collection));
         commands.put("save", new Save(collection, jsonManager));
+        commands.put("language", new SelectLanguage(collection));
     }
 
     /**

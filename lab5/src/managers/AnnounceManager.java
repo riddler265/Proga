@@ -1,5 +1,6 @@
 package managers;
 
+import exceptions.IncorrectInputException;
 import model.enums.Loc;
 
 import java.text.MessageFormat;
@@ -22,8 +23,9 @@ public class AnnounceManager {
         return instance;
     }
 
-    public void setLocale(Loc locale) {
-        bundle = ResourceBundle.getBundle("lang.messages", locale.getLocale());
+    public void setLocale(Loc locale) throws IncorrectInputException {
+        if (locale == null) throw new IncorrectInputException(Loc.getLocalesInfo());
+        else bundle = ResourceBundle.getBundle("lang.messages", locale.getLocale());
     }
 
     public String print(String key, String ... params) {

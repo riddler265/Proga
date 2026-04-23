@@ -208,7 +208,7 @@ public class Add extends Command {
                 writeHeight(scanner.nextLine(), scanner);
                 announce("owner.passport.id", "null", "string.condition");
                 writePassportID(scanner.nextLine(), scanner);
-                announce("owner.hair.color", Color.getColorsInfo());
+                announce("owner.hair.color", "color.info");
                 System.out.println();
                 writeHairColor(scanner.nextLine(), scanner);
                 break;
@@ -235,7 +235,7 @@ public class Add extends Command {
         writePartNumber(scanner.nextLine(), scanner);
         announce("product.manufactureCost", "rounding.condition");
         writeManufactureCost(scanner.nextLine(), scanner);
-        announce("product.unitOfMeasure", UnitOfMeasure.getUnitsInfo());
+        announce("product.unitOfMeasure", "unit.info");
         System.out.println();
         writeUnitOfMeasure(scanner.nextLine(), scanner);
 
