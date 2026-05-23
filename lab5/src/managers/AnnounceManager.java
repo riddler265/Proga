@@ -4,7 +4,6 @@ import exceptions.IncorrectInputException;
 import model.enums.Loc;
 
 import java.text.MessageFormat;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AnnounceManager {
