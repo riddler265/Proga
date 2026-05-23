@@ -19,4 +19,8 @@ public class JsonManager {
         }
     }
 
+    public static String parseRequest(ClientRequest clientRequest) {
+        return GSON.toJson(clientRequest);
+    }
+
 }

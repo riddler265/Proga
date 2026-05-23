@@ -1,7 +1,6 @@
 package enums;
 
 import exceptions.IncorrectInputException;
-import validators.Validator;
 
 public enum Commands {
     HELP("help"),
@@ -27,6 +26,10 @@ public enum Commands {
     // Конструктор enum (всегда private по умолчанию)
     Commands(String name) {
         this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public static Commands getCommand(String input) throws IncorrectInputException {
