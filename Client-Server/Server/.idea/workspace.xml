@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9b57d0bb-73d2-42ff-a660-1707d19c63b5" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/gradle.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/Add.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/AddIfMin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/Clear.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/ExecuteScript.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/Exit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/FilterGreaterThanManufactureCost.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/FilterLessThanManufactureCost.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/Help.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/History.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/Info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/RemoveAllByPrice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/RemoveById.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/RemoveGreater.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/SelectLanguage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/Show.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/commands/UpdateId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/connection/Connection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/enums/Color.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/enums/Strategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/enums/UnitOfMeasure.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/exceptions/ExecuteException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/exceptions/IncorrectInputException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/exceptions/RecursionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/localization/AnnounceManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/localization/Loc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/stack/History.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/stack/Stack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/util/ClientRequestBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/util/ConsoleManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Client/src/main/java/util/NumbParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Common/src/main/java/enums/Commands.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Common/src/main/java/json/ClientRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Common/src/main/java/json/JsonManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Common/src/main/java/json/ServerResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/Add.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/AddIfMin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/Clear.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/ExecuteScript.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/Exit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/FilterGreaterThanManufactureCost.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/FilterLessThanManufactureCost.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/Help.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/History.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/Info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/RemoveAllByPrice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/RemoveById.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/RemoveGreater.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/SelectLanguage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/Show.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/commands/UpdateId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/enums/Strategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/exceptions/ExecuteException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/stack/History.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/stack/Stack.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ExecuteManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ExecuteManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../Proga.Lab.3" beforeDir="false" afterPath="$PROJECT_DIR$/../../Proga.Lab.3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/.gradle/9.3.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/.gradle/9.3.0/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/.gradle/9.3.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/.gradle/9.3.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/.gradle/9.3.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/.gradle/9.3.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/.gradle/9.3.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/.gradle/9.3.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/.gradle/9.3.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/.gradle/9.3.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/classes/java/main/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/build/classes/java/main/Client.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/classes/java/main/enums/Commands.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/build/classes/java/main/enums/Commands.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/classes/java/main/exceptions/IncorrectInputException.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/build/classes/java/main/exceptions/IncorrectInputException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/classes/java/main/json/ClientRequest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/build/classes/java/main/json/ClientRequest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/classes/java/main/json/JsonManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/build/classes/java/main/json/JsonManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/resources/main/lang/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/build/resources/main/lang/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/resources/main/lang/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/build/resources/main/lang/messages_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/tmp/compileJava/compileTransaction/stash-dir/AnnounceManager.class.uniqueId4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/tmp/compileJava/compileTransaction/stash-dir/Client.class.uniqueId2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/tmp/compileJava/compileTransaction/stash-dir/Connection.class.uniqueId0" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/tmp/compileJava/compileTransaction/stash-dir/IncorrectInputException.class.uniqueId1" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/tmp/compileJava/compileTransaction/stash-dir/Loc.class.uniqueId3" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/src/main/java/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/src/main/java/exceptions/IncorrectInputException.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/exceptions/IncorrectInputException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/src/main/java/json/JsonManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/json/JsonManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/src/main/java/util/ClientRequestBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/util/ClientRequestBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/src/main/java/util/ConsoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/java/util/ConsoleManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/src/main/resources/lang/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/resources/lang/messages.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/Client/src/main/resources/lang/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/Client/src/main/resources/lang/messages_en.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../lab6/server/src/main/java/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../lab6/server/src/main/java/Server.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 5,
+  "fromUser": false
+}]]></component>
+  <component name="ProjectId" id="3ENFdhcvw98iI82rsUi4HKPbiBS" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "sixth",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/Study/Proga/Client-Server/Server"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-37e91769500f-intellij.indexing.shared.core-IU-261.24374.151" />
+        <option value="bundled-js-predefined-d6986cc7102b-31caf2ab9e3c-JavaScript-IU-261.24374.151" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9b57d0bb-73d2-42ff-a660-1707d19c63b5" name="Changes" comment="" />
+      <created>1780011210040</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1780011210040</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

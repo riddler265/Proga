@@ -1,0 +1,17 @@
+subprojects {
+    // Применяем плагин Java ко всем подмодулям автоматически
+    apply plugin: 'java'
+
+    repositories {
+        mavenCentral() // Откуда качаем Gson
+    }
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+}
