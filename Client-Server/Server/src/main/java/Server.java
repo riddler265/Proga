@@ -8,6 +8,8 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class Server {
 
@@ -15,6 +17,7 @@ public class Server {
     private static Selector selector;
     private static ServerSocketChannel serverChannel;
     private static boolean running = true;
+    public static final BlockingQueue<String> outQueue = new LinkedBlockingQueue<>();
 
     public static void main(String[] args) {
         try {

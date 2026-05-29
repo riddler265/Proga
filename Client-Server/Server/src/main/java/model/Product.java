@@ -1,5 +1,6 @@
 package model;
 
+import com.google.gson.JsonObject;
 import exceptions.IncorrectInputException;
 import interfaces.Validate;
 import managers.AnnounceManager;
@@ -64,51 +65,7 @@ public class Product implements Comparable<Product>, Validate {
         return partNumber;
     }//endregion
 
-    //region setters
-    public void setName(String name) throws IncorrectInputException {
-        if (name == null || name.isEmpty()) throw new IncorrectInputException("not.empty.string.condition");
-        else this.name = name;
-    }
 
-    public void setPrice(String price) throws IncorrectInputException {
-        if (price.equalsIgnoreCase("Null") || price.equalsIgnoreCase("Nl")) this.price = null;
-        else {
-            try {
-                this.price = NumbParser.parseFloat(price);
-                if (this.price <= 0.0) throw new NumberFormatException();
-            } catch (ArithmeticException | NumberFormatException e) {
-                throw new IncorrectInputException("null, positive.condition");
-            }
-        }
-    }
-
-    public void setPartNumber(String partNumber) throws IncorrectInputException {
-        if (partNumber.equals("Null") || partNumber.equals("Nl")) this.partNumber = null;
-        if (partNumber.isEmpty()) throw new IncorrectInputException("null, not.empty.string.condition");
-        else this.partNumber = partNumber;
-    }
-
-    public void setManufactureCost(String manufactureCost) {
-        try {
-            this.manufactureCost = NumbParser.parseFloat(manufactureCost);
-        } catch (ArithmeticException | NumberFormatException e) {
-            throw new IncorrectInputException("number.condition");
-        }
-    }
-
-    public void setUnitOfMeasure(String unitOfMeasure) throws IncorrectInputException {
-        this.unitOfMeasure = UnitOfMeasure.getUnit(unitOfMeasure);
-    }
-
-    public Product setOwner(Person owner) {
-        this.owner = owner;
-        return this;
-    }
-
-    public Product setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-        return this;
-    }//endregion
 
     //region id
     /**
@@ -162,7 +119,8 @@ public class Product implements Comparable<Product>, Validate {
     }
 
     @Override
-    public String toString() {
+    public JsonObject toString() {
+
         return AnnounceManager.getInstance().cTCL("product.info", Integer.toString(id), name,
                 coordinates.toString(), creationDate.format(Person.formatter),
                 Float.toString(price), partNumber, Float.toString(manufactureCost),

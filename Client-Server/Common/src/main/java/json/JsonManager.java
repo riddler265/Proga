@@ -5,7 +5,11 @@ import com.google.gson.JsonSyntaxException;
 
 public class JsonManager {
 
-    private static final Gson GSON = new Gson();
+    protected static Gson GSON;
+
+    public JsonManager() {
+        GSON = new Gson();
+    }
 
     public static ServerResponse responseDeserialization(String jsonString) throws JsonSyntaxException {
         return GSON.fromJson(jsonString, ServerResponse.class);
