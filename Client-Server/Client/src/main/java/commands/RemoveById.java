@@ -16,12 +16,10 @@ public class RemoveById extends Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        consoleManager.execute("show", scanner);
-        println("write.id");
-        ClientRequestBuilder rGRequest = new ClientRequestBuilder(Commands.REMOVE_BY_ID);
+        ClientRequestBuilder removeByIdBuilder = new ClientRequestBuilder(Commands.REMOVE_BY_ID);
         try {
-            rGRequest.setIntParameter(scanner.nextLine());
-            consoleManager.addToOutQueue(JsonManager.requestSerialization(rGRequest.buildSimpleRequest()));
+            removeByIdBuilder.setIntParameter(input.substring(input.lastIndexOf(" ") + 1));
+            toOutQueue(removeByIdBuilder.buildSimpleRequest());
         } catch (IncorrectInputException e) {
             println("no.element.id");
         }

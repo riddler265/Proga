@@ -1,30 +1,29 @@
 package json;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
+import enums.Commands;
 
 public class JsonManager {
 
-    protected static Gson GSON;
+    public static Gson GSON;
 
     public JsonManager() {
         GSON = new Gson();
     }
 
-    public static ServerResponse responseDeserialization(String jsonString) throws JsonSyntaxException {
-        return GSON.fromJson(jsonString, ServerResponse.class);
+    public static Commands getCommand(String request) {
+        return Commands.valueOf(JsonParser.parseString(request).getAsJsonObject().get("command").getAsString().toUpperCase());
     }
 
-    public static String responseSerialization(ServerResponse serverResponse) {
-        return GSON.toJson(serverResponse + "\n");
+    public static JsonObject getProduct(String request) {
+        return JsonParser.parseString(request).getAsJsonObject().getAsJsonObject("product");
     }
 
-    public static ClientRequest requestDeserialization(String jsonString) throws JsonSyntaxException {
-        return GSON.fromJson(jsonString, ClientRequest.class);
-    }
-
-    public static String requestSerialization(ClientRequest clientRequest) {
-        return GSON.toJson(clientRequest) + "\\n";
+    public static JsonObject getParameter(String request) {
+        return JsonParser.parseString(request).getAsJsonObject().getAsJsonObject("parameter");
     }
 
 }

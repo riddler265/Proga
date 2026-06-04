@@ -12,7 +12,6 @@ public class Help extends Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        String valid_commands = "valid_commands";
-        println(valid_commands);
+        println("valid_commands");
     }
 }

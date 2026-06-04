@@ -1,7 +1,5 @@
 package enums;
 
-import exceptions.IncorrectInputException;
-
 public enum Commands {
     HELP("help"),
     INFO("info"),

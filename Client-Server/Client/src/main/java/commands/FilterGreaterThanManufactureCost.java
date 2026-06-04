@@ -16,10 +16,10 @@ public class FilterGreaterThanManufactureCost extends Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        ClientRequestBuilder rGRequest = new ClientRequestBuilder(Commands.FILTER_GREATER_THAN_MANUFACTURE_COST);
+        ClientRequestBuilder filterGreaterThanManufactureCost = new ClientRequestBuilder(Commands.FILTER_GREATER_THAN_MANUFACTURE_COST);
         try {
-            rGRequest.setFloatParameter(input.substring(input.lastIndexOf(" ") + 1));
-            consoleManager.addToOutQueue(JsonManager.requestSerialization(rGRequest.buildSimpleRequest()));
+            filterGreaterThanManufactureCost.setFloatParameter(input.substring(input.lastIndexOf(" ") + 1));
+            toOutQueue(filterGreaterThanManufactureCost.buildSimpleRequest());
         } catch (IncorrectInputException e) {
             println("remove.by.price.condition");
         }

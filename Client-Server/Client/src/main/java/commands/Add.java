@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class Add extends Command {
 
     protected boolean isSystemReader;
-    protected ClientRequestBuilder addRequest;
+    protected ClientRequestBuilder addBuilder;
 
     public Add(ConsoleManager consoleManager) {
         super(consoleManager);
@@ -54,7 +54,7 @@ public class Add extends Command {
     //product
     protected void writeProductName(String input, Scanner scanner) throws ExecuteException {
         try {
-            addRequest.setName(input);
+            addBuilder.setName(input);
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
@@ -65,7 +65,7 @@ public class Add extends Command {
 
     protected void writePrice(String input, Scanner scanner) throws ExecuteException {
         try {
-            addRequest.setPrice(input);
+            addBuilder.setPrice(input);
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
@@ -76,7 +76,7 @@ public class Add extends Command {
 
     protected void writePartNumber(String input, Scanner scanner) throws ExecuteException {
         try {
-            addRequest.setPartNumber(input);
+            addBuilder.setPartNumber(input);
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
@@ -87,7 +87,7 @@ public class Add extends Command {
 
     protected void writeManufactureCost(String input, Scanner scanner) throws ExecuteException {
         try {
-            addRequest.setManufactureCost(input);
+            addBuilder.setManufactureCost(input);
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
@@ -98,7 +98,7 @@ public class Add extends Command {
 
     protected void writeUnitOfMeasure(String input, Scanner scanner) throws ExecuteException {
         try {
-            addRequest.setUnitOfMeasure(input);
+            addBuilder.setUnitOfMeasure(input);
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
@@ -110,7 +110,7 @@ public class Add extends Command {
     //coordinates
     protected void writeCoordinateX(String input, Scanner scanner) throws ExecuteException {
         try {
-            addRequest.setX(input);
+            addBuilder.setX(input);
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
@@ -121,7 +121,7 @@ public class Add extends Command {
 
     protected void writeCoordinateY(String input, Scanner scanner) throws ExecuteException{
         try {
-            addRequest.setY(input);
+            addBuilder.setY(input);
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
@@ -133,7 +133,7 @@ public class Add extends Command {
     //person
     protected void writePersonName(String input, Scanner scanner) throws ExecuteException {
         try {
-            addRequest.setPersonName(input);
+            addBuilder.setPersonName(input);
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
@@ -144,7 +144,7 @@ public class Add extends Command {
 
     protected void writeBirthday(String input, Scanner scanner) {
         try {
-            addRequest.setBirthday(input);
+            addBuilder.setBirthday(input);
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
@@ -155,7 +155,7 @@ public class Add extends Command {
 
     protected void writeHeight(String input, Scanner scanner) throws ExecuteException{
         try {
-            addRequest.setHeight(input);
+            addBuilder.setHeight(input);
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
@@ -165,12 +165,12 @@ public class Add extends Command {
     }
 
     protected void writePassportID(String input, Scanner scanner) {
-        addRequest.setPassportID(input);
+        addBuilder.setPassportID(input);
     }
 
     protected void writeHairColor(String input, Scanner scanner) {
         try {
-            addRequest.setHairColor(input);
+            addBuilder.setHairColor(input);
         } catch (IncorrectInputException e) {
             if (isSystemReader) {
                 System.out.print(e.getMessage());
@@ -195,6 +195,7 @@ public class Add extends Command {
             announce("owner.hair.color", "color.info");
             System.out.println();
             writeHairColor(scanner.nextLine(), scanner);
+            addBuilder.setOwner();
         }
     }
 
@@ -219,20 +220,23 @@ public class Add extends Command {
         announce("product.unitOfMeasure", "unit.info");
         System.out.println();
         writeUnitOfMeasure(scanner.nextLine(), scanner);
+
+        addBuilder.setCoordinates();
     }//endregion
 
     @Override
     public void execute(String input, Scanner scanner) {
 
         isSystemReader = consoleManager.isSystemReader();
-        addRequest = new ClientRequestBuilder(Commands.ADD);
+        addBuilder = new ClientRequestBuilder(Commands.ADD);
 
         try {
             createCoordinates(scanner);
             createPerson(scanner);
             createProduct(scanner);
 
-            consoleManager.addToOutQueue(JsonManager.requestSerialization(addRequest.buildRequest()));
+            toOutQueue(addBuilder.buildRequest());
+            System.out.println(addBuilder.buildRequest());
         } catch (ExecuteException e) {
             System.out.println(e.getMessage());
         }

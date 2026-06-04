@@ -1,78 +1,93 @@
 package managers;
 
-import json.ServerResponse;
-import model.Person;
 import model.Product;
 
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.logging.Logger;
 
 /**
- * Класс, управляющий коллекцией {@link Product}.
+ * Менеджер коллекции.
+ * Управляет PriorityQueue<Product>.
+ * Все операции обработки — через Stream API с лямбда-выражениями.
  */
 public class CollectionManager {
 
-    //fields
-    private final PriorityQueue<Product> collection = new PriorityQueue<>();
-    private final LocalDateTime creationTime;
-    private Product greatestProduct = null;
+    private static final Logger logger = Logger.getLogger(CollectionManager.class.getName());
 
+    private PriorityQueue<Product> collection;
+    private final LocalDateTime initializationDate;
+    private final FileManager fileManager;
 
-    /**
-     * Конструктор.
-     */
-    public CollectionManager() {
-        this.creationTime = LocalDateTime.now();
+    private Product greatestProduct;
+
+    // История последних 6 команд
+    private final LinkedList<String> history = new LinkedList<>();
+
+    public CollectionManager(FileManager fileManager) {
+        this.fileManager = fileManager;
+        this.collection = new PriorityQueue<>();
+        this.initializationDate = LocalDateTime.now();
     }
 
-    /**
-     * Метод, возвращающий информацию о коллекции.
-     * @return информация о коллекции.
-     */
-    public ServerResponse getInfo() {
-        return new ServerResponse("collection.info", collection.getClass().getSimpleName(),
-                creationTime.format(Person.formatter),Integer.toString(collection.size()));
+    public void add(Product product) {
+        collection.add(product);
+        if (greatestProduct == null) {
+            greatestProduct = product;
+        }
+        if (greatestProduct.compareTo(product) < 0) {
+            greatestProduct = product;
+        }
     }
 
-    public Product getProductById(int id) {
-        return collection.stream()
-                .filter(product -> product.getId() == id)
-                .findFirst()
-                .orElse(null);
+    public void remove(Product product) {
+        collection.remove(product);
     }
 
-    public PriorityQueue<Product> getCollection() {
-        return collection;
-    }
-
-    //estProducts
     public Product getGreatestProduct() {
         return greatestProduct;
+    }
+
+    public void clear() {
+        collection.clear();
     }
 
     public Product getLowestProduct() {
         return collection.peek();
     }
 
-    /**
-     * Добавление {@link Product} в коллекцию.
-     * <p>
-     * @param product - Продукт. Становится
-     * наибольшим, если коллекция пуста,
-     * сравнивается с наибольшим, если это
-     * не так.
-     */
-    public ServerResponse addToCollection(Product product) {
-        collection.add(product);
-        if (greatestProduct == null || greatestProduct.compareTo(product) < 0) {
-            greatestProduct = product;
+    public Product getProductById(int id) {
+        for (Product product : collection) {
+            if (product.getId() == id) return product;
         }
-        return new ServerResponse("add.succes", product.toString());
+        return null;
     }
 
-    public ServerResponse removeFromCollection(Product product) {
-        collection.remove(product);
-        return new ServerResponse("remove.success", Integer.toString(product.getId()), product.getName());
+    // ==================== ЗАГРУЗКА / СОХРАНЕНИЕ ====================
+
+    public void loadCollection() {
+        PriorityQueue<Product> loaded = fileManager.load();
+        if (loaded != null) {
+            collection = loaded;
+            // Обновляем счётчик id
+            collection.stream()
+                    .mapToInt(Product::getId)
+                    .max()
+                    .ifPresent(Product::updateCurrentId);
+            logger.info("Collection loaded: " + collection.size() + " elements");
+        } else {
+            logger.warning("Failed to load collection, starting with empty collection");
+        }
     }
 
+    public void saveCollection() {
+        fileManager.save(collection);
+        logger.info("Collection saved: " + collection.size() + " elements");
+    }
+
+
+
+    public PriorityQueue<Product> getCollection() { return collection; }
+    public FileManager getFileManager() { return fileManager; }
 }

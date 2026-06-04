@@ -18,14 +18,14 @@ public class AddIfMin extends Add {
     public void execute(String input, Scanner scanner) {
 
         isSystemReader = consoleManager.isSystemReader();
-        addRequest = new ClientRequestBuilder(Commands.ADD_IF_MIN);
+        addBuilder = new ClientRequestBuilder(Commands.ADD_IF_MIN);
 
         try {
             createCoordinates(scanner);
             createPerson(scanner);
             createProduct(scanner);
 
-            consoleManager.addToOutQueue(JsonManager.requestSerialization(addRequest.buildRequest()));
+            toOutQueue(addBuilder.buildRequest());
         } catch (ExecuteException e) {
             System.out.println(e.getMessage());
         }

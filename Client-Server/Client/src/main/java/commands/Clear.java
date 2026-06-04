@@ -1,6 +1,7 @@
 package commands;
 
 import enums.Commands;
+import util.ClientRequestBuilder;
 import util.ConsoleManager;
 
 import java.util.Scanner;
@@ -13,6 +14,7 @@ public class Clear extends Command{
 
     @Override
     public void execute(String input, Scanner scanner) {
-        buildSimpleRequest(Commands.CLEAR);
+        ClientRequestBuilder clearBuilder = new ClientRequestBuilder(Commands.CLEAR);
+        toOutQueue(clearBuilder.buildSimpleRequest());
     }
 }

@@ -1,6 +1,5 @@
 package commands;
 
-import enums.Commands;
 import util.ConsoleManager;
 
 import java.util.Scanner;
@@ -13,6 +12,7 @@ public class Exit extends Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        buildSimpleRequest(Commands.EXIT);
+        println("goodbye");
+        System.exit(1);
     }
 }

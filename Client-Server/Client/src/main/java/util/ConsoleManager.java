@@ -37,10 +37,11 @@ public class ConsoleManager {
         commands.put("filter_less_than_manufacture_cost", new FilterLessThanManufactureCost(this));
         commands.put("filter_greater_than_manufacture_cost", new FilterGreaterThanManufactureCost(this));
         commands.put("language", new SelectLanguage(this));
+        commands.put("exit", new Exit(this));
     }
 
-    public void addToOutQueue(String json) {
-        outQueue.add(json);
+    public void toOutQueue(String request) {
+        outQueue.add(request);
     }
 
     public stack.Stack getStack() {

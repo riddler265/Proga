@@ -1,6 +1,7 @@
 package commands;
 
 import enums.Commands;
+import util.ClientRequestBuilder;
 import util.ConsoleManager;
 
 import java.util.Scanner;
@@ -13,6 +14,7 @@ public class Show extends Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        buildSimpleRequest(Commands.SHOW);
+        ClientRequestBuilder showBuilder = new ClientRequestBuilder(Commands.SHOW);
+        toOutQueue(showBuilder.buildSimpleRequest());
     }
 }

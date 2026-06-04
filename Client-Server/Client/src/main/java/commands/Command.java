@@ -1,9 +1,7 @@
 package commands;
 
-import enums.Commands;
-import json.JsonManager;
+import com.google.gson.JsonObject;
 import localization.AnnounceManager;
-import util.ClientRequestBuilder;
 import util.ConsoleManager;
 
 import java.util.Scanner;
@@ -28,12 +26,8 @@ public abstract class Command {
         return AnnounceManager.getInstance().format(key, parameters);
     }
 
-    protected void buildSimpleRequest(Commands command) {
-        consoleManager.addToOutQueue(JsonManager.requestSerialization(new ClientRequestBuilder(command).buildSimpleRequest()));
-    }
-
-    protected void buildRequest(Commands command) {
-        consoleManager.addToOutQueue(JsonManager.requestSerialization(new ClientRequestBuilder(command).buildRequest()));
+    protected void toOutQueue(JsonObject request) {
+        consoleManager.toOutQueue(request.toString());
     }
 
     public abstract void execute(String input, Scanner scanner);

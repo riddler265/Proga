@@ -1,4 +1,6 @@
+import exceptions.RecursionException;
 import json.JsonManager;
+import localization.AnnounceManager;
 import util.ConsoleManager;
 
 import java.io.BufferedReader;
@@ -36,9 +38,9 @@ public class Client {
                         // и сам положит нужный JSON-запрос в outQueue
                         consoleManager.execute(scanner.nextLine().trim(), scanner);
                     }
-                } catch (Exception ex) {
+                } catch (RecursionException e) {
                     // Ловим исключения, чтобы поток консоли не упал при ошибке ввода
-                    System.out.println("Ошибка обработки команды: " + ex.getMessage());
+                    System.out.println(e.getMessage());
                 } finally {
                     consoleManager.setIsSystemReader(true);
                 }
@@ -48,34 +50,34 @@ public class Client {
         consoleThread.start();
 
         while (running) {
-            System.out.println("Попытка подключения к серверу...");
+            AnnounceManager.getInstance().println("try.to.connect");
 
             try (Socket socket = new Socket("localhost", 9090);
                  BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
                  PrintWriter out = new PrintWriter(socket.getOutputStream(), true, StandardCharsets.UTF_8)) {
 
-                System.out.println("Успешное подключение к серверу!");
+                AnnounceManager.getInstance().println("connection.success");
                 isConnected = true;
 
                 // =================================================================
                 // 2. ПОТОК СЕТЕВОГО ЧТЕНИЯ (Пересоздается при каждом новом подключении)
                 // =================================================================
-                Thread readThread = new Thread(() -> {
+                /*Thread readThread = new Thread(() -> {
                     while (running && isConnected) {
                         try {
                             String response = in.readLine();
 
                             if (response == null) {
-                                System.out.println("\nСервер закрыл соединение.");
+                                AnnounceManager.getInstance().println("connection.is.closed");
                                 isConnected = false;
                                 break;
                             }
 
-                            System.out.println("Ответ сервера: " + JsonManager.responseDeserialization(response).toString());
+                            AnnounceManager.getInstance().println("server.response", JsonManager.responseDeserialization(response).toString());
 
                         } catch (IOException e) {
                             if (running && isConnected) {
-                                System.out.println("\n[СВЯЗЬ ОБОРВАНА] Потеряно соединение с сервером.");
+                                AnnounceManager.getInstance().println("connection.is.lost");
                                 isConnected = false;
                             }
                             break;
@@ -83,7 +85,7 @@ public class Client {
                     }
                 });
                 readThread.setDaemon(true);
-                readThread.start();
+                readThread.start();*/
 
                 // =================================================================
                 // 3. ЦИКЛ ОТПРАВКИ ДАННЫХ (Работает в основном потоке, пока есть связь)
@@ -101,11 +103,6 @@ public class Client {
                             continue;
                         }
 
-                        if ("quit".equals(line)) {
-                            running = false;
-                            break;
-                        }
-
                         // Если связь пропала, пока мы обрабатывали/ждали, возвращаем команду назад
                         if (!isConnected) {
                             outQueue.add(line);
@@ -115,7 +112,7 @@ public class Client {
                         out.println(line);
 
                         if (out.checkError()) {
-                            System.out.println("[ОШИБКА] Не удалось отправить данные.");
+                            AnnounceManager.getInstance().println("cant.send.data");
                             isConnected = false;
                         }
 
@@ -127,9 +124,9 @@ public class Client {
                 }
 
             } catch (ConnectException e) {
-                System.out.println("Сервер недоступен. Следующая попытка через 5 секунд...");
+                AnnounceManager.getInstance().println("server.unavailable");
             } catch (IOException e) {
-                System.out.println("Ошибка ввода-вывода: " + e.getMessage() + ". Ожидание 5 секунд...");
+                AnnounceManager.getInstance().println("io.exception");
             } finally {
                 // Гарантируем, что флаг соединения сброшен при выходе из try-with-resources
                 isConnected = false;
@@ -145,105 +142,5 @@ public class Client {
                 }
             }
         }
-
-        System.out.println("Работа клиента завершена.");
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*import connection.Connection;
-import exceptions.RecursionException;
-import json.JsonManager;
-import util.ConsoleManager;
-
-import java.nio.ByteBuffer;
-import java.nio.channels.*;
-import java.util.Scanner;
-import java.util.concurrent.*;
-
-public class Client {
-
-    private static final BlockingQueue<String> outQueue = new LinkedBlockingQueue<>();
-    private static volatile boolean running = true;
-
-    public static void main(String[] args) {
-
-        ConsoleManager consoleManager = new ConsoleManager(outQueue);
-        Scanner scanner = new Scanner(System.in);
-
-        try (SocketChannel channel = new Connection("localhost", 9090).getChannel()) {
-
-            Selector selector = Selector.open();
-            channel.register(selector, SelectionKey.OP_READ);
-
-            // поток для консоли
-            Thread consoleThread = new Thread(() -> {
-                while (running) {
-                    try {
-                        consoleManager.execute(scanner.nextLine().trim(), scanner);
-                    } catch (Exception ex) {
-                        System.out.println("hello");
-                    } finally {
-                        consoleManager.setIsSystemReader(true);
-                    }
-                }
-            });
-            consoleThread.setDaemon(true);
-            consoleThread.start();
-
-            // основной поток — сеть
-            while (running) {
-                selector.selectNow();
-
-                for (SelectionKey key : selector.selectedKeys()) {
-                    ByteBuffer readBuffer = ByteBuffer.allocate(1024);
-                    int bytes = channel.read(readBuffer);
-
-                    if (bytes == -1) {
-                        System.out.println("Сервер отключился.");
-                        running = false;
-                        break;
-                    }
-
-                    if (bytes > 0) {
-                        readBuffer.flip();
-                        String response = new String(readBuffer.array(), 0, readBuffer.limit());
-                        System.out.println(JsonManager.parseResponse(response).toString());
-                    }
-                }
-                selector.selectedKeys().clear();
-
-                // отправляем накопленное из очереди
-                String line;
-                while ((line = outQueue.poll()) != null) {
-                    if ("quit".equals(line)) {
-                        running = false;
-                        break;
-                    }
-
-                    ByteBuffer buffer = ByteBuffer.wrap((line + "\n").getBytes());
-
-                    // ЖЕСТКИЙ ЦИКЛ: пишем в канал до тех пор, пока в буфере остаются байты
-                    while (buffer.hasRemaining()) {
-                        channel.write(buffer);
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-}*/

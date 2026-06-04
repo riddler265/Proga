@@ -1,132 +1,152 @@
 package model;
 
-import com.google.gson.JsonObject;
-import exceptions.IncorrectInputException;
 import interfaces.Validate;
-import managers.AnnounceManager;
 import model.enums.UnitOfMeasure;
-import util.NumbParser;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Класс, элементами которого управляет коллекция.
+ * Класс продукта. Serializable для передачи по сети.
+ *
+ * ВАЖНО: id и creationDate назначаются СЕРВЕРОМ автоматически.
+ * Клиент передаёт объект без id (или с id=0), сервер присваивает его при add.
  */
-public class Product implements Comparable<Product>, Validate {
+public class Product implements Comparable<Product>, Validate, Serializable {
+    private static final long serialVersionUID = 1L;
 
-    //fields
-    private static int currentId = 1;
-    private final int id = currentId++; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
-    private String name; //Поле не может быть null, Строка не может быть пустой
-    private Coordinates coordinates; //Поле не может быть null
-    private final LocalDateTime creationDate = LocalDateTime.now(); //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Float price; //Поле может быть null, Значение поля должно быть больше 0
-    private String partNumber; //Строка не может быть пустой, Поле может быть null
+    // Серверный счётчик id (volatile — однопоточный сервер, но для надёжности)
+    private static volatile int currentId = 1;
+
+    private int id;                          // автогенерируемый сервером
+    private String name;                     // not null, not empty
+    private Coordinates coordinates;         // not null
+    private LocalDateTime creationDate;      // автогенерируемый сервером
+    private Float price;                     // nullable, > 0
+    private String partNumber;               // nullable, not empty
     private float manufactureCost;
-    private UnitOfMeasure unitOfMeasure; //Поле не может быть null
-    private Person owner; //Поле может быть null
+    private UnitOfMeasure unitOfMeasure;     // not null
+    private Person owner;                    // nullable
 
-    //region getters
-    public int getId () {
-        return id;
+
+    public Product() {
+        this.id = currentId++;
+        this.creationDate = LocalDateTime.now();
     }
-
-    public String getName () {
-        return name;
-    }
-
-    public Coordinates getCoordinates () {
-        return coordinates;
-    }
-
-    public float getManufactureCost () {
-        return manufactureCost;
-    }
-
-    public Float getPrice () {
-        return price;
-    }
-
-    public LocalDateTime getCreationDate () {
-        return creationDate;
-    }
-
-    public UnitOfMeasure getUnitOfMeasure () {
-        return unitOfMeasure;
-    }
-
-    public Person getOwner () {
-        return owner;
-    }
-
-    public String getPartNumber () {
-        return partNumber;
-    }//endregion
-
-
-
-    //region id
-    /**
-     * Узнать свободное id.
-     * @return целочисленное, еще не занятое никаким объектом id/
-     */
-    public static int getCurrentId() {return currentId;}
-
+    // ==================== АВТОГЕНЕРАЦИЯ ПОЛЕЙ СЕРВЕРОМ ====================
 
     /**
-     * Обновляет счетчик свободного id.
-     * @param maxFFile последний id из файла.
+     * Назначает серверные поля новому объекту (вызывается при add).
+     * id и creationDate не должны приходить от клиента.
      */
-    public static void updateCurrentId(int maxFFile) {
-        if(maxFFile >= currentId) {
-            currentId = maxFFile + 1;
-        }
-    }//endregion
-    
+    public void assignServerFields() {
+        this.id = currentId++;
+        this.creationDate = LocalDateTime.now();
+    }
+
+    public static int getCurrentId()            { return currentId; }
+    public static void updateCurrentId(int max) {
+        if (max >= currentId) currentId = max + 1;
+    }
+
+    // ==================== GETTERS ====================
+
+    public int getId()                  { return id; }
+    public String getName()             { return name; }
+    public Coordinates getCoordinates() { return coordinates; }
+    public LocalDateTime getCreationDate() { return creationDate; }
+    public Float getPrice()             { return price; }
+    public String getPartNumber()       { return partNumber; }
+    public float getManufactureCost()   { return manufactureCost; }
+    public UnitOfMeasure getUnitOfMeasure() { return unitOfMeasure; }
+    public Person getOwner()            { return owner; }
+
+    // ==================== SETTERS ====================
+
+    public Product setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Product setPrice(Float price) {
+        this.price = price;
+        return this;
+    }
+
+    public Product setPartNumber(String partNumber) {
+        this.partNumber = partNumber;
+        return this;
+    }
+
+    public Product setManufactureCost(Float manufactureCost) {
+        this.manufactureCost = manufactureCost;
+        return this;
+    }
+
+    public Product setUnitOfMeasure(UnitOfMeasure unitOfMeasure) {
+        this.unitOfMeasure = unitOfMeasure;
+        return this;
+    }
+
+    public Product setOwner(Person owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    public Product setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+        return this;
+    }
+
+    // Прямая установка для десериализации из файла
+    public void setId(int id)                       { this.id = id; }
+    public void setCreationDate(LocalDateTime date) { this.creationDate = date; }
+
+    // ==================== COMPARABLE / VALIDATE ====================
+
     @Override
     public int compareTo(Product o) {
-        String NameI = name;
-        String NameII = o.name;
-        return NameI.compareTo(NameII);
+        return this.name.compareTo(o.name);
     }
 
     @Override
     public boolean validate() {
         if (id <= 0) return false;
         if (name == null || name.trim().isEmpty()) return false;
-        if (coordinates == null) return false;
+        if (coordinates == null || !coordinates.validate()) return false;
         if (creationDate == null) return false;
         if (price != null && price <= 0) return false;
         if (partNumber != null && partNumber.trim().isEmpty()) return false;
-        if (unitOfMeasure == null) return false;
-        return true;
+        return unitOfMeasure != null;
     }
 
-    //region equals(), hachCode(), toString()
+    // ==================== equals / hashCode / toString ====================
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Product product = (Product) o;
-        return id == product.id && creationDate.equals(product.creationDate);
+        Product p = (Product) o;
+        return id == p.id && Objects.equals(creationDate, p.creationDate);
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, creationDate);
-    }
+    public int hashCode() { return Objects.hash(id, creationDate); }
 
     @Override
-    public JsonObject toString() {
-
-        return AnnounceManager.getInstance().cTCL("product.info", Integer.toString(id), name,
-                coordinates.toString(), creationDate.format(Person.formatter),
-                Float.toString(price), partNumber, Float.toString(manufactureCost),
-                unitOfMeasure.toString(),
-                Optional.ofNullable(owner)
-                        .map(Person::getName)
-                        .orElse(AnnounceManager.getInstance().cTCL("no.owner")));
-    }//endregion
+    public String toString() {
+        return "Product{" +
+               "id=" + id +
+               ", name='" + name + '\'' +
+               ", coordinates=" + coordinates +
+               ", creationDate=" + (creationDate != null ? creationDate.format(Person.formatter) : "null") +
+               ", price=" + price +
+               ", partNumber='" + partNumber + '\'' +
+               ", manufactureCost=" + manufactureCost +
+               ", unitOfMeasure=" + unitOfMeasure +
+               ", owner=" + Optional.ofNullable(owner).map(Person::getName).orElse("none") +
+               '}';
+    }
 }

@@ -16,12 +16,10 @@ public class RemoveGreater extends  Command{
 
     @Override
     public void execute(String input, Scanner scanner) {
-        consoleManager.execute("show", scanner);
-        println("write.id");
-        ClientRequestBuilder rGRequest = new ClientRequestBuilder(Commands.REMOVE_GREATER);
+        ClientRequestBuilder removeGreaterBuilder = new ClientRequestBuilder(Commands.REMOVE_GREATER);
         try {
-            rGRequest.setIntParameter(scanner.nextLine());
-            consoleManager.addToOutQueue(JsonManager.requestSerialization(rGRequest.buildSimpleRequest()));
+            removeGreaterBuilder.setIntParameter(input.substring(input.lastIndexOf(" ") + 1));
+            toOutQueue(removeGreaterBuilder.buildSimpleRequest());
         } catch (IncorrectInputException e) {
             println("no.element.id");
         }

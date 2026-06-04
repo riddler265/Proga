@@ -16,10 +16,10 @@ public class RemoveAllByPrice extends Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        ClientRequestBuilder rGRequest = new ClientRequestBuilder(Commands.REMOVE_ALL_BY_PRICE);
+        ClientRequestBuilder removeAllByPriceBuilder = new ClientRequestBuilder(Commands.REMOVE_ALL_BY_PRICE);
         try {
-            rGRequest.setFloatParameter(input.substring(input.lastIndexOf(" ") + 1));
-            consoleManager.addToOutQueue(JsonManager.requestSerialization(rGRequest.buildSimpleRequest()));
+            removeAllByPriceBuilder.setFloatParameter(input.substring(input.lastIndexOf(" ") + 1));
+            toOutQueue(removeAllByPriceBuilder.buildSimpleRequest());
         } catch (IncorrectInputException e) {
             println("remove.by.price.condition");
         }

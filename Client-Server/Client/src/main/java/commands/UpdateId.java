@@ -142,7 +142,7 @@ public class UpdateId extends Add {
             case N:
                 break;
             case S:
-                addRequest.setPersonName("detach everything as it is");
+                addBuilder.setPersonName("detach everything as it is");
                 break;
         }
     }//endregion
@@ -150,14 +150,18 @@ public class UpdateId extends Add {
     @Override
     public void execute(String input, Scanner scanner) {
         isSystemReader = consoleManager.isSystemReader();
-        addRequest = new ClientRequestBuilder(Commands.UPDATE_ID);
+        addBuilder = new ClientRequestBuilder(Commands.UPDATE_ID);
 
         try {
+
+            addBuilder.setIntParameter(input.substring(input.lastIndexOf(" ") + 1));
+
             createCoordinates(scanner);
             createPerson(scanner);
             createProduct(scanner);
 
-            consoleManager.addToOutQueue(JsonManager.requestSerialization(addRequest.buildRequest()));
+            toOutQueue(addBuilder.buildRequest());
+            System.out.println(addBuilder.buildRequest());
         } catch (ExecuteException e) {
             System.out.println(e.getMessage());
         }
