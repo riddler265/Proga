@@ -14,8 +14,7 @@ import java.util.Optional;
  * ВАЖНО: id и creationDate назначаются СЕРВЕРОМ автоматически.
  * Клиент передаёт объект без id (или с id=0), сервер присваивает его при add.
  */
-public class Product implements Comparable<Product>, Validate, Serializable {
-    private static final long serialVersionUID = 1L;
+public class Product implements Comparable<Product>, Validate {
 
     // Серверный счётчик id (volatile — однопоточный сервер, но для надёжности)
     private static volatile int currentId = 1;
@@ -30,11 +29,6 @@ public class Product implements Comparable<Product>, Validate, Serializable {
     private UnitOfMeasure unitOfMeasure;     // not null
     private Person owner;                    // nullable
 
-
-    public Product() {
-        this.id = currentId++;
-        this.creationDate = LocalDateTime.now();
-    }
     // ==================== АВТОГЕНЕРАЦИЯ ПОЛЕЙ СЕРВЕРОМ ====================
 
     /**

@@ -25,6 +25,28 @@ dependencies {
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
+tasks.register('copyTestScripts', Copy) {
+    from 'src/test/resources/scripts'
+    into 'build/libs/scripts'
+    // Если тесты запускаются внутри build/classes/java/test или build/resources/test,
+    // можно продублировать копирование туда, но обычно для запуска из под джарника
+    // файлы должны лежать рядом с ним:
+    into 'build/resources/test/scripts'
+}
+
+// Указываем, что перед тестированием нужно обязательно скопировать скрипты
+processTestResources.dependsOn copyTestScripts
+
 test {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'Client'
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from configurations.runtimeClasspath.collect {
+        it.isDirectory() ? it : zipTree(it)
+    }
 }

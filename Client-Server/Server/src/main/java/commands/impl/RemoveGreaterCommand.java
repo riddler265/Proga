@@ -7,7 +7,6 @@ import managers.CollectionManager;
 import model.Product;
 import network.Response;
 
-
 import java.util.logging.Logger;
 
 public class RemoveGreaterCommand implements Command {
@@ -24,7 +23,7 @@ public class RemoveGreaterCommand implements Command {
                             JsonObject jPerson, JsonElement parameter) {
         if (parameter == null) {
             logger.warning("REMOVE_GREATER failed: no id parameter provided");
-            return new Response(false, "Не указан id элемента.");
+            return new Response(false, "Element ID is not specified.");
         }
 
         int id = parameter.getAsInt();
@@ -34,7 +33,7 @@ public class RemoveGreaterCommand implements Command {
 
         if (target == null) {
             logger.warning("REMOVE_GREATER failed: product id=" + id + " not found");
-            return new Response(false, "Элемент с id=" + id + " не найден.");
+            return new Response(false, "Element with id=" + id + " not found.");
         }
 
         long countBefore = collectionManager.getCollection().size();
@@ -42,6 +41,6 @@ public class RemoveGreaterCommand implements Command {
         long removed = countBefore - collectionManager.getCollection().size();
 
         logger.info("REMOVE_GREATER success: removed " + removed + " elements greater than '" + target.getName() + "'");
-        return new Response(true, "Удалено элементов: " + removed);
+        return new Response(true, "Removed elements: " + removed);
     }
 }

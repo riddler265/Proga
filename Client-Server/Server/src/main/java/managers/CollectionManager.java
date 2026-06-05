@@ -1,5 +1,6 @@
 package managers;
 
+import model.Person;
 import model.Product;
 
 import java.time.LocalDateTime;
@@ -92,6 +93,6 @@ public class CollectionManager {
     public FileManager getFileManager() { return fileManager; }
 
     public String getInitializationDate() {
-        return initializationDate.toString();
+        return initializationDate.format(Person.formatter);
     }
 }

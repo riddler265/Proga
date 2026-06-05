@@ -73,14 +73,26 @@ public class FileManager {
      * Сохраняет коллекцию в JSON-файл.
      */
     public void save(PriorityQueue<Product> collection) {
+        if (!saveToFile(filePath, collection)) {
+            String backupPath = filePath + ".backup";
+            logger.warning("Failed to save to primary file, trying backup: " + backupPath);
+            if (!saveToFile(backupPath, collection)) {
+                logger.severe("Failed to save to backup file too. Data may be lost!");
+            } else {
+                logger.info("Collection saved to backup file: " + backupPath);
+            }
+        }
+    }
+
+    private boolean saveToFile(String path, PriorityQueue<Product> collection) {
         try (BufferedWriter writer = new BufferedWriter(
-                new OutputStreamWriter(new FileOutputStream(filePath), StandardCharsets.UTF_8))) {
-
+                new OutputStreamWriter(new FileOutputStream(path), StandardCharsets.UTF_8))) {
             gson.toJson(collection, writer);
-            logger.info("Collection saved to " + filePath);
-
+            logger.info("Collection saved to " + path);
+            return true;
         } catch (IOException e) {
-            logger.severe("Failed to save collection: " + e.getMessage());
+            logger.severe("Failed to save to " + path + ": " + e.getMessage());
+            return false;
         }
     }
 

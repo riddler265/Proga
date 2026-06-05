@@ -4,6 +4,7 @@ import enums.Color;
 import enums.Commands;
 import enums.Strategy;
 import exceptions.ExecuteException;
+import exceptions.IncorrectInputException;
 import json.JsonManager;
 import util.ClientRequestBuilder;
 import util.ConsoleManager;
@@ -135,7 +136,7 @@ public class UpdateId extends Add {
                 writeHeight(scanner.nextLine(), scanner);
                 announce("owner.passport.id", "null", "string.condition");
                 writePassportID(scanner.nextLine(), scanner);
-                announce("owner.hair.color", Color.getColorsInfo());
+                announce("owner.hair.color", "color.info");
                 System.out.println();
                 writeHairColor(scanner.nextLine(), scanner);
                 break;
@@ -161,9 +162,10 @@ public class UpdateId extends Add {
             createProduct(scanner);
 
             toOutQueue(addBuilder.buildRequest());
-            System.out.println(addBuilder.buildRequest());
         } catch (ExecuteException e) {
             System.out.println(e.getMessage());
+        } catch (IncorrectInputException e) {
+            System.out.println("no such id");
         }
     }
 }

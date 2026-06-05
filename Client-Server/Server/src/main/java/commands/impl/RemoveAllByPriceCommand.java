@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import managers.CollectionManager;
 import network.Response;
 
-
 import java.util.logging.Logger;
 
 public class RemoveAllByPriceCommand implements Command {
@@ -23,7 +22,7 @@ public class RemoveAllByPriceCommand implements Command {
                             JsonObject jPerson, JsonElement parameter) {
         if (parameter == null) {
             logger.warning("REMOVE_ALL_BY_PRICE failed: no price parameter provided");
-            return new Response(false, "Не указана цена.");
+            return new Response(false, "Price is not specified.");
         }
 
         float price = parameter.getAsFloat();
@@ -34,6 +33,6 @@ public class RemoveAllByPriceCommand implements Command {
         long removed = countBefore - collectionManager.getCollection().size();
 
         logger.info("REMOVE_ALL_BY_PRICE success: removed " + removed + " elements with price=" + price);
-        return new Response(true, "Удалено элементов с price=" + price + ": " + removed);
+        return new Response(true, "Removed elements with price=" + price + ": " + removed);
     }
 }

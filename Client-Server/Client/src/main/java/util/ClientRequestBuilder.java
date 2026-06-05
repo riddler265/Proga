@@ -179,6 +179,7 @@ public class ClientRequestBuilder {
     }
 
     public JsonObject buildRequest() {
+        request.add("parameter", parameter);
         request.add("product", product);
         return request;
     }

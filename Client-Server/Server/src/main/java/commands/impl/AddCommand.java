@@ -30,6 +30,6 @@ public class AddCommand implements Command {
         collectionManager.add(product);
 
         logger.info("ADD success: added product id=" + product.getId() + " name='" + product.getName() + "'");
-        return new Response(true, "Элемент успешно добавлен. ID: " + product.getId());
+        return new Response(true, "Element successfully added. ID: " + product.getId());
     }
 }

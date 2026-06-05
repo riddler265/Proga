@@ -8,7 +8,6 @@ import managers.CollectionManager;
 import model.Product;
 import network.Response;
 
-
 import java.util.logging.Logger;
 
 public class AddIfMinCommand implements Command {
@@ -31,7 +30,7 @@ public class AddIfMinCommand implements Command {
             product.assignServerFields();
             collectionManager.add(product);
             logger.info("ADD_IF_MIN success: collection was empty, product added id=" + product.getId());
-            return new Response(true, "Коллекция была пуста — элемент добавлен. ID: " + product.getId());
+            return new Response(true, "Collection was empty — element added. ID: " + product.getId());
         }
 
         Product lowest = collectionManager.getLowestProduct();
@@ -41,10 +40,10 @@ public class AddIfMinCommand implements Command {
             product.assignServerFields();
             collectionManager.add(product);
             logger.info("ADD_IF_MIN success: product is minimum, added id=" + product.getId());
-            return new Response(true, "Элемент является минимальным и добавлен. ID: " + product.getId());
+            return new Response(true, "Element is the minimum and has been added. ID: " + product.getId());
         }
 
         logger.info("ADD_IF_MIN: product is not minimum, not added");
-        return new Response(false, "Элемент не является минимальным и не был добавлен.");
+        return new Response(false, "Element is not the minimum and was not added.");
     }
 }

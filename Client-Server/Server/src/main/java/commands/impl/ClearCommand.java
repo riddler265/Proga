@@ -6,7 +6,6 @@ import com.google.gson.JsonObject;
 import managers.CollectionManager;
 import network.Response;
 
-
 import java.util.logging.Logger;
 
 public class ClearCommand implements Command {
@@ -27,6 +26,6 @@ public class ClearCommand implements Command {
         collectionManager.clear();
 
         logger.info("CLEAR success: collection is now empty");
-        return new Response(true, "Коллекция очищена. Удалено элементов: " + sizeBefore);
+        return new Response(true, "Collection cleared. Removed elements: " + sizeBefore);
     }
 }

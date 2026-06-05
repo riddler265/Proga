@@ -236,7 +236,6 @@ public class Add extends Command {
             createProduct(scanner);
 
             toOutQueue(addBuilder.buildRequest());
-            System.out.println(addBuilder.buildRequest());
         } catch (ExecuteException e) {
             System.out.println(e.getMessage());
         }

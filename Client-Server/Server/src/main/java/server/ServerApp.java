@@ -21,7 +21,13 @@ public class ServerApp {
             LoggerConfig.setup();
 
             // Путь к файлу коллекции — из аргумента или по умолчанию
-            String filePath = (args.length > 0) ? args[0] : "collection.json";
+            String filePath = System.getenv("COLLECTION_FILE");
+            if (filePath == null || filePath.isBlank()) {
+                filePath = "collection.json"; // дефолт если переменная не задана
+                logger.warning("COLLECTION_FILE env variable not set, using default: " + filePath);
+            } else {
+                logger.info("COLLECTION_FILE: " + filePath);
+            }
 
             logger.info("=== Server starting on port " + PORT + " ===");
             logger.info("Collection file: " + filePath);

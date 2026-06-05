@@ -8,7 +8,6 @@ import managers.CollectionManager;
 import model.Product;
 import network.Response;
 
-
 import java.util.logging.Logger;
 
 public class UpdateIdCommand implements Command {
@@ -25,7 +24,7 @@ public class UpdateIdCommand implements Command {
                             JsonObject jPerson, JsonElement parameter) {
         if (parameter == null) {
             logger.warning("UPDATE_ID failed: no id parameter provided");
-            return new Response(false, "Не указан id элемента.");
+            return new Response(false, "Element ID is not specified.");
         }
 
         int id = parameter.getAsInt();
@@ -35,12 +34,12 @@ public class UpdateIdCommand implements Command {
 
         if (product == null) {
             logger.warning("UPDATE_ID failed: product id=" + id + " not found");
-            return new Response(false, "Элемент с id=" + id + " не найден.");
+            return new Response(false, "Element with id=" + id + " not found.");
         }
 
         ProductParser.updateProduct(product, jProduct, jCoordinates, jPerson);
 
         logger.info("UPDATE_ID success: updated product id=" + id + " name='" + product.getName() + "'");
-        return new Response(true, "Элемент id=" + id + " успешно обновлён.");
+        return new Response(true, "Element id=" + id + " successfully updated.");
     }
 }

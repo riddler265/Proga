@@ -125,9 +125,10 @@ public class Client {
                 }
 
             } catch (ConnectException e) {
-                AnnounceManager.getInstance().println("server.unavailable");
+                System.out.println("ConnectException: " + e.getMessage());
             } catch (IOException e) {
-                AnnounceManager.getInstance().println("io.exception");
+                System.out.println("IOException: " + e.getMessage());
+                e.printStackTrace();
             } finally {
                 // Гарантируем, что флаг соединения сброшен при выходе из try-with-resources
                 isConnected = false;

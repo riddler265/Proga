@@ -34,6 +34,10 @@ public class JsonManager {
     public static JsonElement getParameter(String request) {
         JsonElement el = JsonParser.parseString(request).getAsJsonObject().get("parameter");
         if (el == null || el.isJsonNull()) return null;
+        // если это объект {"parameter": value} — достаём value
+        if (el.isJsonObject()) {
+            return el.getAsJsonObject().get("parameter");
+        }
         return el;
     }
 

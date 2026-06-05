@@ -29,7 +29,8 @@ public class ExecuteScript extends Command {
     @Override
     public void execute(String input, Scanner currentScanner) throws RecursionException {
         //fields
-        File path = new File("scripts", input.substring(input.lastIndexOf(" ") + 1));
+        File path = new File(System.getProperty("user.dir") + "/scripts",
+                input.substring(input.lastIndexOf(" ") + 1));
         try (Scanner scanner = new Scanner(path)) {
             consoleManager.setIsSystemReader(false);
             stack.add(path);
