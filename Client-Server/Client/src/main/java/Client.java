@@ -1,6 +1,7 @@
 import exceptions.RecursionException;
 import json.JsonManager;
 import localization.AnnounceManager;
+import localization.ResponsePrinter;
 import util.ConsoleManager;
 
 import java.io.BufferedReader;
@@ -62,7 +63,7 @@ public class Client {
                 // =================================================================
                 // 2. ПОТОК СЕТЕВОГО ЧТЕНИЯ (Пересоздается при каждом новом подключении)
                 // =================================================================
-                /*Thread readThread = new Thread(() -> {
+                Thread readThread = new Thread(() -> {
                     while (running && isConnected) {
                         try {
                             String response = in.readLine();
@@ -73,7 +74,7 @@ public class Client {
                                 break;
                             }
 
-                            AnnounceManager.getInstance().println("server.response", JsonManager.responseDeserialization(response).toString());
+                            ResponsePrinter.print(response);
 
                         } catch (IOException e) {
                             if (running && isConnected) {
@@ -85,7 +86,7 @@ public class Client {
                     }
                 });
                 readThread.setDaemon(true);
-                readThread.start();*/
+                readThread.start();
 
                 // =================================================================
                 // 3. ЦИКЛ ОТПРАВКИ ДАННЫХ (Работает в основном потоке, пока есть связь)

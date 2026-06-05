@@ -1,5 +1,6 @@
 package network;
 
+import json.JsonManager;
 import model.Product;
 
 import java.util.List;
@@ -25,6 +26,10 @@ public class Response {
         this.success = success;
         this.message = message;
         this.products = products;
+    }
+
+    public String toJson() {
+        return JsonManager.GSON.toJson(this);
     }
 
     public boolean isSuccess() { return success; }

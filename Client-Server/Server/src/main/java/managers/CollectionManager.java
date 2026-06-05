@@ -90,4 +90,8 @@ public class CollectionManager {
 
     public PriorityQueue<Product> getCollection() { return collection; }
     public FileManager getFileManager() { return fileManager; }
+
+    public String getInitializationDate() {
+        return initializationDate.toString();
+    }
 }

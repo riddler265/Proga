@@ -11,7 +11,7 @@ public class AnnounceManager {
     private ResourceBundle bundle;
 
     private AnnounceManager() {
-        this.bundle = ResourceBundle.getBundle("lang.messages", Loc.RUSSIAN.getLocale());
+        this.bundle = ResourceBundle.getBundle("lang.messages", Loc.ENGLISH.getLocale());
     }
 
     public static AnnounceManager getInstance() {
