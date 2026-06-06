@@ -28,19 +28,13 @@ public class Client {
         ConsoleManager consoleManager = new ConsoleManager(outQueue);
         Scanner scanner = new Scanner(System.in);
 
-        // =================================================================
-        // 1. ПОТОК КОНСОЛИ (Запускается один раз при старте программы)
-        // =================================================================
         Thread consoleThread = new Thread(() -> {
             while (running) {
                 try {
                     if (scanner.hasNextLine()) {
-                        // Передаем строку в ConsoleManager. Он обработает её
-                        // и сам положит нужный JSON-запрос в outQueue
                         consoleManager.execute(scanner.nextLine().trim(), scanner);
                     }
                 } catch (RecursionException e) {
-                    // Ловим исключения, чтобы поток консоли не упал при ошибке ввода
                     System.out.println(e.getMessage());
                 } finally {
                     consoleManager.setIsSystemReader(true);
@@ -60,9 +54,6 @@ public class Client {
                 AnnounceManager.getInstance().println("connection.success");
                 isConnected = true;
 
-                // =================================================================
-                // 2. ПОТОК СЕТЕВОГО ЧТЕНИЯ (Пересоздается при каждом новом подключении)
-                // =================================================================
                 Thread readThread = new Thread(() -> {
                     while (running && isConnected) {
                         try {
@@ -88,23 +79,14 @@ public class Client {
                 readThread.setDaemon(true);
                 readThread.start();
 
-                // =================================================================
-                // 3. ЦИКЛ ОТПРАВКИ ДАННЫХ (Работает в основном потоке, пока есть связь)
-                // =================================================================
                 while (running && isConnected) {
                     try {
-                        // Вместо take() используем poll() с ожиданием в 1 секунду.
-                        // Если очередь пуста, поток просто подождет 1 секунду и проверит условие цикла (isConnected).
-                        // Это позволит основному потоку МГНОВЕННО узнать о разрыве связи,
-                        // даже если пользователь ничего не вводит в консоль!
                         String line = outQueue.poll(1, TimeUnit.SECONDS);
 
-                        // Если за 1 секунду ничего не пришло, просто идем на новую проверку while(isConnected)
                         if (line == null) {
                             continue;
                         }
 
-                        // Если связь пропала, пока мы обрабатывали/ждали, возвращаем команду назад
                         if (!isConnected) {
                             outQueue.add(line);
                             break;
@@ -130,7 +112,6 @@ public class Client {
                 System.out.println("IOException: " + e.getMessage());
                 e.printStackTrace();
             } finally {
-                // Гарантируем, что флаг соединения сброшен при выходе из try-with-resources
                 isConnected = false;
             }
 
