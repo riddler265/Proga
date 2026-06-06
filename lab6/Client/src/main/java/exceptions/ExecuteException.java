@@ -1,12 +1,11 @@
 package exceptions;
 
-import managers.AnnounceManager;
 
-/**
- * Исключение для команды {@link commands.Execute}.
- */
+import localization.AnnounceManager;
+
+
 public class ExecuteException extends RuntimeException {
     public ExecuteException(String message) {
-        super(AnnounceManager.getInstance().cTCL("execute.e", message));
+        super(AnnounceManager.getInstance().format("execute.e", message));
     }
 }

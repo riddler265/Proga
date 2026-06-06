@@ -1,28 +1,30 @@
 package util;
 
 import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
+import enums.Color;
+import enums.Commands;
+import enums.UnitOfMeasure;
 import exceptions.IncorrectInputException;
 
-import enums.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-import com.google.gson.JsonObject;
-import json.ClientRequest;
-
 public class ClientRequestBuilder {
 
-    private final Commands command;
+    private final JsonObject request = new JsonObject();
 
-    private final JsonObject product = new JsonObject();
+    private final JsonObject product = new JsonObject(); {
+        product.add("owner", JsonNull.INSTANCE);
+    }
     private final JsonObject person = new JsonObject();
     private final JsonObject coordinates = new JsonObject();
 
     private final JsonObject parameter = new JsonObject();
 
     public ClientRequestBuilder(Commands command) {
-        this.command = command;
+        request.addProperty("command", command.getName());
     }
 
     //formater
@@ -136,8 +138,9 @@ public class ClientRequestBuilder {
     public ClientRequestBuilder setUnitOfMeasure(String input) throws IncorrectInputException {
         product.addProperty("unitOfMeasure", UnitOfMeasure.getUnit(input).name());
         return this;
-    }
+    }//endregion
 
+    //region Product helpers
     public ClientRequestBuilder setOwner() {
         product.add("owner", person);
         return this;
@@ -149,7 +152,7 @@ public class ClientRequestBuilder {
     }//endregion
 
     //region Parameter setters
-    public ClientRequestBuilder setIntParameter(String input) {
+    public ClientRequestBuilder setIntParameter(String input) throws IncorrectInputException{
         try {
             int integer = NumbParser.parseInt(input);
             if (integer < 0) throw new ArithmeticException();
@@ -159,7 +162,7 @@ public class ClientRequestBuilder {
         } return this;
     }
 
-    public ClientRequestBuilder setFloatParameter(String input) {
+    public ClientRequestBuilder setFloatParameter(String input) throws IncorrectInputException{
         try {
             float floater = NumbParser.parseFloat(input);
             if (floater < 0) throw new ArithmeticException();
@@ -170,12 +173,15 @@ public class ClientRequestBuilder {
     }//endregion
 
     //region Builders
-    public ClientRequest buildSimpleRequest() {
-        return new ClientRequest(command.getName(), parameter);
+    public JsonObject buildSimpleRequest() {
+        request.add("parameter", parameter);
+        return request;
     }
 
-    public ClientRequest buildRequest() {
-        setOwner().setCoordinates();
-        return new ClientRequest(command.getName(), product);
-    }//endregion
+    public JsonObject buildRequest() {
+        request.add("parameter", parameter);
+        request.add("product", product);
+        return request;
+    }
+    //endregion
 }

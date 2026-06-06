@@ -1,5 +1,0 @@
-rootProject.name = 'Client-Server'
-
-include 'Client'
-include 'Server'
-include 'Common'

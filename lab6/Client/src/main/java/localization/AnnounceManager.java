@@ -1,12 +1,9 @@
 package localization;
 
 import exceptions.IncorrectInputException;
-import localization.Loc;
-import json.ServerResponse;
 
-import java.io.*;
 import java.text.MessageFormat;
-import java.util.*;
+import java.util.ResourceBundle;
 
 public class AnnounceManager {
 
@@ -14,7 +11,7 @@ public class AnnounceManager {
     private ResourceBundle bundle;
 
     private AnnounceManager() {
-        this.bundle = ResourceBundle.getBundle("lang.messages", Loc.RUSSIAN.getLocale());
+        this.bundle = ResourceBundle.getBundle("lang.messages", Loc.ENGLISH.getLocale());
     }
 
     public static AnnounceManager getInstance() {

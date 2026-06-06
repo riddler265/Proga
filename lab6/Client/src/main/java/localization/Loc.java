@@ -1,7 +1,6 @@
 package localization;
 
 import exceptions.IncorrectInputException;
-import localization.AnnounceManager;
 import util.NumbParser;
 
 import java.util.Locale;

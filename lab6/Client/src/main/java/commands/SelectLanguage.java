@@ -1,16 +1,16 @@
 package commands;
 
 import exceptions.IncorrectInputException;
-import managers.AnnounceManager;
-import managers.CollectionManager;
-import model.enums.Loc;
+import localization.AnnounceManager;
+import localization.Loc;
+import util.ConsoleManager;
 
 import java.util.Scanner;
 
 public class SelectLanguage extends Command{
 
-    public SelectLanguage(CollectionManager collectionManager) {
-        super(collectionManager);
+    public SelectLanguage(ConsoleManager consoleManager) {
+        super(consoleManager);
     }
 
     @Override

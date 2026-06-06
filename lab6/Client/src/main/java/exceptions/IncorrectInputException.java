@@ -6,7 +6,7 @@ import java.util.MissingResourceException;
 
 public class IncorrectInputException extends RuntimeException {
     public IncorrectInputException(String conditions) {
-        super(conditions);
+        super(format(conditions));
     }
 
     private static String format(String cond) {

@@ -1,143 +1,129 @@
-import connection.Connection;
 import exceptions.RecursionException;
 import json.JsonManager;
+import localization.AnnounceManager;
+import localization.ResponsePrinter;
 import util.ConsoleManager;
 
-import java.nio.ByteBuffer;
-import java.nio.channels.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ConnectException;
+import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
-import java.util.concurrent.*;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class Client {
 
+    // Очередь для отправки (заполняется извне, например, вашим ConsoleManager)
     private static final BlockingQueue<String> outQueue = new LinkedBlockingQueue<>();
     private static volatile boolean running = true;
+    private static volatile boolean isConnected = false;
 
     public static void main(String[] args) {
 
         ConsoleManager consoleManager = new ConsoleManager(outQueue);
         Scanner scanner = new Scanner(System.in);
 
-        try (SocketChannel channel = new Connection("localhost", 9090).getChannel()) {
-
-            Selector selector = Selector.open();
-            channel.register(selector, SelectionKey.OP_READ);
-
-            // поток для консоли
-            Thread consoleThread = new Thread(() -> {
-                while (running) {
-                    try {
-                        consoleManager.execute(scanner.nextLine().trim(), scanner);
-                    } catch (RecursionException e) {
-                        System.out.println(e.getMessage());
-                    } finally {
-                        consoleManager.setIsSystemReader(true);
-                    }
-                }
-            });
-            consoleThread.setDaemon(true);
-            consoleThread.start();
-
-            // основной поток — сеть
+        Thread consoleThread = new Thread(() -> {
             while (running) {
-                selector.selectNow();
-
-                for (SelectionKey key : selector.selectedKeys()) {
-                    ByteBuffer readBuffer = ByteBuffer.allocate(1024);
-                    int bytes = channel.read(readBuffer);
-
-                    if (bytes == -1) {
-                        System.out.println("Сервер отключился.");
-                        running = false;
-                        break;
+                try {
+                    if (scanner.hasNextLine()) {
+                        consoleManager.execute(scanner.nextLine().trim(), scanner);
                     }
-
-                    if (bytes > 0) {
-                        readBuffer.flip();
-                        String response = new String(readBuffer.array(), 0, readBuffer.limit());
-                        System.out.println(JsonManager.parseResponse(response).toString());
-                    }
-                }
-                selector.selectedKeys().clear();
-
-                // отправляем накопленное из очереди
-                String line;
-                while ((line = outQueue.poll()) != null) {
-                    if ("quit".equals(line)) {
-                        running = false;
-                        break;
-                    }
-                    ByteBuffer buffer = ByteBuffer.wrap((line + "\n").getBytes());
-                    channel.write(buffer);
+                } catch (RecursionException e) {
+                    System.out.println(e.getMessage());
+                } finally {
+                    consoleManager.setIsSystemReader(true);
                 }
             }
+        });
+        consoleThread.setDaemon(true); // Завершится автоматически при выходе из приложения
+        consoleThread.start();
 
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        while (running) {
+            AnnounceManager.getInstance().println("try.to.connect");
+
+            try (Socket socket = new Socket("localhost", 9090);
+                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+                 PrintWriter out = new PrintWriter(socket.getOutputStream(), true, StandardCharsets.UTF_8)) {
+
+                AnnounceManager.getInstance().println("connection.success");
+                isConnected = true;
+
+                Thread readThread = new Thread(() -> {
+                    while (running && isConnected) {
+                        try {
+                            String response = in.readLine();
+
+                            if (response == null) {
+                                AnnounceManager.getInstance().println("connection.is.closed");
+                                isConnected = false;
+                                break;
+                            }
+
+                            ResponsePrinter.print(response);
+
+                        } catch (IOException e) {
+                            if (running && isConnected) {
+                                AnnounceManager.getInstance().println("connection.is.lost");
+                                isConnected = false;
+                            }
+                            break;
+                        }
+                    }
+                });
+                readThread.setDaemon(true);
+                readThread.start();
+
+                while (running && isConnected) {
+                    try {
+                        String line = outQueue.poll(1, TimeUnit.SECONDS);
+
+                        if (line == null) {
+                            continue;
+                        }
+
+                        if (!isConnected) {
+                            outQueue.add(line);
+                            break;
+                        }
+
+                        out.println(line);
+
+                        if (out.checkError()) {
+                            AnnounceManager.getInstance().println("cant.send.data");
+                            isConnected = false;
+                        }
+
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                        running = false;
+                        break;
+                    }
+                }
+
+            } catch (ConnectException e) {
+                System.out.println("ConnectException: " + e.getMessage());
+            } catch (IOException e) {
+                System.out.println("IOException: " + e.getMessage());
+                e.printStackTrace();
+            } finally {
+                isConnected = false;
+            }
+
+            // Наш интервал в 5 секунд перед следующей итерацией (если приложение не закрывается)
+            if (running) {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    running = false;
+                }
+            }
         }
     }
 }
-
-
-
-/*import connection.Connection;
-import exceptions.RecursionException;
-import json.JsonManager;
-import util.consoleManager;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.ByteBuffer;
-import java.nio.channels.*;
-import java.util.Scanner;
-import java.util.concurrent.*;
-
-// EchoClient.java — отвечает за отправку и чтение
-// EchoClient.java
-public class Client {
-
-    private static final BlockingQueue<String> outQueue = new LinkedBlockingQueue<>();
-    private static volatile boolean running = true;
-
-    public static void main(String[] args) throws Exception {
-
-        //Подготовка
-        consoleManager consoleManager = new consoleManager();
-        Scanner scanner = consoleManager.getScanner();
-
-        try (SocketChannel channel = new Connection("localhost", 9090).getChannel()) {
-
-
-            Selector selector = Selector.open();
-            channel.register(selector, SelectionKey.OP_READ);
-
-            BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
-
-            while (running) {
-                // проверяем есть ли ответ от сервера (не блокируем — таймаут 0)
-                selector.selectNow();
-                for (SelectionKey key : selector.selectedKeys()) {
-                    ByteBuffer readBuffer = ByteBuffer.allocate(1024);
-                    channel.read(readBuffer);
-                    readBuffer.flip();
-                    System.out.println(new String(readBuffer.array(), 0, readBuffer.limit()));
-                    System.out.println(JsonManager.parseResponse(new String(readBuffer.array(), 0, readBuffer.limit())).toString());
-                }
-                selector.selectedKeys().clear();
-
-                // проверяем есть ли ввод с консоли
-                if (console.ready()) {
-                    try {
-                        consoleManager.execute(scanner.nextLine(), scanner);
-                    } catch (RecursionException e) {
-                        System.out.println(e.getMessage());
-                    } finally {
-                        consoleManager.setIsSystemReader(true);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-    }
-}*/
