@@ -5,311 +5,44 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d8f2915a-2168-4838-856e-507d5cd2f12e" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/9.3.0/checksums/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/9.3.0/checksums/sha1-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/9.3.0/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/9.3.0/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/9.3.0/expanded/expanded.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/9.3.0/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/9.3.0/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/9.3.0/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/9.3.0/fileHashes/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/9.3.0/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/file-system.probe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.gradle/vcs-1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/Client.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/Add.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/AddIfMin.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/Clear.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/Command.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/ExecuteScript.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/Exit.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/FilterGreaterThanManufactureCost.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/FilterLessThanManufactureCost.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/Help.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/History.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/Info.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/RemoveAllByPrice.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/RemoveById.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/RemoveGreater.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/SelectLanguage.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/Show.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/UpdateId$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/commands/UpdateId.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/connection/Connection.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/enums/Color.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/enums/Strategy.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/enums/UnitOfMeasure.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/exceptions/ExecuteException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/exceptions/IncorrectInputException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/exceptions/RecursionException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/localization/AnnounceManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/localization/Loc.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/localization/ResponsePrinter.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/stack/History.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/stack/Stack.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/util/ClientRequestBuilder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/util/ConsoleManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/classes/java/main/util/NumbParser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/libs/Client-1.0-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/resources/main/lang/messages.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/resources/main/lang/messages_en.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/tmp/compileJava/compileTransaction/stash-dir/Client.class.uniqueId0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/build/tmp/jar/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/Client.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/Add.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/AddIfMin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/Clear.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/Command.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/ExecuteScript.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/Exit.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/FilterGreaterThanManufactureCost.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/FilterLessThanManufactureCost.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/Help.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/History.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/Info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/RemoveAllByPrice.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/RemoveById.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/RemoveGreater.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/SelectLanguage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/Show.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/commands/UpdateId.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/connection/Connection.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/enums/Color.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/enums/Strategy.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/enums/UnitOfMeasure.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/exceptions/ExecuteException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/exceptions/IncorrectInputException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/exceptions/RecursionException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/localization/AnnounceManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/localization/Loc.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/localization/ResponsePrinter.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/stack/History.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/stack/Stack.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/util/ClientRequestBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/util/ConsoleManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/java/util/NumbParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/resources/lang/messages.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Client/src/main/resources/lang/messages_en.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Common/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Common/build/classes/java/main/enums/Commands.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Common/build/classes/java/main/json/JsonManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Common/build/libs/Common-1.0-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Common/build/tmp/compileJava/compileTransaction/stash-dir/JsonManager.class.uniqueId0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Common/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Common/build/tmp/jar/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Common/src/main/java/enums/Commands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Common/src/main/java/json/JsonManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Products.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/Command.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/CommandProcessor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/ProductParser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/impl/AddCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/impl/AddIfMinCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/impl/ClearCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/impl/FilterGreaterThanManufactureCostCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/impl/FilterLessThanManufactureCostCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/impl/InfoCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/impl/RemoveAllByPriceCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/impl/RemoveByIdCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/impl/RemoveGreaterCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/impl/ShowCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/commands/impl/UpdateIdCommand.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/interfaces/Validate.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/managers/CollectionManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/managers/FileManager$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/managers/FileManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/model/Coordinates.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/model/Person.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/model/Product.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/model/enums/Color.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/model/enums/UnitOfMeasure.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/network/ClientState.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/network/ConnectionAcceptor.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/network/RequestReader.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/network/Response.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/network/ResponseSender.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/server/LoggerConfig$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/server/LoggerConfig.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/classes/java/main/server/ServerApp.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/libs/Server-1.0-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/AddCommand.class.uniqueId9" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/AddIfMinCommand.class.uniqueId14" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/ClearCommand.class.uniqueId7" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/CollectionManager.class.uniqueId12" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/CommandProcessor.class.uniqueId3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/ConnectionAcceptor.class.uniqueId16" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/FileManager$1.class.uniqueId2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/FileManager.class.uniqueId5" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/FilterGreaterThanManufactureCostCommand.class.uniqueId0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/FilterLessThanManufactureCostCommand.class.uniqueId10" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/InfoCommand.class.uniqueId8" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/RemoveAllByPriceCommand.class.uniqueId6" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/RemoveByIdCommand.class.uniqueId13" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/RemoveGreaterCommand.class.uniqueId15" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/ServerApp.class.uniqueId1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/ShowCommand.class.uniqueId4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/compileTransaction/stash-dir/UpdateIdCommand.class.uniqueId11" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/build/tmp/jar/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/Command.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/CommandProcessor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/ProductParser.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/impl/AddCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/impl/AddIfMinCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/impl/ClearCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/impl/FilterGreaterThanManufactureCostCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/impl/FilterLessThanManufactureCostCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/impl/InfoCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/impl/RemoveAllByPriceCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/impl/RemoveByIdCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/impl/RemoveGreaterCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/impl/ShowCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/commands/impl/UpdateIdCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/interfaces/Validate.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/managers/CollectionManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/managers/FileManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/model/Coordinates.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/model/Person.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/model/Product.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/model/enums/Color.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/model/enums/UnitOfMeasure.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/network/ClientState.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/network/ConnectionAcceptor.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/network/RequestReader.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/network/Response.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/network/ResponseSender.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/server/LoggerConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Server/src/main/java/server/ServerApp.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/build/reports/problems/problems-report.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/collection.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/scripts/script1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client-Server/Диаграмма/Диаграмма.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/File.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/hello/test.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../File/test.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Proga.Lab.3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/lab6.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/Client.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/Add.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/AddIfMin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/Clear.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/ExecuteScript.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/Exit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/FilterGreaterThanManufactureCost.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/FilterLessThanManufactureCost.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/Help.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/History.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/Info.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/RemoveAllByPrice.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/RemoveById.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/RemoveGreater.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/SelectLanguage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/Show.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/commands/UpdateId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/enums/Strategy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/exceptions/ExecuteException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/exceptions/IncorrectInputException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/exceptions/RecursionException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/localization/AnnounceManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/localization/Loc.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/localization/ResponsePrinter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/stack/History.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/stack/Stack.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/util/ClientRequestBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/java/util/ConsoleManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/resources/lang/messages.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Client/src/main/resources/lang/messages_en.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Common/build.gradle" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Common/src/main/java/communication/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Common/src/main/java/util/json/JsonManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/Common/src/main/java/util/numbparser/NumbParser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lab7/PostgreSQl/main.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/9.3.0/checksums/checksums.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/9.3.0/checksums/sha1-checksums.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/9.3.0/executionHistory/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/9.3.0/executionHistory/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/9.3.0/fileChanges/last-build.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/9.3.0/fileHashes/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/9.3.0/fileHashes/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/9.3.0/fileHashes/resourceHashesCache.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/9.3.0/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/file-system.probe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.gradle/vcs-1/gc.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.idea/gradle.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.idea/modules/Client.main.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Client.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/Client/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/classes/java/main/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/Client/build/classes/java/main/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/classes/java/main/connection/Connection.class" beforeDir="false" afterPath="$PROJECT_DIR$/Client/build/classes/java/main/connection/Connection.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/classes/java/main/enums/Commands.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/classes/java/main/exceptions/IncorrectInputException.class" beforeDir="false" afterPath="$PROJECT_DIR$/Client/build/classes/java/main/exceptions/IncorrectInputException.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/classes/java/main/json/ClientRequest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/classes/java/main/json/JsonManager.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/classes/java/main/json/ServerResponse.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/classes/java/main/localization/AnnounceManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/Client/build/classes/java/main/localization/AnnounceManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/classes/java/main/localization/Loc.class" beforeDir="false" afterPath="$PROJECT_DIR$/Client/build/classes/java/main/localization/Loc.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/classes/java/main/util/NumbParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/Client/build/classes/java/main/util/NumbParser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/reports/problems/problems-report.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/resources/main/lang/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Client/build/resources/main/lang/messages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/resources/main/lang/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Client/build/resources/main/lang/messages_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/tmp/compileJava/compileTransaction/stash-dir/AnnounceManager.class.uniqueId4" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/tmp/compileJava/compileTransaction/stash-dir/Client.class.uniqueId2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/tmp/compileJava/compileTransaction/stash-dir/Connection.class.uniqueId0" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/tmp/compileJava/compileTransaction/stash-dir/IncorrectInputException.class.uniqueId1" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/tmp/compileJava/compileTransaction/stash-dir/Loc.class.uniqueId3" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/Client/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/Add.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/Add.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/AddIfMin.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/AddIfMin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/Clear.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/Clear.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/Command.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/ExecuteScript.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/ExecuteScript.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/Exit.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/Exit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/FilterGreaterThanManufactureCost.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/FilterGreaterThanManufactureCost.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/FilterLessThanManufactureCost.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/FilterLessThanManufactureCost.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/History.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/History.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/Info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/Info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/RemoveAllByPrice.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/RemoveAllByPrice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/RemoveById.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/RemoveById.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/RemoveGreater.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/RemoveGreater.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/SelectLanguage.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/SelectLanguage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/Show.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/Show.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/commands/UpdateId.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/commands/UpdateId.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/enums/Commands.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/enums/Strategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/enums/Strategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/exceptions/ExecuteException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/exceptions/ExecuteException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/exceptions/IncorrectInputException.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/exceptions/IncorrectInputException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/json/ClientRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/json/JsonManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/json/ServerResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/localization/AnnounceManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/localization/AnnounceManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/localization/Loc.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/localization/Loc.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/util/ClientRequestBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/util/ClientRequestBuilder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/java/util/ConsoleManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/java/util/ConsoleManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/resources/lang/messages.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/resources/lang/messages.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/main/resources/lang/messages_en.properties" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/main/resources/lang/messages_en.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/server/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/server/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/Server.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/src/main/java/connection/Connection.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -365,35 +98,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.env var.executor": "Run",
-    "Gradle.Build Client-Server.executor": "Run",
-    "Gradle.Client-Server [:Client:Client.main()].executor": "Run",
-    "Gradle.Client-Server [:Client:jar].executor": "Run",
-    "Gradle.Client-Server [:Server:Main.main()].executor": "Run",
-    "Gradle.Client-Server [:Server:Server.main()].executor": "Run",
-    "Gradle.Client-Server [:Server:jar].executor": "Run",
-    "Gradle.Client-Server [:Server:server.Server.main()].executor": "Run",
-    "Gradle.Client-Server [:Server:server.ServerApp.main()].executor": "Run",
-    "Gradle.Client-Server.executor": "Run",
-    "Gradle.Load Gradle Dependencies.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "git-widget-placeholder": "sixth",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Study/Proga/lab6",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.lookFeel"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.env var.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Build Client-Server.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Client-Server [:Client:Client.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Client-Server [:Client:jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Client-Server [:Server:Main.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Client-Server [:Server:Server.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Client-Server [:Server:jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Client-Server [:Server:server.Server.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Client-Server [:Server:server.ServerApp.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Client-Server.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.Load Gradle Dependencies.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Study/Proga/lab6&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\Study\Proga\Client-Server\Server\src\main\java\commands" />
