@@ -1,13 +1,14 @@
 package commands;
 
-import communication.Command;
+import enums.Commands;
 import exceptions.IncorrectInputException;
+import json.JsonManager;
 import util.ClientRequestBuilder;
 import util.ConsoleManager;
 
 import java.util.Scanner;
 
-public class RemoveAllByPrice extends commands.Command {
+public class RemoveAllByPrice extends Command {
 
     public RemoveAllByPrice(ConsoleManager consoleManager) {
         super(consoleManager);
@@ -15,7 +16,7 @@ public class RemoveAllByPrice extends commands.Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        ClientRequestBuilder removeAllByPriceBuilder = new ClientRequestBuilder(Command.REMOVE_ALL_BY_PRICE);
+        ClientRequestBuilder removeAllByPriceBuilder = new ClientRequestBuilder(Commands.REMOVE_ALL_BY_PRICE);
         try {
             removeAllByPriceBuilder.setFloatParameter(input.substring(input.lastIndexOf(" ") + 1));
             toOutQueue(removeAllByPriceBuilder.buildSimpleRequest());

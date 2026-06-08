@@ -1,12 +1,12 @@
 package commands;
 
-import communication.Command;
+import enums.Commands;
 import util.ClientRequestBuilder;
 import util.ConsoleManager;
 
 import java.util.Scanner;
 
-public class Clear extends commands.Command {
+public class Clear extends Command{
 
     public Clear(ConsoleManager consoleManager) {
         super(consoleManager);
@@ -14,7 +14,7 @@ public class Clear extends commands.Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        ClientRequestBuilder clearBuilder = new ClientRequestBuilder(Command.CLEAR);
+        ClientRequestBuilder clearBuilder = new ClientRequestBuilder(Commands.CLEAR);
         toOutQueue(clearBuilder.buildSimpleRequest());
     }
 }

@@ -1,13 +1,14 @@
 package commands;
 
-import communication.Command;
+import enums.Commands;
 import exceptions.IncorrectInputException;
+import json.JsonManager;
 import util.ClientRequestBuilder;
 import util.ConsoleManager;
 
 import java.util.Scanner;
 
-public class FilterLessThanManufactureCost extends commands.Command {
+public class FilterLessThanManufactureCost extends Command {
 
     public FilterLessThanManufactureCost(ConsoleManager consoleManager) {
         super(consoleManager);
@@ -15,7 +16,7 @@ public class FilterLessThanManufactureCost extends commands.Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        ClientRequestBuilder filterLessThanManufactureCostBuilder = new ClientRequestBuilder(Command.FILTER_LESS_THAN_MANUFACTURE_COST);
+        ClientRequestBuilder filterLessThanManufactureCostBuilder = new ClientRequestBuilder(Commands.FILTER_LESS_THAN_MANUFACTURE_COST);
         try {
             filterLessThanManufactureCostBuilder.setFloatParameter(input.substring(input.lastIndexOf(" ") + 1));
             toOutQueue(filterLessThanManufactureCostBuilder.buildSimpleRequest());

@@ -1,9 +1,9 @@
-import communication.Request;
 import exceptions.RecursionException;
+import util.Session;
+import json.JsonManager;
 import localization.AnnounceManager;
 import localization.ResponsePrinter;
 import util.ConsoleManager;
-import util.json.JsonManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 public class Client {
 
     // Очередь для отправки (заполняется извне, например, вашим ConsoleManager)
-    private static final BlockingQueue<Request> outQueue = new LinkedBlockingQueue<>();
+    private static final BlockingQueue<String> outQueue = new LinkedBlockingQueue<>();
     private static volatile boolean running = true;
     private static volatile boolean isConnected = false;
 
@@ -44,8 +44,6 @@ public class Client {
         });
         consoleThread.setDaemon(true); // Завершится автоматически при выходе из приложения
         consoleThread.start();
-
-
 
         while (running) {
             AnnounceManager.getInstance().println("try.to.connect");
@@ -84,18 +82,18 @@ public class Client {
 
                 while (running && isConnected) {
                     try {
-                        Request request = outQueue.poll(1, TimeUnit.SECONDS);
+                        String line = outQueue.poll(1, TimeUnit.SECONDS);
 
-                        if (request == null) {
+                        if (line == null) {
                             continue;
                         }
 
                         if (!isConnected) {
-                            outQueue.add(request);
+                            outQueue.add(line);
                             break;
                         }
 
-                        out.println(JsonManager.serializeRequest(request));
+                        out.println(Session.getInstance().injectAuth(line));
 
                         if (out.checkError()) {
                             AnnounceManager.getInstance().println("cant.send.data");

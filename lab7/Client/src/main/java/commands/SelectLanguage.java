@@ -7,7 +7,7 @@ import util.ConsoleManager;
 
 import java.util.Scanner;
 
-public class SelectLanguage extends Command{
+public class SelectLanguage extends Command {
 
     public SelectLanguage(ConsoleManager consoleManager) {
         super(consoleManager);
@@ -15,14 +15,15 @@ public class SelectLanguage extends Command{
 
     @Override
     public void execute(String input, Scanner scanner) {
-        print("available.languages");
-        String selectedL = scanner.nextLine();
+        println("select.language");
+        println("locales.info");
+        String selected = consoleManager.isSystemReader() ? scanner.nextLine().trim() : input.trim();
         try {
-            AnnounceManager.getInstance().setLocale(Loc.getLocale(selectedL));
-            AnnounceManager.getInstance().println("language.success");
+            AnnounceManager.getInstance().setLocale(Loc.getLocale(selected));
+            println("language.success");
         } catch (IncorrectInputException e) {
-            System.out.println();
-            execute(selectedL, scanner);
+            System.out.println(e.getMessage());
+            if (consoleManager.isSystemReader()) execute(input, scanner);
         }
     }
 }

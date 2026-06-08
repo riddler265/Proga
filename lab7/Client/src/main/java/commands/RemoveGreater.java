@@ -1,13 +1,14 @@
 package commands;
 
-import communication.Command;
+import enums.Commands;
 import exceptions.IncorrectInputException;
+import json.JsonManager;
 import util.ClientRequestBuilder;
 import util.ConsoleManager;
 
 import java.util.Scanner;
 
-public class RemoveGreater extends commands.Command {
+public class RemoveGreater extends  Command{
 
     public RemoveGreater(ConsoleManager consoleManager) {
         super(consoleManager);
@@ -15,7 +16,7 @@ public class RemoveGreater extends commands.Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        ClientRequestBuilder removeGreaterBuilder = new ClientRequestBuilder(Command.REMOVE_GREATER);
+        ClientRequestBuilder removeGreaterBuilder = new ClientRequestBuilder(Commands.REMOVE_GREATER);
         try {
             removeGreaterBuilder.setIntParameter(input.substring(input.lastIndexOf(" ") + 1));
             toOutQueue(removeGreaterBuilder.buildSimpleRequest());

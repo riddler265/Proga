@@ -1,13 +1,14 @@
 package commands;
 
-import communication.Command;
+import enums.Commands;
 import exceptions.IncorrectInputException;
+import json.JsonManager;
 import util.ClientRequestBuilder;
 import util.ConsoleManager;
 
 import java.util.Scanner;
 
-public class RemoveById extends commands.Command {
+public class RemoveById extends Command {
 
     public RemoveById(ConsoleManager consoleManager) {
         super(consoleManager);
@@ -15,7 +16,7 @@ public class RemoveById extends commands.Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        ClientRequestBuilder removeByIdBuilder = new ClientRequestBuilder(Command.REMOVE_BY_ID);
+        ClientRequestBuilder removeByIdBuilder = new ClientRequestBuilder(Commands.REMOVE_BY_ID);
         try {
             removeByIdBuilder.setIntParameter(input.substring(input.lastIndexOf(" ") + 1));
             toOutQueue(removeByIdBuilder.buildSimpleRequest());

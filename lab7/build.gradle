@@ -1,21 +1,17 @@
-plugins {
-    id 'java'
-}
+subprojects {
+    // Применяем плагин Java ко всем подмодулям автоматически
+    apply plugin: 'java'
 
-group = 'org.example'
-version = '1.0-SNAPSHOT'
+    repositories {
+        mavenCentral() // Откуда качаем Gson
+    }
 
-repositories {
-    mavenCentral()
-}
+    java {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
 
-dependencies {
-    testImplementation platform('org.junit:junit-bom:6.0.0')
-    testImplementation 'org.junit.jupiter:junit-jupiter'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-    implementation 'org.postgresql:postgresql:42.7.3'
-}
-
-test {
-    useJUnitPlatform()
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
 }

@@ -1,6 +1,6 @@
 package commands;
 
-import communication.Command;
+import enums.Commands;
 import enums.Strategy;
 import exceptions.ExecuteException;
 import exceptions.IncorrectInputException;
@@ -15,8 +15,10 @@ public class UpdateId extends Add {
         super(consoleManager);
     }
 
-    //region helpers
-    //skip
+    // =========================================================
+    // SKIP
+    // =========================================================
+
     protected boolean skip(String input) {
         return input.trim().equalsIgnoreCase("\\s") || input.trim().equalsIgnoreCase("/s");
     }
@@ -31,102 +33,131 @@ public class UpdateId extends Add {
             return needOwner(scanner.nextLine(), scanner);
         } else throw new ExecuteException(getClass().getSimpleName());
     }
-    //endregion
 
-    //region writing
-    //product
+    // =========================================================
+    // WRITE PRODUCT
+    // =========================================================
+
     @Override
-    public void writeProductName(String input, Scanner scanner) throws ExecuteException{
-        if (!skip(input)) {
-            super.writeProductName(input, scanner);
+    public void writeProductName(String input, Scanner scanner) throws ExecuteException {
+        if (skip(input)) return;
+        try {
+            addBuilder.setName(input);
+        } catch (IncorrectInputException e) {
+            if (isSystemReader) { System.out.print(e.getMessage()); writeProductName(scanner.nextLine(), scanner); }
+            else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
     @Override
     public void writePrice(String input, Scanner scanner) throws ExecuteException {
-        if (!skip(input)) {
-            super.writePrice(input, scanner);
-        }
-    }
-    @Override
-    public void writePartNumber(String input, Scanner scanner) {
-        if (!skip(input)) {
-            super.writePartNumber(input, scanner);
+        if (skip(input)) return;
+        try {
+            addBuilder.setPrice(input);
+        } catch (IncorrectInputException e) {
+            if (isSystemReader) { System.out.print(e.getMessage()); writePrice(scanner.nextLine(), scanner); }
+            else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
     @Override
+    public void writePartNumber(String input, Scanner scanner) {
+        if (skip(input)) return;
+        super.writePartNumber(input, scanner);
+    }
+
+    @Override
     public void writeManufactureCost(String input, Scanner scanner) throws ExecuteException {
-        if (!skip(input)) {
-            super.writeManufactureCost(input, scanner);
+        if (skip(input)) return;
+        try {
+            addBuilder.setManufactureCost(input);
+        } catch (IncorrectInputException e) {
+            if (isSystemReader) { System.out.print(e.getMessage()); writeManufactureCost(scanner.nextLine(), scanner); }
+            else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
     @Override
     protected void writeUnitOfMeasure(String input, Scanner scanner) throws ExecuteException {
-        if (!skip(input)) {
-            super.writeUnitOfMeasure(input, scanner);
-        }
+        if (skip(input)) return;
+        super.writeUnitOfMeasure(input, scanner);
     }
 
-    //coordinates
+    // =========================================================
+    // WRITE COORDINATES
+    // =========================================================
+
     @Override
     protected void writeCoordinateX(String input, Scanner scanner) {
-        if (!skip(input)) {
-            super.writeCoordinateX(input, scanner);
+        if (skip(input)) return;
+        try {
+            addBuilder.setX(input);
+        } catch (IncorrectInputException e) {
+            if (isSystemReader) { System.out.print(e.getMessage()); writeCoordinateX(scanner.nextLine(), scanner); }
         }
     }
 
     @Override
     protected void writeCoordinateY(String input, Scanner scanner) throws ExecuteException {
-        if (!skip(input)) {
-            super.writeCoordinateY(input, scanner);
+        if (skip(input)) return;
+        try {
+            addBuilder.setY(input);
+        } catch (IncorrectInputException e) {
+            if (isSystemReader) { System.out.print(e.getMessage()); writeCoordinateY(scanner.nextLine(), scanner); }
+            else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
-    //person
+    // =========================================================
+    // WRITE PERSON
+    // =========================================================
+
     @Override
     protected void writePersonName(String input, Scanner scanner) {
-        if (!skip(input)) {
-            super.writePersonName(input, scanner);
-        }
+        if (skip(input)) return;
+        super.writePersonName(input, scanner);
     }
 
     @Override
     protected void writeBirthday(String input, Scanner scanner) {
-        if (!skip(input)) {
-            super.writeBirthday(input, scanner);
-        }
+        if (skip(input)) return;
+        super.writeBirthday(input, scanner);
     }
 
     @Override
     protected void writeHeight(String input, Scanner scanner) throws ExecuteException {
-        if (!skip(input)) {
-            super.writeHeight(input, scanner);
+        if (skip(input)) return;
+        try {
+            addBuilder.setHeight(input);
+        } catch (IncorrectInputException e) {
+            if (isSystemReader) { System.out.print(e.getMessage()); writeHeight(scanner.nextLine(), scanner); }
+            else throw new ExecuteException(getClass().getSimpleName());
         }
     }
 
     @Override
     protected void writePassportID(String input, Scanner scanner) {
-        if (!skip(input)) {
-            super.writePassportID(input, scanner);
-        }
+        if (skip(input)) return;
+        super.writePassportID(input, scanner);
     }
 
     @Override
     protected void writeHairColor(String input, Scanner scanner) {
-        if (!skip(input)) {
-            super.writeHairColor(input, scanner);
-        }
-    }//endregion
+        if (skip(input)) return;
+        super.writeHairColor(input, scanner);
+    }
 
-    //region creation
+    // =========================================================
+    // CREATE PERSON
+    // =========================================================
+
     @Override
     protected void createPerson(Scanner scanner) throws ExecuteException {
-        announce("need.owner", "yes", "no");
+        // \s = оставить как есть, yes = установить нового, no = удалить
+        announce("need.owner.update", "yes", "no", "skip");
         switch (needOwner(scanner.nextLine(), scanner)) {
             case Y:
-                announce("owner.name","not.empty.string.condition");
+                announce("owner.name", "not.empty.string.condition");
                 writePersonName(scanner.nextLine(), scanner);
                 announce("owner.birthday", "date.condition");
                 writeBirthday(scanner.nextLine(), scanner);
@@ -135,24 +166,28 @@ public class UpdateId extends Add {
                 announce("owner.passport.id", "null", "string.condition");
                 writePassportID(scanner.nextLine(), scanner);
                 announce("owner.hair.color", "color.info");
-                System.out.println();
                 writeHairColor(scanner.nextLine(), scanner);
+                addBuilder.setOwner();         // ownerAction = set
                 break;
             case N:
+                addBuilder.setOwnerAction("remove"); // явно удалить
                 break;
             case S:
-                addBuilder.setPersonName("detach everything as it is");
+                addBuilder.setOwnerAction("keep");   // не трогать
                 break;
         }
-    }//endregion
+    }
+
+    // =========================================================
+    // EXECUTE
+    // =========================================================
 
     @Override
     public void execute(String input, Scanner scanner) {
         isSystemReader = consoleManager.isSystemReader();
-        addBuilder = new ClientRequestBuilder(Command.UPDATE_ID);
+        addBuilder = new ClientRequestBuilder(Commands.UPDATE_ID);
 
         try {
-
             addBuilder.setIntParameter(input.substring(input.lastIndexOf(" ") + 1));
 
             createCoordinates(scanner);

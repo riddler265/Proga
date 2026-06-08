@@ -1,12 +1,12 @@
 package commands;
 
-import communication.Command;
+import enums.Commands;
 import util.ClientRequestBuilder;
 import util.ConsoleManager;
 
 import java.util.Scanner;
 
-public class Show extends commands.Command {
+public class Show extends Command {
 
     public Show(ConsoleManager consoleManager) {
         super(consoleManager);
@@ -14,7 +14,7 @@ public class Show extends commands.Command {
 
     @Override
     public void execute(String input, Scanner scanner) {
-        ClientRequestBuilder showBuilder = new ClientRequestBuilder(Command.SHOW);
+        ClientRequestBuilder showBuilder = new ClientRequestBuilder(Commands.SHOW);
         toOutQueue(showBuilder.buildSimpleRequest());
     }
 }

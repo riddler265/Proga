@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "1",
+    "coordinates": {
+      "x": 1,
+      "y": 1
+    },
+    "creationDate": "2026-06-05T04:53:10.7941135",
+    "price": 1.0,
+    "partNumber": "1",
+    "manufactureCost": 1.0,
+    "unitOfMeasure": "METERS",
+    "owner": null
+  }
+]

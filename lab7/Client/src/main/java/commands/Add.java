@@ -1,16 +1,17 @@
 package commands;
 
-import communication.Command;
+import enums.Commands;
 import enums.Strategy;
 import exceptions.ExecuteException;
 import exceptions.IncorrectInputException;
+import json.JsonManager;
 import util.ClientRequestBuilder;
 import util.ConsoleManager;
 
 import java.util.Objects;
 import java.util.Scanner;
 
-public class Add extends commands.Command {
+public class Add extends Command {
 
     protected boolean isSystemReader;
     protected ClientRequestBuilder addBuilder;
@@ -129,7 +130,7 @@ public class Add extends commands.Command {
         }
     }
 
-    //region person
+    //person
     protected void writePersonName(String input, Scanner scanner) throws ExecuteException {
         try {
             addBuilder.setPersonName(input);
@@ -179,7 +180,7 @@ public class Add extends commands.Command {
     }//endregion
 
     //region create
-    /*protected void createPerson(Scanner scanner) throws ExecuteException {
+    protected void createPerson(Scanner scanner) throws ExecuteException {
 
         announce("need.owner", "yes", "no");
         if (Objects.requireNonNull(needOwner(scanner.nextLine(), scanner)) == Strategy.Y) {
@@ -192,11 +193,10 @@ public class Add extends commands.Command {
             announce("owner.passport.id", "null", "string.condition");
             writePassportID(scanner.nextLine(), scanner);
             announce("owner.hair.color", "color.info");
-            System.out.println();
             writeHairColor(scanner.nextLine(), scanner);
             addBuilder.setOwner();
         }
-    }*/
+    }
 
     protected void createCoordinates(Scanner scanner) throws ExecuteException {
 
@@ -217,7 +217,6 @@ public class Add extends commands.Command {
         announce("product.manufactureCost", "rounding.condition");
         writeManufactureCost(scanner.nextLine(), scanner);
         announce("product.unitOfMeasure", "unit.info");
-        System.out.println();
         writeUnitOfMeasure(scanner.nextLine(), scanner);
 
         addBuilder.setCoordinates();
@@ -227,7 +226,7 @@ public class Add extends commands.Command {
     public void execute(String input, Scanner scanner) {
 
         isSystemReader = consoleManager.isSystemReader();
-        addBuilder = new ClientRequestBuilder(Command.ADD);
+        addBuilder = new ClientRequestBuilder(Commands.ADD);
 
         try {
             createCoordinates(scanner);

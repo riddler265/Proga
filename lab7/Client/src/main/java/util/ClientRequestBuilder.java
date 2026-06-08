@@ -2,17 +2,10 @@ package util;
 
 import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
-import communication.Command;
-
-import communication.Request;
+import enums.Color;
+import enums.Commands;
+import enums.UnitOfMeasure;
 import exceptions.IncorrectInputException;
-import model.Coordinates;
-import model.Person;
-import model.Product;
-import util.numbparser.NumbParser;
-
-import model.enums.*;
-import util.json.JsonManager;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,176 +13,182 @@ import java.time.format.DateTimeParseException;
 
 public class ClientRequestBuilder {
 
-    private final Command command;
+    private final JsonObject request = new JsonObject();
 
-    private Number parameter = null;
+    private final JsonObject product = new JsonObject(); {
+        product.add("owner", JsonNull.INSTANCE);
+    }
+    private final JsonObject person = new JsonObject();
+    private final JsonObject coordinates = new JsonObject();
 
-    private final Product product = new Product();
-    private final Person person = new Person();
-    private final Coordinates coordinates = new Coordinates();
+    private final JsonObject parameter = new JsonObject();
 
-    private final DateTimeFormatter formatter = JsonManager.getFormatter();
-
-    public ClientRequestBuilder(Command command) {
-        this.command = command;
+    public ClientRequestBuilder(Commands command) {
+        request.addProperty("command", command.getName());
     }
 
+    //formater
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 
     //region Coordinates setters
-    public void setX(String input) throws IncorrectInputException {
+    public ClientRequestBuilder setX(String input) throws IncorrectInputException {
         try {
-            int x = util.numbparser.NumbParser.parseInt(input);
+            int x = NumbParser.parseInt(input);
             if (x <= -645) throw new ArithmeticException();
-            coordinates.setX(x);
+            coordinates.addProperty("x", x);
         } catch (ArithmeticException | NumberFormatException e) {
             throw new IncorrectInputException("integer.condition, positive.condition");
         }
-       
+        return this;
     }
 
-    public void setY(String input) throws IncorrectInputException {
+    public ClientRequestBuilder setY(String input) throws IncorrectInputException {
         try {
-            int y = util.numbparser.NumbParser.parseInt(input);
-            coordinates.setY(y);
+            int y = NumbParser.parseInt(input);
+            coordinates.addProperty("y", y);
         } catch (ArithmeticException | NumberFormatException e) {
             throw new IncorrectInputException("integer.condition");
         }
-       
+        return this;
     }//endregion
 
     //region Person setters
-    public void setPersonName(String input) throws IncorrectInputException {
+    public ClientRequestBuilder setPersonName(String input) throws IncorrectInputException {
         if (input == null || input.isEmpty()) throw new IncorrectInputException("not.empty.string.condition");
-        else person.setName(input);
-       
+        else person.addProperty("name", input);
+        return this;
     }
 
-    public void setBirthday(String input) throws IncorrectInputException {
-        if (input == null || input.equals("Null") || input.equals("Nl")) person.setName(null);
-        else {
+    public ClientRequestBuilder setBirthday(String input) throws IncorrectInputException {
+        if (input == null || input.equals("Null") || input.equals("Nl")) {
+            person.add("birthday", JsonNull.INSTANCE); // Сложный объект Gson (JsonNull) -> через .add()
+        } else {
             try {
-                person.setBirthday(LocalDateTime.parse(input, formatter));
+                // Валидируем строку, чтобы убедиться, что формат верный
+                LocalDateTime.parse(input, formatter);
+
+                // Записываем строку в JSON -> через .addProperty()
+                person.addProperty("birthday", input);
+
             } catch (DateTimeParseException e) {
                 throw new IncorrectInputException("date.condition");
             }
         }
-       
+        return this;
     }
 
-    public void setHeight(String input) throws IncorrectInputException {
+    public ClientRequestBuilder setHeight(String input) throws IncorrectInputException {
         try {
-            float height = util.numbparser.NumbParser.parseFloat(input);
+            float height = NumbParser.parseFloat(input);
             if (height <= 0.0) throw new NumberFormatException();
-            person.setHeight(height);
+            person.addProperty("height", height);
         } catch (ArithmeticException | NumberFormatException e) {
             throw new IncorrectInputException("positive.condition");
         }
-       
+        return this;
     }
 
-    public void setPassportID(String input) {
-        if (input.equals("Null") || input.equals("Nl")) person.setPassportID(null);
-        else person.setPassportID(input);
-       
+    public ClientRequestBuilder setPassportID(String input) {
+        if (input.equals("Null") || input.equals("Nl")) person.add("passportID", JsonNull.INSTANCE);
+        else person.addProperty("passportID", input);
+        return this;
     }
 
-    public void setHairColor(String input) throws IncorrectInputException {
-        if (input.equals("Null") || input.equals("Nl")) person.setHairColor(null);
-        else {
-            try {
-                int id = NumbParser.parseInt(input);
-                Color color = Color.getColor(input, id);
-                if (color == null) throw new NullPointerException();
-                person.setHairColor(color);
-            } catch (ArithmeticException | NumberFormatException | NullPointerException e) {
-                throw  new IncorrectInputException(Color.getConditionKey());
-            }
-        }
-    }
-
-    public void setPassword(String input) throws IncorrectInputException {
-        if (input.equals("Null") || input.equals("Nl")) throw new IncorrectInputException("not.empty.string.condition");
-        else person.setPassword(input);
-    }
-    //endregion
+    public ClientRequestBuilder setHairColor(String input) throws IncorrectInputException {
+        if (input.equals("Null") || input.equals("Nl")) person.add("hairColor", JsonNull.INSTANCE);
+        else person.addProperty("hairColor", Color.getColor(input).name());
+        return this;
+    }//endregion
 
     //region Product setters
-    public void setName(String input) throws IncorrectInputException {
+    public ClientRequestBuilder setName(String input) throws IncorrectInputException {
         if (input == null || input.isEmpty()) throw new IncorrectInputException("not.empty.string.condition");
-        else product.setName(input);
-       
+        else product.addProperty("name", input);
+        return this;
     }
 
-    public void setPrice(String input) throws IncorrectInputException {
-        if (input.equalsIgnoreCase("Null") || input.equalsIgnoreCase("Nl")) product.setPrice(null);
+    public ClientRequestBuilder setPrice(String input) throws IncorrectInputException {
+        if (input.equalsIgnoreCase("Null") || input.equalsIgnoreCase("Nl")) product.add("price", JsonNull.INSTANCE);
         else {
             try {
-                float price = util.numbparser.NumbParser.parseFloat(input);
+                float price = NumbParser.parseFloat(input);
                 if (price <= 0.0) throw new NumberFormatException();
-                product.setPrice(price);
+                product.addProperty("price", price);
             } catch (ArithmeticException | NumberFormatException e) {
                 throw new IncorrectInputException("null, positive.condition");
             }
-        }
+        } return this;
     }
 
-    public void setPartNumber(String input) throws IncorrectInputException {
-        if (input.equals("Null") || input.equals("Nl")) product.setPartNumber(null);
+    public ClientRequestBuilder setPartNumber(String input) throws IncorrectInputException {
+        if (input.equals("Null") || input.equals("Nl")) product.add("partNumber", JsonNull.INSTANCE);
         if (input.isEmpty()) throw new IncorrectInputException("null, not.empty.string.condition");
-        else product.setPartNumber(input);
-       
+        else product.addProperty("partNumber", input);
+        return this;
     }
 
-    public void setManufactureCost(String input) throws IncorrectInputException {
+    public ClientRequestBuilder setManufactureCost(String input) throws IncorrectInputException {
         try {
-            float manufactureCost = NumbParser.parseFloat(input);
-            if (manufactureCost < 0.0) throw new ArithmeticException();
-            product.setManufactureCost(manufactureCost);
+            product.addProperty("manufactureCost", NumbParser.parseFloat(input));
         } catch (ArithmeticException | NumberFormatException e) {
             throw new IncorrectInputException("number.condition");
-        }
+        } return this;
     }
 
-    public void setUnitOfMeasure(String input) throws IncorrectInputException {
-        try {
-            int id = NumbParser.parseInt(input);
-            UnitOfMeasure unitOfMeasure = UnitOfMeasure.getUnitOfMeasure(input, id);
-            if (unitOfMeasure == null) throw new NullPointerException();
-            product.setUnitOfMeasure(unitOfMeasure);
-        } catch (ArithmeticException | NumberFormatException | NullPointerException e) {
-            throw  new IncorrectInputException(UnitOfMeasure.getConditionKey());
-        }
-       
+    public ClientRequestBuilder setUnitOfMeasure(String input) throws IncorrectInputException {
+        product.addProperty("unitOfMeasure", UnitOfMeasure.getUnit(input).name());
+        return this;
     }//endregion
 
-    public void setCoordinates() {
-        product.setCoordinates(coordinates);
+    //region Product helpers
+    public ClientRequestBuilder setOwner() {
+        product.add("owner", person);
+        product.addProperty("ownerAction", "set");
+        return this;
     }
+
+    /** keep — не трогать владельца, remove — удалить владельца */
+    public ClientRequestBuilder setOwnerAction(String action) {
+        product.addProperty("ownerAction", action);
+        return this;
+    }
+
+    public ClientRequestBuilder setCoordinates() {
+        product.add("coordinates", coordinates);
+        return this;
+    }//endregion
 
     //region Parameter setters
-    public void setIntParameter(String input) throws IncorrectInputException{
+    public ClientRequestBuilder setIntParameter(String input) throws IncorrectInputException{
         try {
-            int integer = util.numbparser.NumbParser.parseInt(input);
+            int integer = NumbParser.parseInt(input);
             if (integer < 0) throw new ArithmeticException();
-            parameter = integer;
+            parameter.addProperty("parameter", integer);
         } catch (ArithmeticException | NumberFormatException e) {
             throw new IncorrectInputException("integer.condition, positive.condition");
-        }
+        } return this;
     }
 
-    public void setFloatParameter(String input) throws IncorrectInputException{
+    public ClientRequestBuilder setFloatParameter(String input) throws IncorrectInputException{
         try {
-            float floater = util.numbparser.NumbParser.parseFloat(input);
-            if (floater < 0.0) throw new ArithmeticException();
-            parameter = floater;
+            float floater = NumbParser.parseFloat(input);
+            if (floater < 0) throw new ArithmeticException();
+            parameter.addProperty("parameter", floater);
         } catch (ArithmeticException | NumberFormatException e) {
             throw new IncorrectInputException("number.condition, positive.condition");
-        }
+        } return this;
     }//endregion
 
     //region Builders
-    public Request buildRequest() {
-        return new Request(command, parameter, product, person);
+    public JsonObject buildSimpleRequest() {
+        request.add("parameter", parameter);
+        return request;
+    }
+
+    public JsonObject buildRequest() {
+        request.add("parameter", parameter);
+        request.add("product", product);
+        return request;
     }
     //endregion
 }

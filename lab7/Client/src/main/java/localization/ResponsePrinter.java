@@ -7,79 +7,128 @@ import com.google.gson.JsonParser;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-/**
- * Prints server responses received as raw JSON strings.
- * Does not deserialize into Response class — works directly with JsonObject.
- */
 public class ResponsePrinter {
 
     private static final DateTimeFormatter INPUT_FORMAT  = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
 
+    private static final String SEP = "─".repeat(50);
+
     public static void print(String json) {
         JsonObject obj = JsonParser.parseString(json).getAsJsonObject();
 
+        // Push-уведомление от сервера
+        if (obj.has("notification") && !obj.get("notification").isJsonNull()) {
+            AnnounceManager am = AnnounceManager.getInstance();
+            String msg = obj.get("notification").getAsString();
+            System.out.println();
+            System.out.println(SEP);
+            try { System.out.println("  [" + am.format("notification.label") + "] " + msg); }
+            catch (Exception e) { System.out.println("  [NOTIFICATION] " + msg); }
+            System.out.println(SEP);
+            return;
+        }
+
         boolean success = obj.get("success").getAsBoolean();
-        String message = obj.has("message") && !obj.get("message").isJsonNull()
-                ? obj.get("message").getAsString() : "";
+        String messageText = resolveMessage(obj, success);
 
         if (obj.has("products") && !obj.get("products").isJsonNull()) {
             JsonArray products = obj.getAsJsonArray("products");
+            System.out.println();
             if (products.size() == 0) {
-                System.out.println("Collection is empty.");
+                System.out.println("  " + messageText);
             } else {
-                System.out.println("Total elements: " + products.size());
+                System.out.println("  " + messageText);
+                System.out.println();
                 products.forEach(p -> {
-                    System.out.println();
+                    System.out.println(SEP);
                     System.out.println(formatProduct(p.getAsJsonObject()));
                 });
+                System.out.println(SEP);
             }
         } else {
-            System.out.println("[" + (success ? "OK" : "ERROR") + "] " + message);
+            System.out.println();
+            String prefix = success ? "  [OK] " : "  [ERROR] ";
+            System.out.println(prefix + messageText);
         }
+        System.out.println();
+    }
+
+    private static String resolveMessage(JsonObject obj, boolean success) {
+        AnnounceManager am = AnnounceManager.getInstance();
+
+        if (obj.has("messageKey") && !obj.get("messageKey").isJsonNull()) {
+            String key = obj.get("messageKey").getAsString();
+            String[] args = new String[0];
+            if (obj.has("messageArgs") && !obj.get("messageArgs").isJsonNull()) {
+                JsonArray arr = obj.getAsJsonArray("messageArgs");
+                args = new String[arr.size()];
+                for (int i = 0; i < arr.size(); i++) args[i] = arr.get(i).getAsString();
+            }
+            try { return am.format(key, args); }
+            catch (Exception e) { return "[missing key: " + key + "]"; }
+        }
+
+        if (obj.has("message") && !obj.get("message").isJsonNull()) {
+            return obj.get("message").getAsString();
+        }
+        return "";
     }
 
     private static String formatProduct(JsonObject p) {
+        AnnounceManager am = AnnounceManager.getInstance();
         StringBuilder sb = new StringBuilder();
 
-        sb.append("ID:               ").append(p.get("id").getAsInt()).append("\n");
-        sb.append("Name:             ").append(p.get("name").getAsString()).append("\n");
-        sb.append("Creation date:    ").append(formatDate(getString(p, "creationDate"))).append("\n");
-        sb.append("Price:            ").append(isNull(p, "price") ? "—" : p.get("price").getAsFloat()).append("\n");
-        sb.append("Part number:      ").append(isNull(p, "partNumber") ? "—" : p.get("partNumber").getAsString()).append("\n");
-        sb.append("Manufacture cost: ").append(p.get("manufactureCost").getAsFloat()).append("\n");
-        sb.append("Unit of measure:  ").append(getString(p, "unitOfMeasure")).append("\n");
+        sb.append("\n");
+        sb.append(field(am, "product.field.id",               String.valueOf(p.get("id").getAsInt())));
+        sb.append(field(am, "product.field.name",             p.get("name").getAsString()));
+        sb.append(field(am, "product.field.creation_date",    formatDate(getString(p, "creationDate"))));
+        sb.append(field(am, "product.field.price",            isNull(p, "price")       ? dash(am) : String.valueOf(p.get("price").getAsFloat())));
+        sb.append(field(am, "product.field.part_number",      isNull(p, "partNumber")  ? dash(am) : p.get("partNumber").getAsString()));
+        sb.append(field(am, "product.field.manufacture_cost", String.valueOf(p.get("manufactureCost").getAsFloat())));
+        sb.append(field(am, "product.field.unit_of_measure",  getString(p, "unitOfMeasure")));
 
-        if (p.has("coordinates") && !p.get("coordinates").isJsonNull()) {
-            JsonObject coords = p.getAsJsonObject("coordinates");
-            sb.append("Coordinates:      X=").append(coords.get("x").getAsInt())
-                    .append(", Y=").append(coords.get("y").getAsInt()).append("\n");
+        if (!isNull(p, "coordinates")) {
+            JsonObject c = p.getAsJsonObject("coordinates");
+            sb.append(field(am, "product.field.coordinates",
+                    "X=" + c.get("x").getAsInt() + ", Y=" + c.get("y").getAsInt()));
         } else {
-            sb.append("Coordinates:      —\n");
+            sb.append(field(am, "product.field.coordinates", dash(am)));
         }
 
-        if (p.has("owner") && !p.get("owner").isJsonNull()) {
-            JsonObject owner = p.getAsJsonObject("owner");
-            sb.append("Owner:\n");
-            sb.append("  Name:           ").append(getString(owner, "name")).append("\n");
-            sb.append("  Birthday:       ").append(isNull(owner, "birthday") ? "—" : formatDate(getString(owner, "birthday"))).append("\n");
-            sb.append("  Height:         ").append(owner.get("height").getAsFloat()).append("\n");
-            sb.append("  Passport ID:    ").append(isNull(owner, "passportID") ? "—" : getString(owner, "passportID")).append("\n");
-            sb.append("  Hair color:     ").append(isNull(owner, "hairColor") ? "—" : getString(owner, "hairColor")).append("\n");
+        if (!isNull(p, "owner")) {
+            JsonObject o = p.getAsJsonObject("owner");
+            sb.append(fieldLabel(am, "product.field.owner")).append("\n");
+            sb.append(field(am, "person.field.name",       getString(o, "name")));
+            sb.append(field(am, "person.field.birthday",   isNull(o, "birthday") ? dash(am) : formatDate(getString(o, "birthday"))));
+            sb.append(field(am, "person.field.height",     String.valueOf(o.get("height").getAsFloat())));
+            sb.append(field(am, "person.field.passport_id",isNull(o, "passportID") ? dash(am) : getString(o, "passportID")));
+            sb.append(field(am, "person.field.hair_color", isNull(o, "hairColor")  ? dash(am) : getString(o, "hairColor")));
         } else {
-            sb.append("Owner:            —\n");
+            sb.append(field(am, "product.field.owner", dash(am)));
         }
 
         return sb.toString().stripTrailing();
     }
 
+    /** Строка вида "  Название          : значение\n" */
+    private static String field(AnnounceManager am, String labelKey, String value) {
+        return "  " + String.format("%-22s", fieldLabel(am, labelKey)) + ": " + value + "\n";
+    }
+
+    private static String fieldLabel(AnnounceManager am, String key) {
+        try { return am.format(key); }
+        catch (Exception e) { return key; }
+    }
+
+    private static String dash(AnnounceManager am) {
+        try { return am.format("value.none"); } catch (Exception e) { return "—"; }
+    }
+
     private static String formatDate(String raw) {
         if (raw == null || raw.equals("—")) return "—";
-        try {
-            return LocalDateTime.parse(raw, INPUT_FORMAT).format(OUTPUT_FORMAT);
-        } catch (Exception e) {
-            return raw;
-        }
+        try { return LocalDateTime.parse(raw, INPUT_FORMAT).format(OUTPUT_FORMAT); }
+        catch (Exception e) { return raw; }
     }
 
     private static boolean isNull(JsonObject obj, String field) {

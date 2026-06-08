@@ -1,7 +1,7 @@
 package localization;
 
 import exceptions.IncorrectInputException;
-import util.numbparser.NumbParser;
+import util.NumbParser;
 
 import java.util.Locale;
 

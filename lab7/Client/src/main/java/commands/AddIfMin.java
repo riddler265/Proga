@@ -1,7 +1,8 @@
 package commands;
 
-import communication.Command;
+import enums.Commands;
 import exceptions.ExecuteException;
+import json.JsonManager;
 import util.ClientRequestBuilder;
 import util.ConsoleManager;
 
@@ -17,7 +18,7 @@ public class AddIfMin extends Add {
     public void execute(String input, Scanner scanner) {
 
         isSystemReader = consoleManager.isSystemReader();
-        addBuilder = new ClientRequestBuilder(Command.ADD_IF_MIN);
+        addBuilder = new ClientRequestBuilder(Commands.ADD_IF_MIN);
 
         try {
             createCoordinates(scanner);
